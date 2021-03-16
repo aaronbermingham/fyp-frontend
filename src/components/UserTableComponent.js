@@ -1,14 +1,7 @@
 import React, { Component } from 'react'
 import TableService from '../services/TableService';
-import Form from 'react-bootstrap/Form'
-import { Col, Row } from 'react-bootstrap';
-import Alert from 'react-bootstrap/Alert'
 import Modal from "react-bootstrap/Modal";
 import Moment from 'moment';
-// import ModalBody from "react-bootstrap/ModalBody";
-// import ModalHeader from "react-bootstrap/ModalHeader";
-// import ModalFooter from "react-bootstrap/ModalFooter";
-// import ModalTitle from "react-bootstrap/ModalTitle";
 import Button from "react-bootstrap/Button";
 
 
@@ -23,11 +16,7 @@ class UserTableComponent extends Component {
             modal: false
 
         }
-       
         this.onClick = this.onClick.bind(this);
-        // this.handleClose = this.handleClose.bind(this);
-        //this.addUser = this.addUser.bind(this);
-        //this.updateUser = this.updateUser.bind(this);
     }
 
     componentDidMount() {
@@ -55,21 +44,9 @@ class UserTableComponent extends Component {
 
     }
 
-
-
-
     onClick(table) {
         console.log("Table ", table.id)
     }
-
-
-
-    // handleClose(){
-    //     this.setState({ modal: false })
-    // }
-
-
-
 
     render() {
 

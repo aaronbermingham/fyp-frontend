@@ -95,13 +95,6 @@ class TableComponent extends Component {
         });
     }
 
-    // addUser(){
-    //     this.props.history.push('/addUser')
-    // }
-
-    // updateUser(id){
-    //     this.props.history.push(`/update-user/${id}`);
-    // }
 
     handleNormalChange(normal) {
         this.setState({ normal: !this.state.normal });
@@ -136,22 +129,18 @@ class TableComponent extends Component {
             TableService.setCurrentCapacity(1, type);
             this.componentDidMount();
         }
-        // TableService.setCurrentCapacity(1,type);
+      
     }
 
     onClick(table) {
         console.log("Table ", table.id)
         this.setState({ modal: !this.state.modal })
-        //let num = this.state.restaurant.capacity - this.state.restaurant.capacity1metre;
-        // console.log("num ", num )
     }
 
     deleteTable(id){
         TableService.deleteTable(id);
-        //TableService.setCurrentCapacity(1, this.state.type);
         TableService.getCurrentCapacity(1).then((res) => {
             this.setState({ currentCapacity: res.data })
-            //this.setState({ numSeats: res.data.numSeats })
             console.log(this.state.currentCapacity);
 
         });
@@ -163,13 +152,6 @@ class TableComponent extends Component {
         });
     }
 
-    // handleClose(){
-    //     this.setState({ modal: false })
-    // }
-
-
-
-
     render() {
         const { options } = this.state
         const two = this.state.restaurant.twoMetreCapacity
@@ -177,14 +159,13 @@ class TableComponent extends Component {
         let warning;
         if (one) {
             warning = <Alert variant="danger">
-                {/* <Alert.Heading>Hey, nice to see you</Alert.Heading> */}
+               
                 <p className="text-center">Please delete {this.state.numOfSeats - this.state.restaurant.capacity1metre} seats to ensure one metre distancing</p>
             </Alert>
         }
 
         if (two) {
             warning = <Alert variant="danger">
-                {/* <Alert.Heading>Hey, nice to see you</Alert.Heading> */}
                 <p className="text-center">Please delete {this.state.numOfSeats - this.state.restaurant.capacity2metres} seats to ensure two metre distancing</p>
             </Alert>
         }

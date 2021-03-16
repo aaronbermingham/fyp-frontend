@@ -1,11 +1,5 @@
 import React, { Component } from 'react';
-// import Tabs from 'react-bootstrap/Tabs'
-// import Tab from 'react-bootstrap/Tab'
 import 'bootstrap/dist/css/bootstrap.min.css';
-// import ShowItemComponent from './ShowItemComponent';
-// import DateTimeComponent from './DateTimeComponent';
-// import BookingDetailsComponent from './BookingDetailsComponent';
-// import UserAddItemComponent from './UserAddItemComponent';
 import DatePicker from 'react-datepicker';
 import UserService from '../services/UserService';
 import AuthService from "../services/AuthService";
@@ -32,9 +26,6 @@ class AddBookingComponent extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
     this.changeNumberGuestsHandler = this.changeNumberGuestsHandler.bind(this);
-    //this.userSummary = UserService.getCurrentUser();
-
-    //console.log("User sum: " + JSON.stringify(this.userSummary));
   }
 
   componentDidMount() {
@@ -50,40 +41,6 @@ class AddBookingComponent extends Component {
     }
   }
 
-//   componentDidMount(){
-//     UserService.getCurrentUser().then(response => {
-//       const json = JSON.stringify(response);
-//       //console.log("user sum", json);
-//       //const id = json.data.id;
-//       this.setState({
-//         id: response.data.id
-//       })
-//       // this.id = 
-//       //console.log("add booking ID", this.state.id)
-  //     UserService.getUserById(this.state.id).then(response => {
-  //       const json = JSON.stringify(response.data.roles[0].id);
-  //       localStorage.setItem("role", json);
-  //      console.log("Stored role", localStorage.getItem("role"))
-  //       console.log("user sum", json);
-  //       const id = json.data.id;
-  //       this.setState({
-  //         id: response.data.id
-  //       })
-  //       // this.id = 
-  //      console.log("User by id info", json)
-  //    });
-  // });
-
-  
-// //   UserService.getUserById(this.id).then(response => {
-// //     const json = JSON.stringify(response);
-// //     console.log("user role sum", json);
-// //     //const id = json.data.id;
-// //     // this.id = JSON.stringify(response.data.id);
-// //     console.log("ID by id", this.state.id)
-// // });
-   
-// }
 
   handleChange(date) {
     this.setState({
@@ -175,9 +132,6 @@ class AddBookingComponent extends Component {
               <option value="6">6</option>
               <option value="20">20</option>
             </select>
-
-            {/* <input placeholder="Number of Guests" name="numGuest" className="form-control"
-              value={this.state.numberGuests} onChange={this.changeNumberGuestsHandler} /> */}
           </div>
           <UserTables bookingTime = {this.state.time}/>
           <button className="btn btn-primary" onClick={this.createBooking}>Create booking</button>

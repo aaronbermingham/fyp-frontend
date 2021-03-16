@@ -56,7 +56,6 @@ class AllItemsComponent extends Component {
                         <table className="table table-striped table-bordered">
                             <thead>
                                 <tr>
-                                    {/* <th>Item id</th> */}
                                     <th>Item Name</th>
                                     <th>Description</th>
                                     <th>Price</th>
@@ -90,7 +89,6 @@ class AllItemsComponent extends Component {
                         <table className="table table-striped table-bordered">
                             <thead>
                                 <tr>
-                                    {/* <th>Item id</th> */}
                                     <th>Item Name</th>
                                     <th>Description</th>
                                     <th>Price</th>

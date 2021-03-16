@@ -10,7 +10,7 @@ const CheckoutForm = ({ price }) => {
   const onToken = (token) => {
     console.log(token);
     axios
-      .post("http://localhost:5000/payment", {
+      .post("http://localhost:8080/payment", {
           headers: authHeader(),
         amount: stripePrice,
         token,
@@ -30,7 +30,6 @@ const CheckoutForm = ({ price }) => {
       amount={stripePrice}
       label="Pay Now"
       name="Total bill"
-      // image="https://svgshare.com/i/CUz.svg"
       description={`Your total is €` + price}
       panelLabel="Pay Now"
       token={onToken}

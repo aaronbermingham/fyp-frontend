@@ -8,10 +8,6 @@ import AddFood from "./AddFoodComponent";
 import AllItems from "./AllItemsComponent";
 import Lost from './LostComponent';
 
-// import CardGroup from 'react-bootstrap/CardGroup'
-//  import Container from 'react-bootstrap/Container'
-//  import Row from 'react-bootstrap/Row'
-//  import Col from 'react-bootstrap/Col'
 
 class BisUserGridComponent extends Component {
   constructor(props) {
@@ -129,26 +125,16 @@ class BisUserGridComponent extends Component {
             </Card.Footer>
           </Card>
         </CardColumns>
-
       ) : <Lost />}
         <div className="container mt-3">
           <Switch>
-
             <Route path="/addFoodItem" component={AddFood}></Route>
             <Route path="/addDrinkItem" component={AddDrink}></Route>
             <Route path="/allItems" component={AllItems}></Route>
           </Switch>
         </div>
       </div>
-
-
-
-
-
-
     )
-
-
   }
 }
 
