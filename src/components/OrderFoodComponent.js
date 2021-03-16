@@ -3,10 +3,7 @@ import BookingService from '../services/BookingService'
 import ItemService from '../services/ItemService'
 import { Card, Button, Row, Col, ListGroup } from 'react-bootstrap'
 import AuthService from "../services/AuthService";
-//import Image from 'react-bootstrap/Image';
-// import BookingSummaryComponent from './BookingSummaryComponent';
-// import ImageComponent from './ImageComponent'
-// import Alert from './Alert';
+
 
 
 class OrderFoodComponent extends Component {
@@ -71,17 +68,9 @@ class OrderFoodComponent extends Component {
             <div>
                 <Row >
                     <Col>
-                        <div 
-                        // style={{
-                        //     position: 'fixed'
-                        //     , padding: "20px", width: '200px'
-                        // }}
-                        >
-                            {/* <h3 id="starter">Menu</h3> */}
+                        <div>
                             <ListGroup as="ul" >
-                                {/* <ListGroup.Item as="li"><a href="#starter">Starter</a></ListGroup.Item> */}
                                 <ListGroup.Item as="li"><a href="#main" >Food</a></ListGroup.Item>
-                                {/* <ListGroup.Item as="li"><a href="#desert" >Desserts</a></ListGroup.Item> */}
                                 <ListGroup.Item as="li"><a href="#drink">Drink</a></ListGroup.Item>
                             </ListGroup>
                         </div>

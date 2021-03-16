@@ -68,9 +68,7 @@ class AllBookingComponent extends Component {
                                                         })
                                                     }</td>
                                                 <td>{bookings.price}</td>
-                                                {/* <td>{bookings.items}</td> */}
-                                                {/* <td><button onClick = {() => this.updateFoodItem(item.id)} className ="btn btn-info" >Update</button></td>
-                                */}
+                                        
                                             </tr>
                                     )
                                 }

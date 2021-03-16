@@ -35,35 +35,6 @@ class BookingSummaryComponent extends Component {
         });
     }
 
-    // update() {
-    //     this.forceUpdate();
-    // }
-
-    // componentDidUpdate(previousProps, previousState) {
-    //     if (previousProps.data !== this.props.data) {
-    //         BookingService.getBookingsById(7).then((res) => {
-    //             let booking = res.data
-    //             this.setState({
-    //                 date: booking.date,
-    //                 time: booking.time,
-    //                 numGuests: booking.numGuests,
-    //                 items: booking.items,
-    //                 price: booking.price
-    //             });
-    //         });
-    //     }
-    // }
-
-
-
-    //  updateFoodItem(id){
-    //     this.props.history.push(`/update-foodItem/${id}`);
-    // }
-
-    // updateDrink(id){
-    //     this.props.history.push(`/update-drinkItem/${id}`);
-    // }
-
     render() {
 
         return (
@@ -86,7 +57,6 @@ class BookingSummaryComponent extends Component {
                                         </Card.Text>
                                         </ListGroup>
                                 </Card.Text>
-                                {/* <CheckoutForm price={this.state.price} /> */}
                             </Card.Body>
 
                         </Card>
@@ -101,17 +71,12 @@ class BookingSummaryComponent extends Component {
                                             this.state.items.map((subitem, i) => {
                                                 return (
                                                     <ListGroup.Item>{subitem.name} {subitem.price}</ListGroup.Item>
-
                                                 )
                                             })
                                         }</ListGroup.Item>
                                         <ListGroup.Item>Price: {this.state.price}</ListGroup.Item>
-                                    </ListGroup>
-                                    {/* <p>Date: {this.state.date}</p>
-                                    <p>Time: {this.state.time}</p>
-                                    <p>Number of guests: {this.state.numGuests}</p> */}
+                                    </ListGroup> 
                                 </Card.Text>
-                                {/* <Button variant="primary" onClick={() => this.addItemtoBooking(item.id)}>Add to order</Button> */}
                                 <CheckoutForm price={this.state.price} />
                             </Card.Body>
 
