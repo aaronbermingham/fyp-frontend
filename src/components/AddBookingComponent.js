@@ -77,7 +77,7 @@ class AddBookingComponent extends Component {
       if(this.bId === -1){
         alert("There are no tables available that can accomodate your party");
       }
-      else if(this.bId === 0){
+      else if(this.bId === -2){
         alert("There are no tables available at your chosen time");
       }
       else if(this.bId !== 0){
