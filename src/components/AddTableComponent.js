@@ -8,7 +8,7 @@ class AddTableComponent extends Component {
         super(props)
 
         this.state = {
-            numSeats: 0,
+            numSeats: 2,
             reserved: true,
             numTables: 1,
             bisUser: false,
@@ -35,7 +35,7 @@ class AddTableComponent extends Component {
         console.log('table => ' + JSON.stringify(table));
         for(var i = 0; i < this.state.numTables; i ++){
             TableService.addTable(table).then(res => {
-                this.props.history.push('/Tables')
+                this.props.history.push('/allTables')
             });
         }
        
