@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import TableService from '../services/TableService';
 import Form from 'react-bootstrap/Form'
-import { Col, Row } from 'react-bootstrap';
+import { Col, Row, Table } from 'react-bootstrap';
 import Alert from 'react-bootstrap/Alert'
 import Modal from "react-bootstrap/Modal";
 // import ModalBody from "react-bootstrap/ModalBody";
@@ -29,22 +29,26 @@ class TableComponent extends Component {
             type: -1,
             oneMetreDiff: 0,
             twoMetreDiff: 0,
-            modal: false
+            modal: false,
+            toggleClick: false
 
         }
+        this.getTableInfo = this.getTableInfo.bind(this);
         this.handleNormalChange = this.handleNormalChange.bind(this);
         this.handleTwoChange = this.handleTwoChange.bind(this);
         this.handleOneChange = this.handleOneChange.bind(this);
         this.setCapacity = this.setCapacity.bind(this);
         this.onClick = this.onClick.bind(this);
+        this.disableTable = this.disableTable.bind(this);
+        
         // this.handleClose = this.handleClose.bind(this);
         //this.addUser = this.addUser.bind(this);
         //this.updateUser = this.updateUser.bind(this);
     }
 
-    componentDidMount() {
+    getTableInfo(){
         TableService.getTables().then((res) => {
-            this.setState({ tables: res.data })
+            this.setState({ tables: res.data})
             this.setState({ numOfSeats: res.data.numSeats })
             for (let i = 0; i < res.data.length; i++) {
                 console.log((i+1)+ " Table info ", res.data[i].resList);
@@ -54,8 +58,8 @@ class TableComponent extends Component {
         });
         TableService.getSeats().then((res) => {
             this.setState({ numOfSeats: res.data })
-            //this.setState({ numSeats: res.data.numSeats })
-            console.log(this.state.numOfSeats);
+            this.setState({ numSeats: res.data.numSeats })
+            console.log("Normal cap: ",this.state.numOfSeats);
 
         });
 
@@ -76,7 +80,47 @@ class TableComponent extends Component {
 
         TableService.getCurrentCapacity(1).then((res) => {
             this.setState({ currentCapacity: res.data })
+            this.setState({ numSeats: res.data.numSeats })
+            console.log(this.state.currentCapacity);
+
+        });
+    }
+
+    componentDidMount() {
+        TableService.getTables().then((res) => {
+            this.setState({ tables: res.data})
+            this.setState({ numOfSeats: res.data.numSeats })
+            for (let i = 0; i < res.data.length; i++) {
+                console.log((i+1)+ " Table info ", res.data[i].resList);
+              }
+           
+
+        });
+        TableService.getSeats().then((res) => {
+            this.setState({ numOfSeats: res.data })
+            this.setState({ numSeats: res.data.numSeats })
+            console.log("Normal cap: ",this.state.numOfSeats);
+
+        });
+
+        TableService.get1mCapacity(1).then((res) => {
+            this.setState({ seats1m: res.data })
             //this.setState({ numSeats: res.data.numSeats })
+            console.log(this.state.seats1m);
+            this.setState({ oneMetreDiff: this.state.numOfSeats - this.state.restaurant.capacity1metre })
+
+        });
+
+        TableService.get2mCapacity(1).then((res) => {
+            this.setState({ seats2m: res.data })
+            //this.setState({ numSeats: res.data.numSeats })
+            console.log(this.state.seats2m);
+            this.setState({ twoMetreDiff: this.state.numOfSeats - this.state.restaurant.capacity2metres })
+        });
+
+        TableService.getCurrentCapacity(1).then((res) => {
+            this.setState({ currentCapacity: res.data })
+            this.setState({ numSeats: res.data.numSeats })
             console.log(this.state.currentCapacity);
 
         });
@@ -122,18 +166,20 @@ class TableComponent extends Component {
         else if (this.state.oneMetre === true) {
             type = 1
             TableService.setCurrentCapacity(1, type);
+            this.getTableInfo();
             this.componentDidMount();
         }
         else if (this.state.twoMetres === true) {
             type = 2
             TableService.setCurrentCapacity(1, type);
+            this.getTableInfo();
             this.componentDidMount();
         }
       
     }
 
     onClick(table) {
-        console.log("Table ", table.id)
+        console.log("Table click ", table.id)
         this.setState({ modal: !this.state.modal })
     }
 
@@ -152,6 +198,24 @@ class TableComponent extends Component {
         });
     }
 
+    disableTable(table){
+        console.log("Toggle ", this.state.toggleClick);
+        console.log("Table id: ", table.id);
+        TableService.toggleTable(table.id).then((res) => {
+            TableService.getTables().then((res) => {
+                this.setState({ tables: res.data })});
+            console.log("table: ", res.data);
+
+    });;
+       this.componentDidMount();
+    }
+
+    componentDidUpdate() {
+        console.log("Updated!");
+    }
+
+    
+
     render() {
         const { options } = this.state
         const two = this.state.restaurant.twoMetreCapacity
@@ -160,13 +224,15 @@ class TableComponent extends Component {
         if (one) {
             warning = <Alert variant="danger">
                
-                <p className="text-center">Please delete {this.state.numOfSeats - this.state.restaurant.capacity1metre} seats to ensure one metre distancing</p>
-            </Alert>
+                {/* <p className="text-center">Please disable {this.state.numOfSeats - this.state.restaurant.capacity1metre} seats to ensure one metre distancing</p> */}
+                <p className="text-center">Please disable or enable seats so seat numbers equal {this.state.currentCapacity} seats to ensure one metre distancing</p>
+                </Alert>
         }
 
         if (two) {
             warning = <Alert variant="danger">
-                <p className="text-center">Please delete {this.state.numOfSeats - this.state.restaurant.capacity2metres} seats to ensure two metre distancing</p>
+                {/* <p className="text-center">Please disable {this.state.numOfSeats - this.state.restaurant.capacity2metres} seats to ensure two metre distancing</p> */}
+                <p className="text-center">Please disable or enable seats so seat numbers equal {this.state.currentCapacity} seats to ensure one metre distancing</p>
             </Alert>
         }
         return (
@@ -217,10 +283,10 @@ class TableComponent extends Component {
                     </Col>
 
                 </Row>
-                <Row>
+                
+                <Row className = "tables">
                     <Col>
-                        <div className="text-center"> <button className="btn btn-primary" onClick={this.setCapacity}>Choose capacity</button></div>
-
+                        <div className="text-center"> <button className="btn btn-primary" onClick={() => { this.setCapacity(); this.getTableInfo();}}>Choose capacity</button></div>
                     </Col>
                 </Row>
 
@@ -245,7 +311,7 @@ class TableComponent extends Component {
                                     this.state.tables.map(
                                         table =>
 
-                                            <div
+                                            <div key={table.id}
 
                                                 style={{
                                                     display: "inline-flex",
@@ -258,8 +324,8 @@ class TableComponent extends Component {
                                                     borderRadius: table.numSeats === 6 ? 95 : table.numSeats === 4 ? 85 : 70,
                                                     //background: "blue",
                                                     color: "white",
-                                                    // background: table.reserved ? "green" : "red",
-                                                    background: "green"
+                                                    background: table.disabled === true ?  "gray" : "green",
+                                                    //background: "green"
                                                 }}
                                                 //onMouseEnter={() => onMouseEnter(id, willOrphan)}
                                                 //onMouseLeave={onMouseLeave}
@@ -273,28 +339,12 @@ class TableComponent extends Component {
 
 
                                                 ID: {table.numSeats > 5 ? <h1> {table.id}</h1> : <h3> {table.id}</h3>}
-                                                <Modal show={this.state.modal} >
-                                                    <Modal.Header closeButton>
-                                                        <Modal.Title>Delete Table</Modal.Title>
-                                                    </Modal.Header>
-                                                    <Modal.Body>Do you to delete Table id {table.id}?</Modal.Body>
-                                                    <Modal.Footer>
-                                                        <Button variant="secondary" onClick={() => this.onClick(table)}  >
-                                                            Cancel
-                                                </Button>
-                                                        <Button variant="primary" onClick={() => this.deleteTable(table.id)}  >
-                                                            Delete
-                                                </Button>
-                                                    </Modal.Footer>
-                                                </Modal>
-
-
                                                 <span> Seats: {table.numSeats}</span>
                                                 <span></span>
-
-
-
                                             </div>
+                                              
+
+                                               
 
                                         // <tr key={table.id}>
                                         //     <td>{table.id}</td>
@@ -314,14 +364,15 @@ class TableComponent extends Component {
                     </table>
 
                 </div>
-
-                {/* <div className="row">
+                <div className = "tables">
+                <div className="row">
                     <table className="table table-striped table-bordered">
                         <thead>
                             <tr>
                                 <th>Table ID</th>
                                 <th>Number of seats</th>
-                                <th>Reserved</th>
+                                <th>Disabled</th>
+                                <th>Toggle enabled</th>
                             </tr>
                         </thead>
 
@@ -332,15 +383,16 @@ class TableComponent extends Component {
                                         <tr key={table1.id}>
                                             <td>{table1.id}</td>
                                             <td>{table1.numSeats}</td>
-                                            <td>{table1.reserved ? "Yes" : "No"}</td>
-
+                                            <td>{table1.disabled ? "Yes" : "No"}</td>
+                                            <td>{!table1.disabled ?<button onClick={() => this.disableTable(table1)} className="btn btn-primary" >Disable</button>:<button onClick={() => this.disableTable(table1)} className="btn btn-success" >Enable</button>}</td>
                                         </tr>
                                 )
                             }
                         </tbody>
 
                     </table>
-                </div> */}
+                </div>
+                </div>
             </div>
         )
 
