@@ -133,7 +133,7 @@ class AddBookingComponent extends Component {
               <option value="20">20</option>
             </select>
           </div>
-          <UserTables bookingTime = {this.state.time}/>
+          <UserTables/>
           <button className="btn btn-primary" onClick={this.createBooking}>Create booking</button>
 
         </form>

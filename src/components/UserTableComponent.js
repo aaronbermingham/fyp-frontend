@@ -67,7 +67,7 @@ class UserTableComponent extends Component {
 
 
                                 {
-                                    this.state.tables.map(
+                                    this.state.tables.filter(table => table.disabled === false).map(
                                         table =>
 
                                             <div
@@ -83,8 +83,8 @@ class UserTableComponent extends Component {
                                                     borderRadius: table.numSeats === 6 ? 95 : table.numSeats === 4 ? 85 : 70,
                                                     //background: "blue",
                                                     color: "white",
-                                                    // background: table.reserved ? "green" : "red",
-                                                    background: "green"
+                                                    background: table.disabled ? "gray" : "green",
+                                                   
                                                 }}
                                                 //onMouseEnter={() => onMouseEnter(id, willOrphan)}
                                                 //onMouseLeave={onMouseLeave}
