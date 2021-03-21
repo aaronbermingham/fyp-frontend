@@ -372,6 +372,7 @@ class TableComponent extends Component {
                                 <th>Table ID</th>
                                 <th>Number of seats</th>
                                 <th>Disabled</th>
+                                <th>Table Bookings</th>
                                 <th>Toggle enabled</th>
                             </tr>
                         </thead>
@@ -384,6 +385,15 @@ class TableComponent extends Component {
                                             <td>{table1.id}</td>
                                             <td>{table1.numSeats}</td>
                                             <td>{table1.disabled ? "Yes" : "No"}</td>
+                                            <td>
+                                                    {
+                                                        table1.resList.map((subitem, i) => {
+                                                            return (
+                                                                <li>{subitem.endBooking}</li>
+
+                                                            )
+                                                        })
+                                                    }</td>
                                             <td>{!table1.disabled ?<button onClick={() => this.disableTable(table1)} className="btn btn-primary" >Disable</button>:<button onClick={() => this.disableTable(table1)} className="btn btn-success" >Enable</button>}</td>
                                         </tr>
                                 )

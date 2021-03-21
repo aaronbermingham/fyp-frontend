@@ -34,7 +34,7 @@ class AllBookingComponent extends Component {
         return (
             <div>{businessUser ? (
                 <div>
-                    <h3 className="text-center">Food items</h3>
+                    <h3 className="text-center">Bookings</h3>
                     <div className="row">
 
                         <table className="table table-striped table-bordered">
@@ -62,7 +62,7 @@ class AllBookingComponent extends Component {
                                                     {
                                                         bookings.items.map((subitem, i) => {
                                                             return (
-                                                                <li>{subitem.name}</li>
+                                                                <td>{subitem.name}</td>
 
                                                             )
                                                         })

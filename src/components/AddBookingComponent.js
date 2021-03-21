@@ -8,7 +8,7 @@ import UserTables from './UserTableComponent';
 
 import "react-datepicker/dist/react-datepicker.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import BookingService from '../services/BookingService';
+
 
 
 class AddBookingComponent extends Component {
@@ -20,11 +20,13 @@ class AddBookingComponent extends Component {
      bId: 0,
       date: new Date(),
       time: new Date(),
-      numGuests: 2
+      numGuests: 2,
+      continue: false,
     };
     
     this.handleChange = this.handleChange.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
+    this.continue = this.continue.bind(this);
     this.changeNumberGuestsHandler = this.changeNumberGuestsHandler.bind(this);
   }
 
@@ -62,7 +64,7 @@ class AddBookingComponent extends Component {
   }
 
   createBooking = (e) => {
-    BookingService.clearBookings();
+    //BookingService.clearBookings();
     const locale = 'en';
    
     e.preventDefault();
@@ -86,6 +88,13 @@ class AddBookingComponent extends Component {
     })
 
    
+  }
+
+  continue(){
+    if(this.state.continue === false)
+    this.setState({continue: true});
+    else
+    this.setState({continue: false});
   }
 
   render() {
@@ -133,9 +142,9 @@ class AddBookingComponent extends Component {
               <option value="20">20</option>
             </select>
           </div>
-          <UserTables/>
-          <button className="btn btn-primary" onClick={this.createBooking}>Create booking</button>
-
+          
+          <button className="btn btn-primary" onClick={this.continue}>Continue</button>
+          {this.state.continue === true?<UserTables time = {this.state.time} date = {this.state.date} guests= {this.state.numGuests} history={this.props.history}/>:<p></p>}
         </form>
       </div>
     );
