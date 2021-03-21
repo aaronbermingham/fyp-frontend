@@ -9,6 +9,11 @@ class TableService{
         return axios.get(TABLE_API_BASE_URL + "all", { headers: authHeader() });
     }
 
+    getUnreservedTables(booking){
+        console.log("service booking ", booking)
+        return axios.post(TABLE_API_BASE_URL + "allUnreservedTables", booking, { headers: authHeader() });
+    }
+
     addTable(table){
         return axios.post(TABLE_API_BASE_URL + "addTable", table, { headers: authHeader() });
     }
