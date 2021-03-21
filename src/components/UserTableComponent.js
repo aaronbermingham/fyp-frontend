@@ -26,6 +26,14 @@ class UserTableComponent extends Component {
     }
 
     componentDidMount() {
+        const locale = 'en';
+       
+        let booking = {
+          date: this.props.date.toISOString().slice(0, 10),
+          time: this.props.time.toLocaleTimeString(locale, { hour: 'numeric', hour12: false, minute: 'numeric', second: 'numeric' }),
+          numGuests: this.props.guests
+        };
+        console.log('cdm booking => ' + JSON.stringify(booking));
         const user = AuthService.getCurrentUser();
         if (user) {
             this.setState({
@@ -37,7 +45,7 @@ class UserTableComponent extends Component {
         let date = this.props.time;
         let utc = Moment.utc(date).format();
 
-        TableService.getTables().then((res) => {
+        TableService.getUnreservedTables(booking).then((res) => {
             this.setState({ tables: res.data.filter(table => table.disabled === false) })
             this.setState({ numOfSeats: res.data.numSeats })
             console.log("Table info ", res.data)
@@ -99,7 +107,7 @@ class UserTableComponent extends Component {
         return (
 
             <div>
-                 <h2 className="text-center">Tables</h2>
+                 {/* <h2 className="text-center">Tables</h2>
                  Data from parent is: {Moment.utc(this.props.time).format()}
                  <table className="table table-striped table-bordered">
                  <tbody>
@@ -135,7 +143,7 @@ class UserTableComponent extends Component {
                                         </tr>
                                 )
                             }
-                        </tbody></table>
+                        </tbody></table> */}
                 <div className="container">
 
 
