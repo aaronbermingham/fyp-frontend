@@ -11,7 +11,7 @@ class TableService{
 
     getUnreservedTables(booking){
         console.log("service booking ", booking)
-        return axios.post(TABLE_API_BASE_URL + "allReservedTest", booking, { headers: authHeader() });
+        return axios.post(TABLE_API_BASE_URL + "allUnreservedTables", booking, { headers: authHeader() });
     }
 
     addTable(table){
