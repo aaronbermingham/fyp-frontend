@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import TableService from '../services/TableService';
 import AuthService from "../services/AuthService";
 import Lost from './LostComponent';
+import Form from 'react-bootstrap/Form'
 
 class AddTableComponent extends Component {
     constructor(props) {
@@ -13,9 +14,11 @@ class AddTableComponent extends Component {
             numTables: 1,
             bisUser: false,
             currentUser: undefined,
+            outdoor: true,
         }
         this.changeSeatHandler = this.changeSeatHandler.bind(this);
         this.createTable = this.createTable.bind(this);
+        this.changeOutdoorHandler = this.changeOutdoorHandler.bind(this);
     }
 
     changeSeatHandler = (event) => {
@@ -26,11 +29,17 @@ class AddTableComponent extends Component {
         this.setState({ numTables: event.target.value });
     }
 
+    changeOutdoorHandler = (event) => {
+        this.setState({outdoor: !this.state.outdoor})
+        console.log("Outdoor ", this.state.outdoor);
+    }
+
     createTable = (e) => {
         e.preventDefault();
         let table = {
             reserved: this.state.reserved,
-            numSeats: this.state.numSeats
+            numSeats: this.state.numSeats,
+            outdoor: this.state.outdoor,
         };
         console.log('table => ' + JSON.stringify(table));
         for(var i = 0; i < this.state.numTables; i ++){
@@ -88,8 +97,13 @@ class AddTableComponent extends Component {
                                             <option value="5">5</option>
                                             {/* <option value="20">20</option> */}
                                         </select>
+                                        </div>
+                                    <div className="form-group">
+                                        <label>Outdoor Table</label>
+                                        <Form.Group controlId="formBasicCheckbox">
+                                        <Form.Check type="checkbox" label="Yes/No" onClick={this.changeOutdoorHandler} />
+                                        </Form.Group>
                                     </div>
-                                 
                                     <button className="btn btn-success" onClick={this.createTable}>Add table</button>
                                     <button className="btn btn-danger" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Cancel</button>
                                 </form>

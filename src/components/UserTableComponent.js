@@ -6,6 +6,7 @@ import Button from "react-bootstrap/Button";
 import UserService from '../services/UserService';
 import AuthService from "../services/AuthService";
 import { withRouter } from 'react-router-dom';
+import Alert from 'react-bootstrap/Alert'
 
 
 class UserTableComponent extends Component {
@@ -16,7 +17,7 @@ class UserTableComponent extends Component {
         this.state = {
             tables: [],
             numOfSeats: 0,
-            modal: false,
+            clicked: false,
             tableId: 0,
 
         }
@@ -63,14 +64,17 @@ class UserTableComponent extends Component {
         
     }
 
-    // filterTables(){
-    //     this.setState({tables:tables.filter(table => table.disabled === false)})
-    //     console.log(this.state.tables);
-    // }
-
     onClick(table) {
         console.log("Table ", table.id)
+        
         this.setState({tableId: table.id})
+       
+       
+            this.setState({tableId: table.id});
+     
+
+        
+        console.log("Clicked ", this.state.clicked)
     }
 
     createBooking = (e) => {
@@ -107,47 +111,17 @@ class UserTableComponent extends Component {
         return (
 
             <div>
-                 {/* <h2 className="text-center">Tables</h2>
-                 Data from parent is: {Moment.utc(this.props.time).format()}
-                 <table className="table table-striped table-bordered">
-                 <tbody>
-                            {
-                                this.state.tables.map(
-                                    table1 =>
-                                        <tr key={table1.id}>
-                                            <td>{table1.id}</td>
-                                            <td>
-                                                    {
-                                                        table1.resList.map((subitem, i) => {
-                                                            return (
-                                                                <li>{subitem.endBooking +"Z" === utc? "Yes" : "No" }</li>
-                                                                // <td> {Moment.utc(this.props.bookingTime).format()===subItem.endBooking? "Yes" : "No"}</td>
+            
+                <div class="row">
+                    <div class='box green'></div>
+                    <span>Outdoor table</span>
+                </div>
 
-                                                            )
-                                                           
-                                                        })
-                                                    }</td>
-                                                     <td>
-                                                    {
-                                                        table1.resList.map((subitem, i) => {
-                                                            return (
-                                                                <li>{subitem.endBooking + "Z"}</li>
-                                                                // <td> {Moment.utc(this.props.bookingTime).format()===subItem.endBooking? "Yes" : "No"}</td>
-
-                                                            )
-                                                           
-                                                        })
-                                                    }</td>
-                                                    <td> {utc}</td>
-                                                    
-                                        </tr>
-                                )
-                            }
-                        </tbody></table> */}
-                <div className="container">
-
-
-                    <div class="chair"></div>
+                <div class="row">
+                    <div class='box blue'></div>
+                    <span>Indoor table</span>
+                </div>
+                <div>
 
 
                     <table className="grid">
@@ -174,7 +148,7 @@ class UserTableComponent extends Component {
                                                     borderRadius: table.numSeats === 6 ? 95 : table.numSeats === 4 ? 85 : 70,
                                                     //background: "blue",
                                                     color: "white",
-                                                    background: table.disabled ? "gray" : "green",
+                                                    background: table.outdoorTable ? "green" : "blue",
                                                    
                                                 }}
                                                 //onMouseEnter={() => onMouseEnter(id, willOrphan)}
@@ -189,102 +163,34 @@ class UserTableComponent extends Component {
 
 
                                                 ID: {table.numSeats > 5 ? <h1> {table.id}</h1> : <h3> {table.id}</h3>}
-                                                <Modal show={this.state.modal} >
-                                                    <Modal.Header closeButton>
-                                                        <Modal.Title>Delete Table</Modal.Title>
-                                                    </Modal.Header>
-                                                    <Modal.Body>Do you to delete Table id {table.id}?</Modal.Body>
-                                                    <Modal.Footer>
-                                                        <Button variant="secondary" onClick={() => this.onClick(table)}  >
-                                                            Cancel
-                                                </Button>
-                                                        <Button variant="primary" onClick={() => this.deleteTable(table.id)}  >
-                                                            Delete
-                                                </Button>
-                                                    </Modal.Footer>
-                                                </Modal>
+                                               
 
 
                                                 <span> Seats: {table.numSeats}</span>
                                                 <span></span>
                                                 
+                                                
 
-
+                                                
 
                                             </div>
 
-                                        // <tr key={table.id}>
-                                        //     <td>{table.id}</td>
-
-
-                                        // </tr>
-
+                               
                                     )
-
+                                    
                                 }
-
+                                {this.state.tableId > 0 ? (<Alert variant="success"><p>You have selected table number {this.state.tableId}</p></Alert>): null}
                             </tbody>
-                   
+                            
 
                         </div>
+                        
 
                         <button className="btn btn-primary" onClick={this.createBooking}>Add booking</button>
                     </table>
 
                 </div>
-                {/* <div>
-                <table className="table table-striped table-bordered">
-                            {
-                                this.state.tables.map(
-                                    table1 =>
-                                        <tr key={table1.id}>
-                                            <td>{table1.id}</td>
-                                            <td>
-                                                    {
-                                                        table1.resList.map((subitem, i) => {
-                                                            if(subitem.endBooking+"Z" !== utc || table1.id !== subitem.tableId)
-                                                            return (
-                                                                <td>Table id {table1.id} End booking {subitem.endBooking} time {utc} Res table id {subitem.tableId}</td>
-                                                                // <td> {Moment.utc(this.props.bookingTime).format()===subItem.endBooking? "Yes" : "No"}</td>
-
-                                                            )
-                                                           
-                                                        })
-                                                    }</td>
-                                                
-                                                    
-                                        </tr>
-                                )
-                            }
-                        </table>
-                            </div> */}
-
-                {/* <div className="row">
-                    <table className="table table-striped table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Table ID</th>
-                                <th>Number of seats</th>
-                                <th>Reserved</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            {
-                                this.state.tables.map(
-                                    table1 =>
-                                        <tr key={table1.id}>
-                                            <td>{table1.id}</td>
-                                            <td>{table1.numSeats}</td>
-                                            <td>{table1.reserved ? "Yes" : "No"}</td>
-
-                                        </tr>
-                                )
-                            }
-                        </tbody>
-
-                    </table>
-                </div> */}
+               
             </div>
         )
 
