@@ -25,6 +25,7 @@ import UpdateDrink from './components/UpdateDrinkComponent';
 import BookingSum from './components/BookingSummaryComponent';
 import Table from './components/TableComponent';
 import UserTable from './components/UserTableComponent';
+import ContactTrace from './components/ContactTracingComponent';
 
 class App extends Component {
   constructor(props) {
@@ -136,6 +137,7 @@ class App extends Component {
             <Route path="/booksum/:id" component={BookingSum}></Route>
             <Route path="/allTables" component={Table}></Route>
             <Route path="/userTables" component={UserTable}></Route>
+            <Route path="/contactTrace" component={ContactTrace}></Route>
           </Switch>
         </div>
       </div>
