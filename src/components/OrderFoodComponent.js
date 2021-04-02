@@ -17,7 +17,7 @@ class OrderFoodComponent extends Component {
             items: []
 
         }
-
+        this.getItemSummary = this.getItemSummary.bind(this);
     }
 
 
@@ -40,11 +40,19 @@ class OrderFoodComponent extends Component {
        
       
         console.log("id", this.state.id);
+        
     }
 
     addItemtoBooking(id) {
         console.log("Booking id", this.state.id)
-        BookingService.addBookingItem(this.state.id, id)
+        BookingService.addBookingItem(this.state.id, id).then((res) => {
+            this.getItemSummary();
+        });
+      
+        alert("Great choice, that has been added to your order!");
+    }
+
+    getItemSummary(){
         BookingService.getBookingsById(this.state.id).then((res) => {
             let booking = res.data
             this.setState({
@@ -55,7 +63,6 @@ class OrderFoodComponent extends Component {
                 price: booking.price
             });
         });
-        alert("Great choice, that has been added to your order!");
     }
 
     continue() {
