@@ -26,6 +26,7 @@ import BookingSum from './components/BookingSummaryComponent';
 import Table from './components/TableComponent';
 import UserTable from './components/UserTableComponent';
 import ContactTrace from './components/ContactTracingComponent';
+import BisAnalytics from './components/BisAnalyticsComponent';
 
 class App extends Component {
   constructor(props) {
@@ -138,6 +139,7 @@ class App extends Component {
             <Route path="/allTables" component={Table}></Route>
             <Route path="/userTables" component={UserTable}></Route>
             <Route path="/contactTrace" component={ContactTrace}></Route>
+            <Route path="/bisAnalytics" component={BisAnalytics}></Route>
           </Switch>
         </div>
       </div>
