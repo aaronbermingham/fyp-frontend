@@ -55,7 +55,7 @@ class AddFoodComponent extends Component {
             };
         console.log('foodItem => ' + JSON.stringify(foodItem));
         ItemService.addFoodItem(foodItem).then(res =>{
-            this.props.history.push('/items')
+            this.props.history.push('/allItems')
         });
     }
 

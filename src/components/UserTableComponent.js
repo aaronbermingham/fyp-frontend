@@ -80,7 +80,7 @@ class UserTableComponent extends Component {
     createBooking = (e) => {
         //BookingService.clearBookings();
         const locale = 'en';
-       
+        console.log("Table id ", this.state.tableId)
         e.preventDefault();
         let booking = {
           date: this.props.date.toISOString().slice(0, 10),
@@ -89,6 +89,7 @@ class UserTableComponent extends Component {
         };
         console.log('booking => ' + JSON.stringify(booking));
         UserService.addBookingTable(booking, this.state.id, this.state.tableId).then(res => {
+           
             console.log("res data id ",res.data)
             this.bId = res.data;
           console.log("Booking id ", this.bId)

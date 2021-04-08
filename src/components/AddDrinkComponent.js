@@ -48,7 +48,7 @@ class AddDrinkComponent extends Component {
             };
         console.log('drinkItem => ' + JSON.stringify(drinkItem));
         ItemService.addDrinkItem(drinkItem).then(res =>{
-            this.props.history.push('/items')
+            this.props.history.push('/allItems')
         });
     }
 

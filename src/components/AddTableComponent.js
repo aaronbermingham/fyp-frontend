@@ -14,7 +14,7 @@ class AddTableComponent extends Component {
             numTables: 1,
             bisUser: false,
             currentUser: undefined,
-            outdoor: true,
+            outdoor: false,
         }
         this.changeSeatHandler = this.changeSeatHandler.bind(this);
         this.createTable = this.createTable.bind(this);

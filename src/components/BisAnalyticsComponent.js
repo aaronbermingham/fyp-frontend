@@ -9,7 +9,6 @@ class BisAnalyticsComponent extends Component {
         this.state = {
             item: [],
             chartData:{
-                //labels:['Boston', 'Worcester', 'Springfield', 'Lowell', 'Cambridge', 'New Bedfore'],
                 labels:[],
                 datasets:[
                     {
@@ -50,7 +49,7 @@ class BisAnalyticsComponent extends Component {
                     labels:this.state.item.map(item => item.name),
                     datasets:[
                         {
-                            label: 'Food items',
+                            label: 'Food items sold',
                             data:this.state.item.map(item => item.stock),
                             backgroundColor:[
                                 'rgba(255, 99, 132, 0.6)',
