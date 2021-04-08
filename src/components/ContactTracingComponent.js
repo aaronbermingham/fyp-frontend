@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import DatePicker from 'react-datepicker';
 import AuthService from "../services/AuthService";
 import Lost from './LostComponent';
-
+import { Card, Button, Row, Col, ListGroup } from 'react-bootstrap'
 import "react-datepicker/dist/react-datepicker.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ContactTracingService from '../services/ContactTracingService';
@@ -19,6 +19,7 @@ class ContactTracingComponent extends Component {
             bId: 0,
             date: new Date(),
             time: new Date(),
+            staffId: 0,
             contacts: [],
             getContacts: false
         };
@@ -68,8 +69,11 @@ class ContactTracingComponent extends Component {
         };
         console.log('booking => ' + JSON.stringify(booking));
         ContactTracingService.getTrackingList(booking).then((res) => {
-            console.log(res.data);
+            console.log("Contacts ",res.data);
             this.setState({ contacts: res.data })
+            this.setState({staffId : this.state.contacts.map( contact => contact.staffNum)})
+            //this.setState({staffId: this.state.contacts.staffNum})
+            console.log("Staff ", this.state.contacts.map( contact => contact.staffNum))
         });;
     }
 
@@ -89,7 +93,7 @@ class ContactTracingComponent extends Component {
                                 selected={this.state.date}
                                 onChange={this.handleChange}
                                 name="date"
-                                minDate={new Date()}
+                                //minDate={new Date()}
                                 dateFormat="yyyy/MM/dd"
                                 className="form-control"
                                 showDisabledMonthNavigation
@@ -116,14 +120,16 @@ class ContactTracingComponent extends Component {
                     </form>
                 </div>) : <Lost />}
                 <div>
-                    <h3 className="text-center">Contacts</h3>
+                    {/* <h3 className="text-center">Contacts</h3> */}
                     <div className="row">
-                        <table className="table table-striped table-bordered">
+                        {/* <table className="table table-striped table-bordered">
                             <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Email</th>
-
+                                    <th>Customer Name</th>
+                                    <th>Customer Email</th>
+                                    <th>Table number</th>
+                                    <th>Staff Id</th>
+                                    <th>Staff Name</th>
                                 </tr>
                             </thead>
 
@@ -134,12 +140,31 @@ class ContactTracingComponent extends Component {
                                             <tr key={contact.id}>
                                                 <td>{contact.name}</td>
                                                 <td>{contact.email}</td>
+                                                <td>{contact.tableNum}</td>
+                                                <td>{contact.staffNum}</td>
+                                                <td>{contact.staffName}</td>
                                             </tr>
                                     )
                                 }
                             </tbody>
 
-                        </table>
+                        </table> */}
+                        {
+                            this.state.contacts.map(
+                                contact =>
+                                    <Card>
+                                        <Card.Header>Contact</Card.Header>
+                                        <Card.Body>
+                                            <Card.Text>
+                                                <p>Name: {contact.name}</p>
+                                                <p>Email: {contact.email}</p>
+                                                <p>Table number: {contact.tableNum}</p>
+                                                <p>Server name: {contact.staffName}</p>
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                            )
+                        }
                     </div>
                 </div>
             </div>

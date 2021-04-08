@@ -373,7 +373,7 @@ class TableComponent extends Component {
                                 <th>Number of seats</th>
                                 <th>Disabled</th>
                                 <th>Outdoors</th>
-                                <th>Table Bookings</th>
+
                                 <th>Toggle enabled</th>
                             </tr>
                         </thead>

@@ -27,6 +27,9 @@ import Table from './components/TableComponent';
 import UserTable from './components/UserTableComponent';
 import ContactTrace from './components/ContactTracingComponent';
 import BisAnalytics from './components/BisAnalyticsComponent';
+import AddStaff from './components/AddStaffComponent'; 
+import AllStaff from './components/AllStaffComponent'; 
+import AssignTables from './components/AssignTablesComponent';
 
 class App extends Component {
   constructor(props) {
@@ -140,6 +143,9 @@ class App extends Component {
             <Route path="/userTables" component={UserTable}></Route>
             <Route path="/contactTrace" component={ContactTrace}></Route>
             <Route path="/bisAnalytics" component={BisAnalytics}></Route>
+            <Route path="/addStaff" component={AddStaff}></Route> AllStaff
+            <Route path="/allStaff" component={AllStaff}></Route> 
+            <Route path="/assignTables/:id" component={AssignTables}></Route>
           </Switch>
         </div>
       </div>
