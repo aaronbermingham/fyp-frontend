@@ -28,6 +28,10 @@ class BookingService {
         return axios.delete(BOOKING_API_BASE_URL + "deleteBooking/" + bookingId,{ headers: authHeader() });
     }
 
+    todaysBooking(){
+        return axios.get(BOOKING_API_BASE_URL + "todaysBookings",{ headers: authHeader() });
+    }
+
 
   
 }
