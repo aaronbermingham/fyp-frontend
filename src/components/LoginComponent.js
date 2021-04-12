@@ -55,8 +55,15 @@ export default class LoginComponent extends Component {
     if (this.checkBtn.context._errors.length === 0) {
       AuthService.login(this.state.username, this.state.password).then(
         () => {
-          this.props.history.push("/profile");
-          window.location.reload();
+          const user = AuthService.getCurrentUser()
+          console.log("User login ", user)
+          if(JSON.parse(localStorage.getItem("user")).roles[0] === "ROLE_BUSINESS"){
+            this.props.history.push("/bisDash");
+            window.location.reload();
+          }else{
+            this.props.history.push("/profile");
+          }
+         
         },
         error => {
           const resMessage =
@@ -83,8 +90,6 @@ export default class LoginComponent extends Component {
     return (
       <div className="col-md-12">
         <div className="card card-container">
-         
-
           <Form
             onSubmit={this.handleLogin}
             ref={c => {

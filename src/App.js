@@ -30,6 +30,7 @@ import BisAnalytics from './components/BisAnalyticsComponent';
 import AddStaff from './components/AddStaffComponent'; 
 import AllStaff from './components/AllStaffComponent'; 
 import AssignTables from './components/AssignTablesComponent';
+import BisDashboard from './components/BisDashboardComponent';
 
 class App extends Component {
   constructor(props) {
@@ -67,7 +68,13 @@ class App extends Component {
         <div>
           <Navbar collapseOnSelect expand="lg" bg="primary" variant="dark">
             <Container>
-              <Navbar.Brand href={"/home"} bg="primary" variant="dark">{!currentUser ? <h2>book + eat</h2> : <h2>b+e</h2>}</Navbar.Brand>
+            {businessUser && (
+              <Navbar.Brand href={"/bisDash"} bg="primary" variant="dark">{!currentUser ? <h2>book + eat</h2> : <h2>b+e</h2>}</Navbar.Brand>
+            )}
+            {!businessUser && (
+              <Navbar.Brand href={"/profile"} bg="primary" variant="dark">{!currentUser ? <h2>book + eat</h2> : <h2>b+e</h2>}</Navbar.Brand>
+            )}
+              
               <Navbar.Toggle aria-controls="responsive-navbar-nav" />
               <Navbar.Collapse id="responsive-navbar-nav " >
                 <Nav className="mr-auto"  >
@@ -76,6 +83,7 @@ class App extends Component {
                     <Nav className="mr-auto"  >
                       <Nav.Link href={"/allUsers"}>Users</Nav.Link>
                       <Nav.Link href={"/allBookings"}>Bookings</Nav.Link>
+                      <Nav.Link href={"/bisAnalytics"}>Analytics</Nav.Link>
                     </Nav>
                   )}
                   {businessUser && (
@@ -87,9 +95,26 @@ class App extends Component {
                       <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item> */}
                     </NavDropdown>
                   )}
+                  {businessUser && (
+                    <NavDropdown title="Staff" id="collasible-nav-dropdown">
+                      <NavDropdown.Item href={"/addStaff"}>Add a Staff member</NavDropdown.Item>
+                      <NavDropdown.Item href={"/allStaff"}>View all staff</NavDropdown.Item>
+                      {/* <NavDropdown.Divider />
+                      <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item> */}
+                    </NavDropdown>
+                    
+                  )}
+                  {businessUser && (
+                    <NavDropdown title="Tables" id="collasible-nav-dropdown">
+                      <NavDropdown.Item href={"/addTable"}>Add a table</NavDropdown.Item>
+                      <NavDropdown.Item href={"/allTables"}>Manage tables/Capacity</NavDropdown.Item>
+                      {/* <NavDropdown.Divider />
+                      <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item> */}
+                    </NavDropdown>
+                    
+                  )}
                   {currentUser && !businessUser && (
                     <Nav className="mr-auto" >
-                      <Nav.Link href={"/profile"}>Home</Nav.Link>
                       <Nav.Link href={"/addBooking"}>New Booking</Nav.Link>
                       <Nav.Link href="/login" onClick={this.logOut}>Your Bookings</Nav.Link>
                     </Nav>
@@ -126,7 +151,7 @@ class App extends Component {
             <Route exact path="/registerAdmin" component={registerAdmin} />
             <Route exact path="/profile" component={Profile} />
             <Route path="/user" component={BoardUser} />
-            <Route path="/bisMenu" component={BisUserGridComponent} />
+            {/* <Route path="/bisMenu" component={BisUserGridComponent} /> */}
             <Route path="/addFoodItem" component={AddFood}></Route>
             <Route path="/addDrinkItem" component={AddDrink}></Route>
             <Route path="/allItems" component={AllItems}></Route>
@@ -146,6 +171,7 @@ class App extends Component {
             <Route path="/addStaff" component={AddStaff}></Route> AllStaff
             <Route path="/allStaff" component={AllStaff}></Route> 
             <Route path="/assignTables/:id" component={AssignTables}></Route>
+            <Route path="/bisDash" component={BisDashboard}></Route>
           </Switch>
         </div>
       </div>
