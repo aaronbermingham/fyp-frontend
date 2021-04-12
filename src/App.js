@@ -30,7 +30,8 @@ import BisAnalytics from './components/BisAnalyticsComponent';
 import AddStaff from './components/AddStaffComponent'; 
 import AllStaff from './components/AllStaffComponent'; 
 import AssignTables from './components/AssignTablesComponent';
-import BisDashboard from './components/BisDashboardComponent';
+import BisDashboard from './components/BisDashboardComponent'; 
+import StaffShift from './components/StaffShiftComponent';
 
 class App extends Component {
   constructor(props) {
@@ -170,8 +171,9 @@ class App extends Component {
             <Route path="/bisAnalytics" component={BisAnalytics}></Route>
             <Route path="/addStaff" component={AddStaff}></Route> AllStaff
             <Route path="/allStaff" component={AllStaff}></Route> 
-            <Route path="/assignTables/:id" component={AssignTables}></Route>
+            <Route path="/assignTables/:id" component={AssignTables}></Route> 
             <Route path="/bisDash" component={BisDashboard}></Route>
+            <Route path="/staffShift/:id" component={StaffShift}></Route>
           </Switch>
         </div>
       </div>

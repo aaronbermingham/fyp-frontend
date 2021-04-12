@@ -13,7 +13,7 @@ class AllStaffComponent extends Component{
             bisUser: false,
             currentUser: undefined,
         }
-        this.updateUser = this.updateUser.bind(this);
+        this.assignShift = this.assignShift.bind(this);
     }
 
      componentDidMount(){
@@ -34,8 +34,8 @@ class AllStaffComponent extends Component{
      }
 
 
-    updateUser(id){
-        this.props.history.push(`/update-user/${id}`);
+     assignShift(id){
+        this.props.history.push(`/staffShift/${id}`);
     }
 
     assignTables(id){
@@ -58,7 +58,7 @@ class AllStaffComponent extends Component{
                             <th>ID</th>
                                 <th>Name</th>
                                 <th>Email</th>
-                                <th>Update</th>
+                                <th>Assign shifts</th>
                                 <th>Assign tables</th>
                             </tr>
                         </thead>
@@ -71,7 +71,7 @@ class AllStaffComponent extends Component{
                                     <td>{staff.id}</td>
                                     <td>{staff.name}</td>
                                     <td>{staff.email}</td>
-                                    <td><button onClick = {() => this.updateUser(staff.id)} className ="btn btn-info" >Update</button></td>
+                                    <td><button onClick = {() => this.assignShift(staff.id)} className ="btn btn-info" >Update</button></td>
                                     <td><button onClick = {() => this.assignTables(staff.id)} className ="btn btn-info" >Assign tables</button></td>
                                 </tr>
                                 )
