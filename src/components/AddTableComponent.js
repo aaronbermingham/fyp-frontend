@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import TableService from '../services/TableService';
 import AuthService from "../services/AuthService";
+import StaffService from "../services/StaffService";
 import Lost from './LostComponent';
 import Form from 'react-bootstrap/Form'
 
@@ -15,6 +16,8 @@ class AddTableComponent extends Component {
             bisUser: false,
             currentUser: undefined,
             outdoor: false,
+            staffList: [],
+            staffMember: 1,
         }
         this.changeSeatHandler = this.changeSeatHandler.bind(this);
         this.createTable = this.createTable.bind(this);
@@ -23,15 +26,22 @@ class AddTableComponent extends Component {
 
     changeSeatHandler = (event) => {
         this.setState({ numSeats: event.target.value });
+        console.log("numSeats ", this.state.numSeats);
     }
     
     changeTableHandler = (event) => {
         this.setState({ numTables: event.target.value });
+        console.log("NumTables ", this.state.numTables);
     }
 
     changeOutdoorHandler = (event) => {
         this.setState({outdoor: !this.state.outdoor})
         console.log("Outdoor ", this.state.outdoor);
+    }
+
+    changeStaffMemberHandler= (event) => {
+        this.setState({staffMember: event.target.value})
+        console.log("Staff ", this.state.staffMember)
     }
 
     createTable = (e) => {
@@ -43,7 +53,7 @@ class AddTableComponent extends Component {
         };
         console.log('table => ' + JSON.stringify(table));
         for(var i = 0; i < this.state.numTables; i ++){
-            TableService.addTable(table).then(res => {
+            TableService.addTable(table, this.state.staffMember).then(res => {
                 this.props.history.push('/allTables')
             });
         }
@@ -57,7 +67,16 @@ class AddTableComponent extends Component {
     componentDidMount() {
         const user = AuthService.getCurrentUser();
         console.log("Current user ", user)
-    
+
+        StaffService.getStaff().then((res) => {
+            let staff = res.data;
+            console.log("Staff ", staff)
+            this.setState({
+             staffList: staff,
+            });
+            console.log(this.state.staffList)
+        });
+       
         if (user) {
           this.setState({
             currentUser: user,
@@ -98,12 +117,26 @@ class AddTableComponent extends Component {
                                             {/* <option value="20">20</option> */}
                                         </select>
                                         </div>
-                                    <div className="form-group">
+                                        <div className="form-group">
+                                        <label>Assign staff member</label>
+                                        <select placeholder="Assign staff" name="staff" className="form-control" 
+                                            selected={this.state.staffMember} onChange={this.changeStaffMemberHandler}>
+                                           {
+                                               (
+                                                   this.state.staffList.map((staff)=>{
+                                                       return (<option value = {staff.id}>{staff.name}</option>)
+                                                   })
+                                               )
+                                           }
+                                        </select>
+                                        </div>
+                                        <div className="form-group">
                                         <label>Outdoor Table</label>
                                         <Form.Group controlId="formBasicCheckbox">
-                                        <Form.Check type="checkbox" label="Yes/No" onClick={this.changeOutdoorHandler} />
+                                        <Form.Check type="checkbox" label="Yes/No" selected={this.state.outdoor} onClick={this.changeOutdoorHandler} />
                                         </Form.Group>
                                     </div>
+                                   
                                     <button className="btn btn-success" onClick={this.createTable}>Add table</button>
                                     <button className="btn btn-danger" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Cancel</button>
                                 </form>
