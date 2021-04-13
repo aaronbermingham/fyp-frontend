@@ -31,7 +31,7 @@ import AddStaff from './components/AddStaffComponent';
 import AllStaff from './components/AllStaffComponent'; 
 import AssignTables from './components/AssignTablesComponent';
 import BisDashboard from './components/BisDashboardComponent'; 
-import StaffShift from './components/StaffShiftComponent';
+import AssignShift from './components/AssignShiftComponent';
 
 class App extends Component {
   constructor(props) {
@@ -173,7 +173,7 @@ class App extends Component {
             <Route path="/allStaff" component={AllStaff}></Route> 
             <Route path="/assignTables/:id" component={AssignTables}></Route> 
             <Route path="/bisDash" component={BisDashboard}></Route>
-            <Route path="/staffShift/:id" component={StaffShift}></Route>
+            <Route path="/assignShift/:id" component={AssignShift}></Route>
           </Switch>
         </div>
       </div>

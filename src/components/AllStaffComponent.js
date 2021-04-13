@@ -35,7 +35,7 @@ class AllStaffComponent extends Component{
 
 
      assignShift(id){
-        this.props.history.push(`/staffShift/${id}`);
+        this.props.history.push(`/assignShift/${id}`);
     }
 
     assignTables(id){
@@ -71,7 +71,7 @@ class AllStaffComponent extends Component{
                                     <td>{staff.id}</td>
                                     <td>{staff.name}</td>
                                     <td>{staff.email}</td>
-                                    <td><button onClick = {() => this.assignShift(staff.id)} className ="btn btn-info" >Update</button></td>
+                                    <td><button onClick = {() => this.assignShift(staff.id)} className ="btn btn-info" >Assign</button></td>
                                     <td><button onClick = {() => this.assignTables(staff.id)} className ="btn btn-info" >Assign tables</button></td>
                                 </tr>
                                 )
