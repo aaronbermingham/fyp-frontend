@@ -108,6 +108,10 @@ background-color: green;
 background-color: blue;
 }
 
+.grey {
+  background-color: gray;
+  }
+
 .clock{
   font-family: Arial, Helvetica, sans-serif;
 }
