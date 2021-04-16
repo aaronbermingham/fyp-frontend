@@ -1,7 +1,7 @@
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import React, { Component, useEffect, useState } from "react";
+import React, { Component } from "react";
 import Clock from "react-live-clock";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
@@ -44,7 +44,11 @@ class BisDashboardComponent extends Component {
   }
 
   allTables() {
-    this.props.history.push(`/allTables`);
+    this.props.history.push(`/allTables`); 
+  }
+
+  analytics() {
+    this.props.history.push(`/bisAnalytics`);
   }
 
   render() {
@@ -63,8 +67,7 @@ class BisDashboardComponent extends Component {
                         Welcome back {this.state.currentUser.username}!
                       </Card.Title>
                       <Card.Text>
-                        With supporting text below as a natural lead-in to
-                        additional content.
+                       
                       </Card.Text>
                     </Card.Body>
                   </Card>
@@ -85,27 +88,26 @@ class BisDashboardComponent extends Component {
                 </Col>
               </Row>
               <Row>
-                <Col xs={6} md={4}>
+                { <Col xs={6} md={4}>
                   <Card bg="danger">
                     <Card.Body>
-                      <Card.Title>Todays Bookings</Card.Title>
-                      <Card.Text>Some text</Card.Text>
+                      <Card.Title>Analytics</Card.Title>
+                      <Card.Text>View restaurant analytics</Card.Text>
                       <Button
                         variant="primary"
-                        onClick={() => this.allBookings()}
+                        onClick={() => this.analytics()}
                       >
-                        View all bookings
+                        View analytics
                       </Button>
                     </Card.Body>
                   </Card>
-                </Col>
+                </Col> }
                 <Col xs={6} md={4}>
-                  <Card bg="success">
+                  <Card bg="danger">
                     <Card.Body>
                       <Card.Title>Staff</Card.Title>
                       <Card.Text>
-                        With supporting text below as a natural lead-in to
-                        additional content.
+                        View and manage staff
                       </Card.Text>
                       <Button variant="primary" onClick={() => this.allStaff()}>
                         All staff
@@ -115,12 +117,11 @@ class BisDashboardComponent extends Component {
                 </Col>
 
                 <Col xs={6} md={4}>
-                  <Card bg="info">
+                  <Card bg="warning">
                     <Card.Body>
                       <Card.Title>Tables</Card.Title>
                       <Card.Text>
-                        With supporting text below as a natural lead-in to
-                        additional content.
+                       View all tables and manage restaurant capacity
                       </Card.Text>
                       <Button
                         variant="primary"
@@ -134,7 +135,7 @@ class BisDashboardComponent extends Component {
               </Row>
               <Row>
                 <Col>
-                  <Card bg="info">
+                  <Card bg="secondary">
                     <Card.Body>
                       <Card.Title>Todays bookings</Card.Title>
                       <Card.Text>
@@ -167,7 +168,7 @@ class BisDashboardComponent extends Component {
                     </Card.Body>
                   </Card>
                 </Col>
-                <Col
+                {/* <Col
                   xs={6}
                   md={4}
                   style={{
@@ -175,11 +176,11 @@ class BisDashboardComponent extends Component {
                   }}
                 >
                   2 of 2
-                </Col>
+                </Col> */}
               </Row>
 
               {/* Columns are always 50% wide, on mobile and desktop */}
-              <Row>
+              {/* <Row>
                 <Col
                   xs={6}
                   style={{
@@ -196,7 +197,7 @@ class BisDashboardComponent extends Component {
                 >
                   2 of 2
                 </Col>
-              </Row>
+              </Row> */}
             </Container>
           </div>
         ) : (

@@ -327,12 +327,9 @@ class TableComponent extends Component {
                                                     background: table.disabled === true ?  "gray" : !table.disabled && table.outdoorTable === true? "green" : "blue",
                                                     //background: "green"
                                                 }}
-                                                //onMouseEnter={() => onMouseEnter(id, willOrphan)}
-                                                //onMouseLeave={onMouseLeave}
-                                                // onClick={() => this.setState({ options: !options })}
-                                                onClick={() => this.onClick(table)}
-                                            //onMouseEnter={() => onMouseEnter(id, willOrphan)}
-                                            //onMouseLeave={onMouseLeave}
+                                                
+                                                onClick={() => this.disableTable(table)}
+                                         
 
                                             >
 
@@ -364,47 +361,7 @@ class TableComponent extends Component {
                     </table>
 
                 </div>
-                <div className = "tables">
-                <div className="row">
-                    <table className="table table-striped table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Table ID</th>
-                                <th>Number of seats</th>
-                                <th>Disabled</th>
-                                <th>Outdoors</th>
-
-                                <th>Toggle enabled</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            {
-                                this.state.tables.map(
-                                    table1 =>
-                                        <tr key={table1.id}>
-                                            <td>{table1.id}</td>
-                                            <td>{table1.numSeats}</td>
-                                            <td>{table1.disabled ? "Yes" : "No"}</td>
-                                            <td>{table1.outdoorTable ? "Yes" : "No"}</td>
-                                            {/* <td>
-                                                    {
-                                                        table1.resList.map((subitem, i) => {
-                                                            return (
-                                                                <li>{subitem.endBooking}</li>
-
-                                                            )
-                                                        })
-                                                    }</td> */}
-                                            <td>{!table1.disabled ?<button onClick={() => this.disableTable(table1)} className="btn btn-primary" >Disable</button>:<button onClick={() => this.disableTable(table1)} className="btn btn-success" >Enable</button>}</td>
-                                        </tr>
-                                )
-                            }
-                        </tbody>
-
-                    </table>
-                </div>
-                </div>
+          
             </div>
         )
 

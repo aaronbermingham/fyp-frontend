@@ -11,11 +11,11 @@ class AddTableComponent extends Component {
 
         this.state = {
             numSeats: 2,
-            reserved: true,
+            reserved: false,
             numTables: 1,
             bisUser: false,
             currentUser: undefined,
-            outdoor: false,
+            outdoor: undefined,
             staffList: [],
             staffMember: 1,
         }
@@ -47,7 +47,7 @@ class AddTableComponent extends Component {
     createTable = (e) => {
         e.preventDefault();
         let table = {
-            reserved: this.state.reserved,
+            disable: this.state.disabled,
             numSeats: this.state.numSeats,
             outdoor: this.state.outdoor,
         };
