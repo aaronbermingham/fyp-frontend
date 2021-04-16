@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import AuthService from "../services/AuthService";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
-export default class ProfileComponent extends Component {
+export default class UserHomeComponent extends Component {
   constructor(props) {
     super(props);
 

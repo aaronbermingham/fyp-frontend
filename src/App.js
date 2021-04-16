@@ -8,7 +8,7 @@ import Login from "./components/LoginComponent";
 import Register from "./components/SignUp";
 import registerAdmin from "./components/SignUpAdmin";
 import Home from "./components/HomeComponent";
-import Profile from "./components/ProfileComponent";
+import UserHomeComponent from "./components/UserHomeComponent";
 import BoardUser from "./components/UserComponent";
 import BisUserGridComponent from "./components/BisUserGridComponent";
 import AddDrink from "./components/AddDrinkComponent";
@@ -73,7 +73,7 @@ class App extends Component {
               <Navbar.Brand href={"/bisDash"} bg="primary" variant="dark">{!currentUser ? <h2>book + eat</h2> : <h2>b+e</h2>}</Navbar.Brand>
             )}
             {!businessUser && (
-              <Navbar.Brand href={"/profile"} bg="primary" variant="dark">{!currentUser ? <h2>book + eat</h2> : <h2>b+e</h2>}</Navbar.Brand>
+              <Navbar.Brand href={"/userHome"} bg="primary" variant="dark">{!currentUser ? <h2>book + eat</h2> : <h2>b+e</h2>}</Navbar.Brand>
             )}
               
               <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -150,7 +150,7 @@ class App extends Component {
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/registerAdmin" component={registerAdmin} />
-            <Route exact path="/profile" component={Profile} />
+            <Route exact path="/userHome" component={UserHomeComponent} />
             <Route path="/user" component={BoardUser} />
             {/* <Route path="/bisMenu" component={BisUserGridComponent} /> */}
             <Route path="/addFoodItem" component={AddFood}></Route>

@@ -38,12 +38,12 @@ export default class HomeComponent extends Component {
         <Row>
           <Col> <Image src='./images/dining.svg' thumbnail style={{ border: "none", marginTop: "10%" }} /></Col>
           <Col>
-            <h3 style={{ border: "none", margin: "10%" }} >Welcome</h3>
+            {/* <h3 style={{ border: "none", margin: "10%" }} >Welcome</h3>
             <ul className = "homeList">
               <li>Safe</li>
               <li>Preorder</li>
               <li>Peace of mind</li>
-            </ul>
+            </ul> */}
 
           </Col>
 

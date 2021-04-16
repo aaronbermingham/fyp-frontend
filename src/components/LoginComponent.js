@@ -61,7 +61,8 @@ export default class LoginComponent extends Component {
             this.props.history.push("/bisDash");
             window.location.reload();
           }else{
-            this.props.history.push("/profile");
+            this.props.history.push("/userHome");
+            window.location.reload();
           }
          
         },
