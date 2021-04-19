@@ -24,6 +24,11 @@ class StaffService {
         return axios.delete(STAFF_API_BASE_URL + "removeShift/" + shiftId + "/" + staffId, { headers: authHeader() });
       }
 
+      removeTable(tableId, staffId){
+        console.log(STAFF_API_BASE_URL + "removeShift/" + tableId + "/" + staffId)
+        return axios.delete(STAFF_API_BASE_URL + "removeTable/" + tableId + "/" + staffId, { headers: authHeader() });
+      }
+
 
 
   
