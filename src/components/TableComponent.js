@@ -23,6 +23,7 @@ class TableComponent extends Component {
       normal: false,
       twoMetres: false,
       oneMetre: false,
+      outDoorOnly: false,
       restaurant: [],
       type: -1,
       oneMetreDiff: 0,
@@ -37,6 +38,7 @@ class TableComponent extends Component {
     this.setCapacity = this.setCapacity.bind(this);
     this.onClick = this.onClick.bind(this);
     this.disableTable = this.disableTable.bind(this);
+    this.handleOutdoorChange = this.handleOutdoorChange.bind(this);
 
     // this.handleClose = this.handleClose.bind(this);
     //this.addUser = this.addUser.bind(this);
@@ -85,6 +87,14 @@ class TableComponent extends Component {
   }
 
   componentDidMount() {
+    TableService.getRestaurant(1).then((res) => {
+      this.setState({ 
+        normal: res.data.normalCapacity,
+        twoMetres: res.data.twoMetreCapacity,
+        oneMetre: res.data.oneMetreCapacity,});
+ 
+    });
+
     TableService.getTables().then((res) => {
       this.setState({ tables: res.data });
       this.setState({ numOfSeats: res.data.numSeats });
@@ -142,34 +152,94 @@ class TableComponent extends Component {
     this.setState({ normal: !this.state.normal });
     this.setState({ twoMetres: false });
     this.setState({ oneMetre: false });
+    this.setState({ outDoorOnly: false});
   }
   handleTwoChange(twoMetres) {
     this.setState({ twoMetres: !this.state.twoMetres });
     this.setState({ normal: false });
     this.setState({ oneMetre: false });
+    this.setState({ outDoorOnly: false});
   }
   handleOneChange(oneMetre) {
     this.setState({ oneMetre: !this.state.oneMetre });
     this.setState({ twoMetres: false });
     this.setState({ normal: false });
+    this.setState({ outDoorOnly: false});
+  }
+
+  handleOutdoorChange(oneMetre) {
+    this.setState({ outDoorOnly: !this.state.outDoorOnly });
+    this.setState({ twoMetres: false });
+    this.setState({ normal: false });
+    this.setState({ oneMetre: false });
   }
 
   setCapacity() {
     let type = -1;
     if (this.state.normal === true) {
       type = 0;
-      TableService.setCurrentCapacity(1, type);
-      this.componentDidMount();
+      TableService.setCurrentCapacity(1, type).then((res) => {
+        TableService.getRestaurant(1).then((res) => {
+          this.setState({ 
+            normal: res.data.normalCapacity,
+            twoMetres: res.data.twoMetreCapacity,
+            oneMetre: res.data.oneMetreCapacity,
+            currentCapacity:res.data.currentCapacity
+          });
+     
+        });
+      });
     } else if (this.state.oneMetre === true) {
       type = 1;
-      TableService.setCurrentCapacity(1, type);
-      this.getTableInfo();
-      this.componentDidMount();
+      TableService.setCurrentCapacity(1, type).then((res) => {
+        TableService.getRestaurant(1).then((res) => {
+          this.setState({ 
+            normal: res.data.normalCapacity,
+            twoMetres: res.data.twoMetreCapacity,
+            oneMetre: res.data.oneMetreCapacity,
+            currentCapacity:res.data.currentCapacity
+          });
+     
+        });
+      });
     } else if (this.state.twoMetres === true) {
       type = 2;
-      TableService.setCurrentCapacity(1, type);
-      this.getTableInfo();
-      this.componentDidMount();
+      TableService.setCurrentCapacity(1, type).then((res) => {
+        TableService.getRestaurant(1).then((res) => {
+          this.setState({ 
+            normal: res.data.normalCapacity,
+            twoMetres: res.data.twoMetreCapacity,
+            oneMetre: res.data.oneMetreCapacity,
+            currentCapacity:res.data.currentCapacity
+          });
+     
+        });
+      });
+      
+    }
+    else if (this.state.outDoorOnly === true) {
+      type = 3;
+      TableService.setCurrentCapacity(1, type).then((res) => {
+        TableService.getTables().then((res) => {
+          this.setState({ tables: res.data });
+          this.setState({ numOfSeats: res.data.numSeats });
+          for (let i = 0; i < res.data.length; i++) {
+            console.log(i + 1 + " Table info ", res.data[i].resList);
+          }
+        });
+        TableService.getRestaurant(1).then((res) => {
+          this.setState({ 
+            normal: res.data.normalCapacity,
+            twoMetres: res.data.twoMetreCapacity,
+            oneMetre: res.data.oneMetreCapacity,
+            outDoorOnly: res.data.outDoorOnly,
+            currentCapacity:res.data.currentCapacity
+          });
+     
+        });
+        
+      });
+      
     }
   }
 
@@ -195,6 +265,10 @@ class TableComponent extends Component {
     console.log("Toggle ", this.state.toggleClick);
     console.log("Table id: ", table.id);
     TableService.toggleTable(table.id).then((res) => {
+      TableService.getCurrentCapacity(1).then((res) => {
+        this.setState({ currentCapacity: res.data });
+        console.log(this.state.currentCapacity);
+      });
       TableService.getTables().then((res) => {
         this.setState({ tables: res.data });
       });
@@ -208,11 +282,11 @@ class TableComponent extends Component {
   }
 
   render() {
-    const { options } = this.state;
-    const two = this.state.restaurant.twoMetreCapacity;
-    const one = this.state.restaurant.oneMetreCapacity;
+    // const { options } = this.state;
+    // const two = this.state.twoMetreCapacity;
+    // const one = this.state.oneMetreCapacity;
     let warning;
-    if (one) {
+    if (this.state.oneMetreDiff) {
       warning = (
         <Alert variant="danger">
           {/* <p className="text-center">Please disable {this.state.numOfSeats - this.state.restaurant.capacity1metre} seats to ensure one metre distancing</p> */}
@@ -224,7 +298,7 @@ class TableComponent extends Component {
       );
     }
 
-    if (two) {
+    else if (this.state.twoMetreDiff) {
       warning = (
         <Alert variant="danger">
           {/* <p className="text-center">Please disable {this.state.numOfSeats - this.state.restaurant.capacity2metres} seats to ensure two metre distancing</p> */}
@@ -235,6 +309,7 @@ class TableComponent extends Component {
         </Alert>
       );
     }
+    
     return (
       <div>
         <h2 className="text-center">Tables</h2>
@@ -242,14 +317,14 @@ class TableComponent extends Component {
           Number of tables: {this.state.tables.length}
         </h4>
         <h4 className="text-center">
-          Current capacity: {this.state.restaurant.currentCapacity}
+          Current capacity: {this.state.currentCapacity}
         </h4>
         {warning}
         <Row>
           <Col>
             <div className="container">
               {" "}
-              <h4>Normal capacity: {this.state.numOfSeats}</h4>
+              {/* <h4>Normal capacity: {this.state.numOfSeats}</h4> */}
               <Form.Check
                 type="switch"
                 id="normal"
@@ -263,7 +338,7 @@ class TableComponent extends Component {
           <Col>
             <div className="container">
               {" "}
-              <h4>Capacity 2 metre distance: {this.state.seats2m}</h4>
+              {/* <h4>Capacity 2 metre distance: {this.state.seats2m}</h4> */}
               <Form.Check
                 type="switch"
                 id="twoMetres"
@@ -277,13 +352,27 @@ class TableComponent extends Component {
           <Col>
             <div className="container">
               {" "}
-              <h4>Capacity 1 metre distance: {this.state.seats1m}</h4>
+              {/* <h4>Capacity 1 metre distance: {this.state.seats1m}</h4> */}
               <Form.Check
                 type="switch"
                 id="oneMetre"
                 label="One metre capacity"
                 onChange={this.handleOneChange}
                 checked={this.state.oneMetre}
+              />
+            </div>
+          </Col>
+
+          <Col>
+            <div className="container">
+              {" "}
+              {/* <h4>Normal capacity: {this.state.numOfSeats}</h4> */}
+              <Form.Check
+                type="switch"
+                id="outdoor"
+                label="Outdoor capacity"
+                onChange={this.handleOutdoorChange}
+                checked={this.state.outDoorOnly}
               />
             </div>
           </Col>
@@ -305,7 +394,7 @@ class TableComponent extends Component {
             </div>
           </Col>
         </Row>
-
+        <p>{this.state.tables.filter(({disabled})=> disabled === false).reduce((totalSeats, table) => totalSeats +table.numSeats, 0)}</p> 
         <div className="container">
           <table className="grid">
             <div className="card col-md-9 offset-md-1 offset-md-1">
@@ -331,9 +420,11 @@ class TableComponent extends Component {
                     <span>Table not in use</span>
                   </div>
                 </Col>
+                
               </Row>
 
               <tbody>
+              
                 {this.state.tables.map(
                   (table) => (
                     <div
