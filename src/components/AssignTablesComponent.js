@@ -3,6 +3,7 @@ import AuthService from "../services/AuthService";
 import Lost from "./LostComponent";
 import TableService from "../services/TableService";
 import StaffService from "../services/StaffService";
+import { Card, Button, Row, Col, ListGroup, Container } from "react-bootstrap";
 
 class AssignTablesComponent extends Component {
   constructor(props) {
@@ -14,7 +15,7 @@ class AssignTablesComponent extends Component {
       email: "",
       phoneNumber: "",
       tables: [],
-      staffTables:[],
+      staffTables: [],
       bisUser: false,
       currentUser: undefined,
     };
@@ -38,34 +39,59 @@ class AssignTablesComponent extends Component {
     });
 
     TableService.getTables().then((res) => {
-        console.log("Staff id ", this.state.id)
-        //console.log("Table Staff id ", this.state.tables.map((table) => (table.staffId))
-        //console.log("Table call check", res.data);
-      });
-
-
-
-    StaffService.getStaffById(this.state.id).then((res)=>{
-        let staff = res.data;
-        this.setState({
-            name: staff.name,
-            email: staff.email,
-            phoneNumber: staff.phoneNumber,
-        });
+      console.log("Staff id ", this.state.id);
+      //console.log("Table Staff id ", this.state.tables.map((table) => (table.staffId))
+      //console.log("Table call check", res.data);
     });
-    //console.log(this.state.tableList)
+
+    StaffService.getStaffById(this.state.id).then((res) => {
+      let staff = res.data;
+      console.log(staff);
+      this.setState({
+        name: staff.name,
+        email: staff.email,
+        phoneNumber: staff.phoneNumber,
+        staffTables: staff.table,
+      });
+    });
   }
 
   assignTable(table) {
     console.log(table);
-    StaffService.addTables(this.state.id, table);
+    StaffService.addTables(this.state.id, table).then((res) => {
+      let staff = res.data;
+      console.log(staff);
+      this.setState({
+        name: staff.name,
+        email: staff.email,
+        phoneNumber: staff.phoneNumber,
+        staffTables: staff.table,
+      });
+    });
+
+    
 
     //console.log("List ", this.state.staffTableList);
   }
 
-//   assignTable(tableId) {
-//     StaffService.addTables(1, tableId);
-//   }
+  removeTable(tableId) {
+    StaffService.removeTable(tableId, this.state.id).then((res) => {
+      StaffService.getStaffById(this.state.id).then((res) => {
+        let staff = res.data;
+        console.log(staff);
+        this.setState({
+          name: staff.name,
+          email: staff.email,
+          phoneNumber: staff.phoneNumber,
+          staffTables: staff.table,
+        });
+      });
+    });
+  }
+
+  //   assignTable(tableId) {
+  //     StaffService.addTables(1, tableId);
+  //   }
 
   cancel() {
     this.props.history.push("/allStaff");
@@ -77,106 +103,121 @@ class AssignTablesComponent extends Component {
       <div>
         {businessUser ? (
           <div className="container">
-            <div className="row">
-              <div className="card col-md-6 offset-md-3 offset-md-3">
+           
+              <div className="row">
+                {/* <div className="card col-md-6 offset-md-3 offset-md-3"> */}
+
                 <h3 className="text-center">Assign tables</h3>
                 <div className="card-body">
                   <form>
-                  {/* <div className="form-group">
-                      <label>Id</label>
-                      <input
-                        placeholder="Name"
-                        name="name"
-                        className="form-control"
-                        value={this.state.id}
-                        //onChange={this.changeNameHandler}
-                      />
-                    </div>
+                  <Col>
+                    <Row>
+                      <div className="form-group">
+                        <label>Current tables assigned to {this.state.name}, click on a table to unassign it</label>
+                        <tbody>
+                          {this.state.staffTables.map((sTable) => (
+                            <div
+                              style={{
+                                display: "inline-flex",
+                                flexDirection: "row",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                height:
+                                  sTable.numSeats === 6
+                                    ? 165
+                                    : sTable.numSeats === 4
+                                    ? 145
+                                    : 125,
+                                width:
+                                  sTable.numSeats === 6
+                                    ? 165
+                                    : sTable.numSeats === 4
+                                    ? 145
+                                    : 125,
+                                margin: 15,
+                                borderRadius:
+                                  sTable.numSeats === 6
+                                    ? 95
+                                    : sTable.numSeats === 4
+                                    ? 85
+                                    : 70,
+                                //background: "blue",
+                                color: "white",
+                                background: sTable.outdoorTable
+                                  ? "green"
+                                  : "blue", 
+                                  cursor: "pointer",
+                                }}
+                                onClick={() => this.removeTable(sTable.id)}
+                              >
+                              ID:{" "}
+                              {sTable.numSeats > 5 ? (
+                                <h1> {sTable.id}</h1>
+                              ) : (
+                                <h3> {sTable.id}</h3>
+                              )}
+                              <span></span>
+                              <span> Staff ID: {sTable.staffId}</span>
+                            </div>
+                          ))}
+                          {/* {this.state.tableId > 0 ? (<Alert variant="success"><p>You have selected table number {this.state.tableId}</p></Alert>): null} */}
+                        </tbody>
+                      </div>
+                    </Row>
+                    <Row>
                     <div className="form-group">
-                      <label>Name</label>
-                      <input
-                        placeholder="Name"
-                        name="name"
-                        className="form-control"
-                        value={this.state.name}
-                        onChange={this.changeNameHandler}
-                      />
-                    </div>
-                    <div className="form-group">
-                      <label>Email</label>
-                      <input
-                        placeholder="Email"
-                        name="email"
-                        className="form-control"
-                        value={this.state.email}
-                        onChange={this.changeEmailHandler}
-                      />
-                    </div>
-                    <div className="form-group">
-                      <label>Email</label>
-                      <input
-                        placeholder="Phone Number"
-                        name="phoneNumber"
-                        className="form-control"
-                        value={this.state.phoneNumber}
-                        onChange={this.changePhoneHandler}
-                      />
-                    </div> */}
-                    <div className="form-group">
-                      <label>Click on a table to assign it to {this.state.name}</label>
-                      <tbody>
-                        {this.state.tables.map((table) => (
-                          <div
-                            style={{
-                              display: "inline-flex",
-                              flexDirection: "row",
-                              justifyContent: "center",
-                              alignItems: "center",
-                              height:
+                        <label>All tables, click to assign the table to {this.state.name}</label>
+                        <tbody>
+                          {this.state.tables.map((table) => (
+                            <div
+                              style={{
+                                display: "inline-flex",
+                                flexDirection: "row",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                height:
                                 table.numSeats === 6
-                                  ? 165
-                                  : table.numSeats === 4
-                                  ? 145
-                                  : 125,
-                              width:
+                                    ? 165
+                                    : table.numSeats === 4
+                                    ? 145
+                                    : 125,
+                                width:
                                 table.numSeats === 6
-                                  ? 165
-                                  : table.numSeats === 4
-                                  ? 145
-                                  : 125,
-                              margin: 15,
-                              borderRadius:
+                                    ? 165
+                                    : table.numSeats === 4
+                                    ? 145
+                                    : 125,
+                                margin: 15,
+                                borderRadius:
                                 table.numSeats === 6
-                                  ? 95
-                                  : table.numSeats === 4
-                                  ? 85
-                                  : 70,
-                              //background: "blue",
-                              color: "white",
-                              background: table.outdoorTable ? "green" : "blue",
-                            }}
-                            onClick={() => this.assignTable(table.id)}
-                          >
-                            ID:{" "}
-                            {table.numSeats > 5 ? (
-                              <h1> {table.id}</h1>
-                            ) : (
-                              <h3> {table.id}</h3>
-                            )}
-                           
-                            
-                            <span></span>
-                            <span> Staff ID: {table.staffId}</span>
-                          </div>
-                          
-                        ))}
-                        {/* {this.state.tableId > 0 ? (<Alert variant="success"><p>You have selected table number {this.state.tableId}</p></Alert>): null} */}
-                      </tbody>
-                    </div>
-
-                    {/* <button className="btn btn-success" onClick={this.addStaff}>
-                      Add staff member
-                    </button> */}
+                                    ? 95
+                                    : table.numSeats === 4
+                                    ? 85
+                                    : 70,       
+                       
+                                color: "white",
+                                background: table.outdoorTable
+                                  ? "green"
+                                  : "blue", 
+                                  cursor: "pointer",
+                                }}
+                                onClick={() => this.assignTable(table.id)}
+                              >
+                              ID:{" "}
+                              {table.numSeats > 5 ? (
+                                <h1> {table.id}</h1>
+                              ) : (
+                                <h3> {table.id}</h3>
+                              )}
+                              <span></span>
+                             
+                            </div>
+                          ))}
+                          {/* {this.state.tableId > 0 ? (<Alert variant="success"><p>You have selected table number {this.state.tableId}</p></Alert>): null} */}
+                        </tbody>
+                      </div>
+                    </Row>
+                    </Col>
                     <button
                       className="btn btn-danger"
                       onClick={this.cancel.bind(this)}
@@ -186,8 +227,9 @@ class AssignTablesComponent extends Component {
                     </button>
                   </form>
                 </div>
+                {/* </div> */}
               </div>
-            </div>
+            
           </div>
         ) : (
           <Lost />
