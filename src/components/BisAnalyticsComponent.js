@@ -50,7 +50,7 @@ class BisAnalyticsComponent extends Component {
                     datasets:[
                         {
                             label: 'Food items sold',
-                            data:this.state.item.map(item => item.stock),
+                            data:this.state.item.map(item => item.amountSold),
                             backgroundColor:[
                                 'rgba(255, 99, 132, 0.6)',
                                 'rgba(54, 162, 235, 0.6)',
