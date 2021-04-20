@@ -31,7 +31,8 @@ import AddStaff from './components/AddStaffComponent';
 import AllStaff from './components/AllStaffComponent'; 
 import AssignTables from './components/AssignTablesComponent';
 import BisDashboard from './components/BisDashboardComponent'; 
-import AssignShift from './components/AssignShiftComponent';
+import AssignShift from './components/AssignShiftComponent'; 
+import UserBooking from './components/UserBookingsComponent';
 
 class App extends Component {
   constructor(props) {
@@ -117,7 +118,7 @@ class App extends Component {
                   {currentUser && !businessUser && (
                     <Nav className="mr-auto" >
                       <Nav.Link href={"/addBooking"}>New Booking</Nav.Link>
-                      <Nav.Link href="/login" onClick={this.logOut}>Your Bookings</Nav.Link>
+                      <Nav.Link href={"/userBooking"} >Your Bookings</Nav.Link>
                     </Nav>
                   )}
                 </Nav>
@@ -172,8 +173,9 @@ class App extends Component {
             <Route path="/addStaff" component={AddStaff}></Route> AllStaff
             <Route path="/allStaff" component={AllStaff}></Route> 
             <Route path="/assignTables/:id" component={AssignTables}></Route> 
-            <Route path="/bisDash" component={BisDashboard}></Route>
+            <Route path="/bisDash" component={BisDashboard}></Route> 
             <Route path="/assignShift/:id" component={AssignShift}></Route>
+            <Route path="/userBooking" component={UserBooking}></Route> 
           </Switch>
         </div>
       </div>
