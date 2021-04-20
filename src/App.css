@@ -73,7 +73,7 @@ label {
   border-radius: 50%;
 }
 
-h2{
+h2,h3{
   font-family: 'Roboto', sans-serif;
   letter-spacing:8pt;
 }
@@ -116,3 +116,95 @@ background-color: blue;
   font-family: Arial, Helvetica, sans-serif;
   
 }
+
+.homeImage{
+  opacity: 0.8;
+ padding: 20px;
+}
+
+div.slideIn { 
+  position: absolute; 
+  top: 15px; 
+  width: 3000px; 
+  height: 100px; 
+  
+  animation-name: hide, slideIn;
+  animation-duration: 3s;
+  animation-timing-function: ease-in;
+  animation-iteration-count: 1; 
+  -moz-animation-name: hide, slideIn;
+  -moz-animation-duration: 3s;
+  -moz-animation-timing-function: ease-in;
+  -moz-animation-iteration-count: 1; 
+  -webkit-animation-name: hide, slideIn;
+  -webkit-animation-duration: 3s;
+  -webkit-animation-timing-function: ease-in;
+  -webkit-animation-iteration-count: 1; 
+  -o-animation-name: hide, slideIn;
+  -o-animation-duration: 3s;
+  -o-animation-timing-function: ease-in;
+  -o-animation-iteration-count: 1; 
+  opacity: 1;
+} 
+div.slideIn.first {
+  left: 50px; 
+  animation-delay: 0s, 0s;
+  -moz-animation-delay: 0s, 0s;
+  -webkit-animation-delay: 0s, 0s;
+  -o-animation-delay: 0s, 0s;
+}
+div.slideIn.second {
+  left: 250px;
+  animation-delay: 0s, 2s;
+  -moz-animation-delay: 0s, 2s;
+  -webkit-animation-delay: 0s, 2s;
+  -o-animation-delay: 0s, 2s;
+}
+div.slideIn.third {
+  left: 450px;
+  animation-delay: 0s, 3s;
+  -moz-animation-delay: 0s, 3s;
+  -webkit-animation-delay: 0s, 3s;
+  -o-animation-delay: 0s, 3s;
+}
+
+@keyframes hide
+{ 
+  from { opacity: 0; } to { opacity: 0 }
+}
+@-moz-keyframes hide
+{ 
+  from { opacity: 0; } to { opacity: 0 }
+}
+@-webkit-keyframes hide
+{ 
+  from { opacity: 0; } to { opacity: 0 }
+}
+@-o-keyframes hide
+{ 
+  from { opacity: 0; } to { opacity: 0 }
+}
+@keyframes slideIn
+{ 
+    0% { opacity: 0; top: -100px; }
+    1% { opacity: 1; top: -100px; }
+  100% { opacity: 1; top:  15px; } 
+} 
+@-moz-keyframes slideIn
+{ 
+    0% { opacity: 0; top: -100px; }
+    1% { opacity: 1; top: -100px; }
+  100% { opacity: 1; top:  15px; } 
+} 
+@-webkit-keyframes slideIn
+{ 
+    0% { opacity: 0; top: -100px; }
+    1% { opacity: 1; top: -100px; }
+  100% { opacity: 1; top:  15px; } 
+} 
+@-o-keyframes slideIn
+{ 
+    0% { opacity: 0; top: -100px; }
+    1% { opacity: 1; top: -100px; }
+  100% { opacity: 1; top:  30px; } 
+} 
