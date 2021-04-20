@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Col, Row } from 'react-bootstrap';
-import Image from 'react-bootstrap/Image';
+import { Col, Row, Button } from "react-bootstrap";
+import Image from "react-bootstrap/Image";
 
 import UserService from "../services/UserService";
 
@@ -9,47 +9,65 @@ export default class HomeComponent extends Component {
     super(props);
 
     this.state = {
-      content: ""
+      content: "",
     };
   }
 
   componentDidMount() {
     UserService.getPublicContent().then(
-      response => {
+      (response) => {
         this.setState({
-          content: response.data
+          content: response.data,
         });
       },
-      error => {
+      (error) => {
         this.setState({
           content:
             (error.response && error.response.data) ||
             error.message ||
-            error.toString()
+            error.toString(),
         });
       }
     );
   }
 
   render() {
+    const styles = {
+      header: {
+        backgroundImage: "url(./images/table.jpg)",
+        height: "80vh",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        opacity: "0.9",
+      },
+
+      content: {
+        height: "100%",
+        width: "100%",
+        //backgroundColor: "rgba(0, 0, 0, 0.5)",
+        color: "white",
+      },
+      centered: {
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+        //textAlign: "center,",
+        //color: "white",
+      },
+    };
+
     return (
       <div className="container">
-
         <Row>
-          <Col> <Image src='./images/dining.svg' thumbnail style={{ border: "none", marginTop: "10%" }} /></Col>
           <Col>
-            {/* <h3 style={{ border: "none", margin: "10%" }} >Welcome</h3>
-            <ul className = "homeList">
-              <li>Safe</li>
-              <li>Preorder</li>
-              <li>Peace of mind</li>
-            </ul> */}
-
+            <div style={styles.header}>
+              <Button size="lg" style={styles.centered} variant="outline-light">Login</Button>
+            </div>
           </Col>
-
-
+          <Col>Text</Col>
         </Row>
-
       </div>
     );
   }
