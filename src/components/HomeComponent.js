@@ -34,8 +34,6 @@ export default class HomeComponent extends Component {
 
   render() {
     const styles = {
-      
-
       content: {
         height: "100%",
         width: "100%",
@@ -51,38 +49,42 @@ export default class HomeComponent extends Component {
     };
 
     return (
-      <div className="container">
+      <div>
         <Row>
           <Col>
-            <div className="homeImage">
-              <img
-                fluid
-                src="./images/table.jpg"
-                alt="table_image"
-                width="500"
-                height="335"
-                border="0"
-              />
-              <Link to="/login">
-                <Button
-                  size="lg"
-                  style={styles.centered}
-                  variant="outline-light"
-                >
-                  Login
-                </Button>
-              </Link>
+            <div>
+              <div style={{ borderRadius: "15px" }}>
+                <img
+                  style={{ borderRadius: "5px" }}
+                  src="./images/table.jpg"
+                  width="500"
+                  length="335"
+                  alt="Avatar"
+                  class="image"
+                />
+                <div class="overlay">
+                  {" "}
+                  <Link to="/login">
+                    <Button
+                      className="forward"
+                      size="lg"
+                      style={styles.centered}
+                      variant="outline-light"
+                    >
+                      Login
+                    </Button>
+                  </Link>
+                </div>
+              </div>
             </div>
           </Col>
           <Col>
-            <h3 >
+            <h3>
               <ul>
-                <div className="slideIn first" >&#8594; Book </div>
+                <div className="slideIn first">&#8594; Book </div>
                 <div className="slideIn second">&#8594; Order </div>
-                <div className="slideIn third" >&#8594; Eat</div>
-                {/* <div className="slideIn fourth">&#8594; Eat</div> */}
+                <div className="slideIn third">&#8594; Eat</div>
               </ul>
-               
             </h3>
           </Col>
         </Row>
