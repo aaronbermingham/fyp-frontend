@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Col, Row, Button } from "react-bootstrap";
 import Image from "react-bootstrap/Image";
+import { Link } from "react-router-dom";
 
 import UserService from "../services/UserService";
 
@@ -33,14 +34,7 @@ export default class HomeComponent extends Component {
 
   render() {
     const styles = {
-      header: {
-        backgroundImage: "url(./images/table.jpg)",
-        height: "80vh",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-        opacity: "0.9",
-      },
+      
 
       content: {
         height: "100%",
@@ -53,8 +47,6 @@ export default class HomeComponent extends Component {
         top: "50%",
         left: "50%",
         transform: "translate(-50%, -50%)",
-        //textAlign: "center,",
-        //color: "white",
       },
     };
 
@@ -62,11 +54,37 @@ export default class HomeComponent extends Component {
       <div className="container">
         <Row>
           <Col>
-            <div style={styles.header}>
-              <Button size="lg" style={styles.centered} variant="outline-light">Login</Button>
+            <div className="homeImage">
+              <img
+                fluid
+                src="./images/table.jpg"
+                alt="table_image"
+                width="500"
+                height="335"
+                border="0"
+              />
+              <Link to="/login">
+                <Button
+                  size="lg"
+                  style={styles.centered}
+                  variant="outline-light"
+                >
+                  Login
+                </Button>
+              </Link>
             </div>
           </Col>
-          <Col>Text</Col>
+          <Col>
+            <h3 >
+              <ul>
+                <div className="slideIn first" >&#8594; Book </div>
+                <div className="slideIn second">&#8594; Order </div>
+                <div className="slideIn third" >&#8594; Eat</div>
+                {/* <div className="slideIn fourth">&#8594; Eat</div> */}
+              </ul>
+               
+            </h3>
+          </Col>
         </Row>
       </div>
     );
