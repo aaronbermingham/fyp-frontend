@@ -9,18 +9,6 @@ class UserService {
     return axios.get(API_URL + 'all');
   }
 
-  // getUserBoard() {
-  //   return axios.get(API_URL + 'user', { headers: authHeader() });
-  // }
-
-  // getModeratorBoard() {
-  //   return axios.get(API_URL + 'mod', { headers: authHeader() });
-  // }
-
-  // getAdminBoard() {
-  //   return axios.get(API_URL + 'admin', { headers: authHeader() });
-  // }
-
   getUsers() {
     return axios.get(API_URL + "users", { headers: authHeader() });
   }
@@ -33,12 +21,12 @@ class UserService {
     return axios.put(API_URL + "updateUser/" + userId, user, { headers: authHeader() });
   }
 
-  addBooking(booking, userId) {
-    const user = JSON.parse(localStorage.getItem('user'));
-    const token = user.accessToken;
-    console.log("Token ", token);
-    return axios.post(BOOKING_URL + "addBooking/" + userId, booking, { headers: authHeader() });
-  }
+  // addBooking(booking, userId) {
+  //   const user = JSON.parse(localStorage.getItem('user'));
+  //   const token = user.accessToken;
+  //   console.log("Token ", token);
+  //   return axios.post(BOOKING_URL + "addBooking/" + userId, booking, { headers: authHeader() });
+  // }
 
   addBookingTable(booking, userId, tableId) {
     const user = JSON.parse(localStorage.getItem('user'));

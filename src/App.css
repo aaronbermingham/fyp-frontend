@@ -117,16 +117,27 @@ background-color: blue;
   
 }
 
+.container {
+  position: relative;
+  width: 96%;
+  max-width: 96%;
+}
 
+.image{
+ 
+  display: block;
+  width: 100%;
+  height: auto;
+}
 
 .overlay {
   position: absolute; 
   bottom: 0; 
   background: rgb(0, 0, 0);
-  background: rgba(0, 0, 0, 0.5); 
+  background: rgba(0, 0, 0, 0.5); /* Black see-through */
   color: #f1f1f1; 
-  width: 500px;
-  height: 335px;
+  width: 94%;
+  height: 100%;
   transition: .5s ease;
   opacity:0;
   color: white;
@@ -152,15 +163,15 @@ div.slideIn {
   animation-timing-function: ease-in;
   animation-iteration-count: 1; 
   -moz-animation-name: hide, slideIn;
-  -moz-animation-duration: 3s;
+  -moz-animation-duration: 1s;
   -moz-animation-timing-function: ease-in;
   -moz-animation-iteration-count: 1; 
   -webkit-animation-name: hide, slideIn;
-  -webkit-animation-duration: 3s;
+  -webkit-animation-duration: 1s;
   -webkit-animation-timing-function: ease-in;
   -webkit-animation-iteration-count: 1; 
   -o-animation-name: hide, slideIn;
-  -o-animation-duration: 3s;
+  -o-animation-duration: 1s;
   -o-animation-timing-function: ease-in;
   -o-animation-iteration-count: 1; 
   opacity: 1;
@@ -174,14 +185,14 @@ div.slideIn.first {
 }
 div.slideIn.second {
   left: 250px;
-  animation-delay: 0s, .5s;
+  animation-delay: 0s, .3s;
   -moz-animation-delay: 0s, .5s;
   -webkit-animation-delay: 0s, .5s;
   -o-animation-delay: 0s, .5s;
 }
 div.slideIn.third {
   left: 450px;
-  animation-delay: 0s, 1s;
+  animation-delay: 0s, .6s;
   -moz-animation-delay: 0s, 1s;
   -webkit-animation-delay: 0s, 1s;
   -o-animation-delay: 0s, 1s;

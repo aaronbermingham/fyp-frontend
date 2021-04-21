@@ -53,16 +53,15 @@ export default class HomeComponent extends Component {
         <Row>
           <Col>
             <div>
-              <div style={{ borderRadius: "15px" }}>
+              <div className = "container" style={{ borderRadius: "15px" }}>
                 <img
                   style={{ borderRadius: "5px" }}
                   src="./images/table.jpg"
-                  width="500"
-                  length="335"
+                 
                   alt="Avatar"
-                  class="image"
+                  className="image"
                 />
-                <div class="overlay">
+                <div className="overlay">
                   {" "}
                   <Link to="/login">
                     <Button

@@ -147,6 +147,7 @@ class AssignTablesComponent extends Component {
                                   ? "green"
                                   : "blue", 
                                   cursor: "pointer",
+                                  boxShadow: "5px 5px 10px #696969",
                                 }}
                                 onClick={() => this.removeTable(sTable.id)}
                               >
@@ -200,6 +201,7 @@ class AssignTablesComponent extends Component {
                                   ? "green"
                                   : "blue", 
                                   cursor: "pointer",
+                                  boxShadow: "5px 5px 10px #696969",
                                 }}
                                 onClick={() => this.assignTable(table.id)}
                               >
