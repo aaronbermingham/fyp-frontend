@@ -77,7 +77,7 @@ class AddBookingComponent extends Component {
     UserService.addBooking(booking, this.state.id).then(res => {
       this.bId = res.data;
       if(this.bId === -1){
-        alert("There are no tables available that can accomodate your party");
+        alert("Please choose a table with enough seats for your booking");
       }
       else if(this.bId === -2){
         alert("There are no tables available at your chosen time");

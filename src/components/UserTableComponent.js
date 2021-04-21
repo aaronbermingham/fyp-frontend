@@ -6,7 +6,7 @@ import Button from "react-bootstrap/Button";
 import UserService from "../services/UserService";
 import AuthService from "../services/AuthService";
 import { withRouter } from "react-router-dom";
-import Alert from "react-bootstrap/Alert";
+import {Card, Alert} from "react-bootstrap";
 
 class UserTableComponent extends Component {
   constructor(props) {
@@ -124,9 +124,12 @@ class UserTableComponent extends Component {
           <span>Indoor table</span>
         </div>
         <div>
-          <table className="grid">
-            <div className="card col-md-9 offset-md-1 offset-md-1">
-              <tbody>
+          <table >
+            <Card border="dark"  style={{ width: '60rem' }} >
+            <Card.Header>Choose a table</Card.Header>
+            <Card.Body>
+            <Card.Text>
+              {/* <tbody> */}
                 {this.state.tables.map((table) => (
                   //    {tables.filter(table => table.resList.endBooking !== utc+2)}
 
@@ -155,24 +158,17 @@ class UserTableComponent extends Component {
                           : table.numSeats === 4
                           ? 85
                           : 70,
-                      //background: "blue",
                       color: "white",
                       background: table.outdoorTable ? "green" : "blue",
+                      cursor: "pointer",
+                      boxShadow: "5px 5px 10px #696969",
+                     
                     }}
-                    //onMouseEnter={() => onMouseEnter(id, willOrphan)}
-                    //onMouseLeave={onMouseLeave}
-                    // onClick={() => this.setState({ options: !options })}
+                   
                     onClick={() => this.onClick(table)}
-                    //onMouseEnter={() => onMouseEnter(id, willOrphan)}
-                    //onMouseLeave={onMouseLeave}
+                   
                   >
-                    ID:{" "}
-                    {table.numSeats > 5 ? (
-                      <h1> {table.id}</h1>
-                    ) : (
-                      <h3> {table.id}</h3>
-                    )}
-                    <span> Seats: {table.numSeats}</span>
+                    <span><h4>Seats: {table.numSeats}</h4> </span>
                     <span></span>
                   </div>
                 ))}
@@ -181,8 +177,10 @@ class UserTableComponent extends Component {
                     <p>You have selected table number {this.state.tableId}</p>
                   </Alert>
                 ) : null}
-              </tbody>
-            </div>
+              {/* </tbody> */}
+              </Card.Text>
+              </Card.Body>
+            </Card>
 
             <button className="btn btn-primary" onClick={this.createBooking}>
               Add booking

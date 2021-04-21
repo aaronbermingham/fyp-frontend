@@ -71,10 +71,10 @@ class App extends Component {
           <Navbar collapseOnSelect expand="lg" bg="primary" variant="dark">
             <Container>
             {businessUser && (
-              <Navbar.Brand href={"/bisDash"} bg="primary" variant="dark">{!currentUser ? <h2>book + eat</h2> : <h2>b+e</h2>}</Navbar.Brand>
+              <Navbar.Brand href={"/home"} bg="primary" variant="dark">{!currentUser ? <h2>book + eat</h2> : <h2>b+e</h2>}</Navbar.Brand>
             )}
             {!businessUser && (
-              <Navbar.Brand href={"/userHome"} bg="primary" variant="dark">{!currentUser ? <h2>book + eat</h2> : <h2>b+e</h2>}</Navbar.Brand>
+              <Navbar.Brand href={"/home"} bg="primary" variant="dark">{!currentUser ? <h2>book + eat</h2> : <h2>b+e</h2>}</Navbar.Brand>
             )}
               
               <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -83,6 +83,7 @@ class App extends Component {
 
                   {businessUser && (
                     <Nav className="mr-auto"  >
+                      <Nav.Link href={"/bisDash"}>Home</Nav.Link>
                       <Nav.Link href={"/allUsers"}>Users</Nav.Link>
                       <Nav.Link href={"/allBookings"}>Bookings</Nav.Link>
                       <Nav.Link href={"/bisAnalytics"}>Analytics</Nav.Link>
@@ -117,6 +118,7 @@ class App extends Component {
                   )}
                   {currentUser && !businessUser && (
                     <Nav className="mr-auto" >
+                      <Nav.Link href={"/userHome"}>{currentUser.username} Profile</Nav.Link>
                       <Nav.Link href={"/addBooking"}>New Booking</Nav.Link>
                       <Nav.Link href={"/userBooking"} >Your Bookings</Nav.Link>
                     </Nav>
@@ -124,7 +126,7 @@ class App extends Component {
                 </Nav>
                 {currentUser && (
                   <Nav className="ml-auto" >
-                    <Nav.Link href={"/profile"}>{currentUser.username}</Nav.Link>
+                    
                     <Nav.Link href="/home" onClick={this.logOut}>Log out</Nav.Link>
 
                   </Nav>
