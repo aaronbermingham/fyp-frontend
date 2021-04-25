@@ -4,8 +4,6 @@ import DatePicker from 'react-datepicker';
 import UserService from '../services/UserService';
 import AuthService from "../services/AuthService";
 import UserTables from './UserTableComponent';
-
-
 import "react-datepicker/dist/react-datepicker.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 

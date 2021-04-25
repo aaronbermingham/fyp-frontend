@@ -7,10 +7,11 @@ import { Card, Button, Row, Col, ListGroup } from 'react-bootstrap'
 import "react-datepicker/dist/react-datepicker.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ContactTracingService from '../services/ContactTracingService';
+import StaffService from "../services/StaffService";
+import ShiftHistoryService from '../services/ShiftHistoryService';
 
 
-
-class ContactTracingComponent extends Component {
+class StaffContactTracingComponent extends Component {
 
     constructor(props) {
         super(props)
@@ -19,9 +20,10 @@ class ContactTracingComponent extends Component {
             bId: 0,
             date: new Date(),
             time: new Date(),
-            staffId: 0,
+            staffMember: 1,
             contacts: [],
-            getContacts: false
+            getContacts: false,
+            staffList: []
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -32,6 +34,15 @@ class ContactTracingComponent extends Component {
         const user = AuthService.getCurrentUser();
         console.log("Current user id add booking ", user.id)
 
+        StaffService.getStaff().then((res) => {
+            let staff = res.data;
+            console.log("Staff ", staff);
+            this.setState({
+              staffList: staff,
+            });
+            console.log(this.state.staffList);
+          });
+
         if (user) {
             this.setState({
                 id: user.id,
@@ -41,6 +52,10 @@ class ContactTracingComponent extends Component {
         }
     }
 
+    changeStaffMemberHandler = (event) => {
+        this.setState({ staffMember: event.target.value });
+        console.log("Staff ", this.state.staffMember);
+      };
 
     handleChange(date) {
         this.setState({
@@ -62,13 +77,11 @@ class ContactTracingComponent extends Component {
         const locale = 'en';
         this.setState({ getContacts: !this.state.getContacts })
         e.preventDefault();
-        let booking = {
+        let date = {
             date: this.state.date.toISOString().slice(0, 10),
-            time: this.state.time.toLocaleTimeString(locale, { hour: 'numeric', hour12: false, minute: 'numeric', second: 'numeric' }),
-            numGuests: 1
         };
-        console.log('booking => ' + JSON.stringify(booking));
-        ContactTracingService.getTrackingList(booking).then((res) => {
+        console.log('date => ' + JSON.stringify(date));
+        ShiftHistoryService.getStaffContact(this.state.staffMember,date).then((res) => {
             console.log("Contacts ",res.data);
             this.setState({ contacts: res.data })
             this.setState({staffId : this.state.contacts.map( contact => contact.staffNum)})
@@ -87,6 +100,21 @@ class ContactTracingComponent extends Component {
                     <h2>Contact Tracing</h2>
                     <h4>Add the date and time for the covid case</h4>
                     <form onSubmit={this.onFormSubmit}>
+                    <div className="form-group">
+                    <label>Staff member</label>
+                    <select
+                      placeholder="Assign staff"
+                      name="staff"
+                      className="form-control"
+                      selected={this.state.staffMember}
+                      onChange={this.changeStaffMemberHandler}
+                      class="form-control w-25"
+                    >
+                      {this.state.staffList.map((staff) => {
+                        return <option value={staff.id}>{staff.name}</option>;
+                      })}
+                    </select>
+                  </div>
                         <div className="form-group">
                             <label>Pick a date</label><br></br>
                             <DatePicker
@@ -99,7 +127,7 @@ class ContactTracingComponent extends Component {
                                 showDisabledMonthNavigation
                             />
                             <br></br>
-                            <div className="form-group">
+                            {/* <div className="form-group">
                                 <br></br><label>Pick a time</label><br></br>
 
                                 <DatePicker
@@ -112,7 +140,7 @@ class ContactTracingComponent extends Component {
                                     dateFormat="h:mm aa"
                                     className="form-control"
                                 />
-                            </div>
+                            </div> */}
 
                         </div>
 
@@ -158,6 +186,8 @@ class ContactTracingComponent extends Component {
                                             <Card.Text>
                                                 <p>Name: {contact.name}</p>
                                                 <p>Email: {contact.email}</p>
+                                                <p>Booking date: {contact.date}</p>
+                                                <p>Booking time: {contact.timeStart}</p>
                                                 {/* <p>Table number: {contact.tableNum}</p>
                                                 <p>Server name: {contact.staffName}</p> */}
                                             </Card.Text>
@@ -173,4 +203,4 @@ class ContactTracingComponent extends Component {
 
 }
 
-export default ContactTracingComponent;
+export default StaffContactTracingComponent;

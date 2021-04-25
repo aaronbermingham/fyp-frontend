@@ -507,6 +507,7 @@ class TableComponent extends Component {
                             ? "green"
                             : "blue",
                         cursor: "pointer",
+                        boxShadow: "5px 5px 10px #696969",
                       }}
                       onClick={() => this.disableTable(table)}
                     >

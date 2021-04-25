@@ -136,7 +136,7 @@ background-color: blue;
   background: rgb(0, 0, 0);
   background: rgba(0, 0, 0, 0.5); /* Black see-through */
   color: #f1f1f1; 
-  width: 94%;
+  width: 96%;
   height: 100%;
   transition: .5s ease;
   opacity:0;
@@ -238,3 +238,18 @@ div.slideIn.third {
     1% { opacity: 1; top: -100px; }
   100% { opacity: 1; top:  30px; } 
 } 
+
+.rosterCol {
+  columns: 2 auto;
+  float: left;
+  padding: 15px;
+  margin: 15px;
+}
+
+.react-datepicker__input-container {
+  width: inherit;
+}
+
+.react-datepicker-wrapper {
+  width: 75%;
+}

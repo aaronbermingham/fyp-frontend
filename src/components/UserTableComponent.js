@@ -168,8 +168,9 @@ class UserTableComponent extends Component {
                     onClick={() => this.onClick(table)}
                    
                   >
-                    <span><h4>Seats: {table.numSeats}</h4> </span>
-                    <span></span>
+                    <span><h4>ID: {table.id}</h4></span>
+                    <span><h4> Seats: {table.numSeats}</h4> </span>
+                   
                   </div>
                 ))}
                 {this.state.tableId > 0 ? (
