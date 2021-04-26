@@ -7,8 +7,10 @@ import { Card, Button, Row, Col, ListGroup } from "react-bootstrap";
 import "react-datepicker/dist/react-datepicker.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ContactTracingService from "../services/ContactTracingService";
+import StaffService from "../services/StaffService";
+import ShiftHistoryService from "../services/ShiftHistoryService";
 
-class ContactTracingComponent extends Component {
+class StaffContactTracingComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -16,12 +18,13 @@ class ContactTracingComponent extends Component {
       bId: 0,
       date: new Date(),
       time: new Date(),
-      staffId: 0,
+      staffMember: 1,
       contacts: [],
       getContacts: false,
+      staffList: [],
     };
 
-    this.handleChange = this.handleChange.bind(this);
+    this.handleChange = this.handleChange.bind(this); 
     this.onFormSubmit = this.onFormSubmit.bind(this);
     this.sendEmail = this.sendEmail.bind(this);
   }
@@ -29,6 +32,15 @@ class ContactTracingComponent extends Component {
   componentDidMount() {
     const user = AuthService.getCurrentUser();
     console.log("Current user id add booking ", user.id);
+
+    StaffService.getStaff().then((res) => {
+      let staff = res.data;
+      console.log("Staff ", staff);
+      this.setState({
+        staffList: staff,
+      });
+      console.log(this.state.staffList);
+    });
 
     if (user) {
       this.setState({
@@ -39,13 +51,16 @@ class ContactTracingComponent extends Component {
     }
   }
 
+  changeStaffMemberHandler = (event) => {
+    this.setState({ staffMember: event.target.value });
+    console.log("Staff ", this.state.staffMember);
+  };
+
   handleChange(date) {
     this.setState({
       date: date,
-      time: date,
     });
     console.log("date", this.state.date);
-    console.log("time", this.state.time);
   }
 
   onFormSubmit(e) {
@@ -58,29 +73,24 @@ class ContactTracingComponent extends Component {
     const locale = "en";
     this.setState({ getContacts: !this.state.getContacts });
     e.preventDefault();
-    let booking = {
-      date: this.state.date.toISOString().slice(0, 10),
-      time: this.state.time.toLocaleTimeString(locale, {
-        hour: "numeric",
-        hour12: false,
-        minute: "numeric",
-        second: "numeric",
-      }),
-      numGuests: 1,
+    let staffShift = {
+      startDate: this.state.date.toISOString().slice(0, 10),
     };
-    console.log("booking => " + JSON.stringify(booking));
-    ContactTracingService.getTrackingList(booking).then((res) => {
-      console.log("Contacts ", res.data);
-      this.setState({ contacts: res.data });
-      this.setState({
-        staffId: this.state.contacts.map((contact) => contact.staffNum),
-      });
-      //this.setState({staffId: this.state.contacts.staffNum})
-      console.log(
-        "Staff ",
-        this.state.contacts.map((contact) => contact.staffNum)
-      );
-    });
+    console.log("date => " + JSON.stringify(staffShift));
+    StaffService.getStaffContacts(this.state.staffMember, staffShift).then(
+      (res) => {
+        console.log("Contacts ", res.data);
+        this.setState({ contacts: res.data });
+        this.setState({
+          staffId: this.state.contacts.map((contact) => contact.staffNum),
+        });
+        //this.setState({staffId: this.state.contacts.staffNum})
+        console.log(
+          "Staff ",
+          this.state.contacts.map((contact) => contact.staffNum)
+        );
+      }
+    );
   };
 
   sendEmail(contact){
@@ -95,8 +105,23 @@ class ContactTracingComponent extends Component {
         {businessUser ? (
           <div>
             <h2>Contact Tracing</h2>
-            <h4>Add the date and time for the covid case</h4>
+            <h4>Add the estimated date that the staff member became ill</h4>
             <form onSubmit={this.onFormSubmit}>
+              <div className="form-group">
+                <label>Staff member</label>
+                <select
+                  placeholder="Assign staff"
+                  name="staff"
+                  className="form-control"
+                  selected={this.state.staffMember}
+                  onChange={this.changeStaffMemberHandler}
+                  class="form-control w-25"
+                >
+                  {this.state.staffList.map((staff) => {
+                    return <option value={staff.id}>{staff.name}</option>;
+                  })}
+                </select>
+              </div>
               <div className="form-group">
                 <label>Pick a date</label>
                 <br></br>
@@ -110,22 +135,6 @@ class ContactTracingComponent extends Component {
                   showDisabledMonthNavigation
                 />
                 <br></br>
-                <div className="form-group">
-                  <br></br>
-                  <label>Pick a time</label>
-                  <br></br>
-
-                  <DatePicker
-                    selected={this.state.time}
-                    onChange={this.handleChange}
-                    showTimeSelect
-                    showTimeSelectOnly
-                    timeIntervals={120}
-                    timeCaption="Time"
-                    dateFormat="h:mm aa"
-                    className="form-control"
-                  />
-                </div>
               </div>
 
               <button
@@ -148,12 +157,9 @@ class ContactTracingComponent extends Component {
                   <Card.Text>
                     <p>Name: {contact.name}</p>
                     <p>Email: {contact.email}</p>
-                    <button
-                      className="btn btn-success"
-                      onClick={() => {
-                        this.sendEmail(contact.id);
-                      }}
-                    >
+                    <p>Booking date: {contact.date}</p>
+                    <p>Booking time: {contact.timeStart}</p>
+                    <button className="btn btn-success"  onClick={() => {this.sendEmail(contact.id) }}>
                       Send warning email
                     </button>
                   </Card.Text>
@@ -167,4 +173,4 @@ class ContactTracingComponent extends Component {
   }
 }
 
-export default ContactTracingComponent;
+export default StaffContactTracingComponent;

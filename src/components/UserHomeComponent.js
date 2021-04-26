@@ -74,7 +74,7 @@ export default class UserHomeComponent extends Component {
                           </thead>
 
                           <tbody>
-                            {this.state.bookings.slice(0, 2).map((bookings) => (
+                            {this.state.bookings.slice(0, 1).map((bookings) => (
                               <tr key={bookings.id}>
                                 <td>{bookings.date}</td>
                                 <td>{bookings.time}</td>
@@ -97,7 +97,7 @@ export default class UserHomeComponent extends Component {
             </Card>
           </CardDeck>
 
-          <p>
+          {/* <p>
             <strong>Id:</strong> {currentUser.id}
           </p>
           <p>
@@ -109,7 +109,7 @@ export default class UserHomeComponent extends Component {
               currentUser.roles.map((role, index) => (
                 <li key={index}>{role}</li>
               ))}
-          </ul>
+          </ul> */}
         </div>
       </div>
     );

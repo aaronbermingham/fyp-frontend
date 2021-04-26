@@ -15,9 +15,9 @@ class AddTableComponent extends Component {
             numTables: 1,
             bisUser: false,
             currentUser: undefined,
-            outdoor: undefined,
+            outdoor: false,
             staffList: [],
-            staffMember: 1,
+            
         }
         this.changeSeatHandler = this.changeSeatHandler.bind(this);
         this.createTable = this.createTable.bind(this);
@@ -39,11 +39,7 @@ class AddTableComponent extends Component {
         console.log("Outdoor ", this.state.outdoor);
     }
 
-    changeStaffMemberHandler= (event) => {
-        this.setState({staffMember: event.target.value})
-        console.log("Staff ", this.state.staffMember)
-    }
-
+   
     createTable = (e) => {
         e.preventDefault();
         let table = {
@@ -61,7 +57,7 @@ class AddTableComponent extends Component {
     }
 
     cancel() {
-        this.props.history.push('/users')
+        this.props.history.push('/allTables')
     }
 
     componentDidMount() {
@@ -115,19 +111,6 @@ class AddTableComponent extends Component {
                                             <option value="4">4</option>
                                             <option value="5">5</option>
                                             {/* <option value="20">20</option> */}
-                                        </select>
-                                        </div>
-                                        <div className="form-group">
-                                        <label>Assign staff member</label>
-                                        <select placeholder="Assign staff" name="staff" className="form-control" 
-                                            selected={this.state.staffMember} onChange={this.changeStaffMemberHandler}>
-                                           {
-                                               (
-                                                   this.state.staffList.map((staff)=>{
-                                                       return (<option value = {staff.id}>{staff.name}</option>)
-                                                   })
-                                               )
-                                           }
                                         </select>
                                         </div>
                                         <div className="form-group">

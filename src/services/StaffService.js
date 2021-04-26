@@ -20,13 +20,28 @@ class StaffService {
         return axios.get(STAFF_API_BASE_URL + "staffById/" + id, { headers: authHeader() });
       }
 
-      removeShift(shiftId, staffId){
-        return axios.delete(STAFF_API_BASE_URL + "removeShift/" + shiftId + "/" + staffId, { headers: authHeader() });
+      getAvailStaff(){
+        return axios.get(STAFF_API_BASE_URL + "availStaff", { headers: authHeader() });
       }
 
-      removeTable(tableId, staffId){
-        console.log(STAFF_API_BASE_URL + "removeShift/" + tableId + "/" + staffId)
-        return axios.delete(STAFF_API_BASE_URL + "removeTable/" + tableId + "/" + staffId, { headers: authHeader() });
+      addShift(staffId, shift){
+        console.log("THIS is the add staff url",STAFF_API_BASE_URL + "addShift/"+ staffId);
+        console.log("THIS is the add staff date object", shift);
+        return axios.post(STAFF_API_BASE_URL + "addShift/"+ staffId, shift ,{ headers: authHeader() });
+      }
+
+      addStaffRoster(shiftId, rosterId){
+        return axios.post(STAFF_API_BASE_URL + "addRoster/"+ shiftId+"/"+rosterId ,{ headers: authHeader() });
+      }
+
+
+      closeShift(shiftId, shift){
+        return axios.post(STAFF_API_BASE_URL + "closeShift/"+ shiftId ,shift ,{ headers: authHeader() });
+      }
+
+
+      getStaffContacts(staffId, shift){
+        return axios.post(STAFF_API_BASE_URL + "getStaffContacts/"+ staffId, shift ,{ headers: authHeader() });
       }
 
 

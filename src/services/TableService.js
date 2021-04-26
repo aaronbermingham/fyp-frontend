@@ -16,7 +16,7 @@ class TableService{
 
     addTable(table, staffId){
         console.log("API call ", TABLE_API_BASE_URL + "addTable/" + staffId)
-        return axios.post(TABLE_API_BASE_URL + "addTable/" + staffId, table, { headers: authHeader() });
+        return axios.post(TABLE_API_BASE_URL + "addTable" , table, { headers: authHeader() });
     }
     
     getSeats(){
