@@ -31,9 +31,9 @@ import AddStaff from './components/AddStaffComponent';
 import AllStaff from './components/AllStaffComponent'; 
 import AssignTables from './components/AssignTablesComponent';
 import BisDashboard from './components/BisDashboardComponent'; 
-import AssignShift from './components/AssignShiftComponent'; 
+// import AssignShift from './components/AssignShiftComponent'; 
 import UserBooking from './components/UserBookingsComponent'; 
-import ShiftDetails from './components/ShiftDetailsComponent'; 
+import ShiftDetails from './components/AssignShiftComponent'; 
 import ContactTracing from './components/ContactTracingComponent'; 
 import StaffContactTracing from './components/StaffContactTracingComponent'; 
 import StaffDetails from './components/StaffDetailsComponent';
@@ -105,7 +105,7 @@ class App extends Component {
                     <NavDropdown title="Staff" id="collasible-nav-dropdown">
                       <NavDropdown.Item href={"/addStaff"}>Add a Staff member</NavDropdown.Item>
                       <NavDropdown.Item href={"/allStaff"}>View all staff</NavDropdown.Item>
-                      <NavDropdown.Item href={"/shiftDetails"}>Add staff shift</NavDropdown.Item>
+                      <NavDropdown.Item href={"/assignShift"}>Add staff shift</NavDropdown.Item>
                       {/* <NavDropdown.Divider />
                       <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item> */}
                     </NavDropdown>
@@ -189,9 +189,9 @@ class App extends Component {
             <Route path="/allStaff" component={AllStaff}></Route> 
             <Route path="/assignTables/:id" component={AssignTables}></Route> 
             <Route path="/bisDash" component={BisDashboard}></Route> 
-            <Route path="/assignShift/:id" component={AssignShift}></Route>
+            {/* <Route path="/assignShift/:id" component={AssignShift}></Route> */}
             <Route path="/userBooking" component={UserBooking}></Route> 
-            <Route path="/shiftDetails" component={ShiftDetails}></Route> 
+            <Route path="/assignShift" component={ShiftDetails}></Route> 
             <Route path="/contactTracing" component={ContactTracing}></Route>  
             <Route path="/staffContactTracing" component={StaffContactTracing}></Route> StaffDetails
             <Route path="/staffDetails/:id" component={StaffDetails}></Route>

@@ -3,7 +3,8 @@ import ItemService from "../services/ItemService";
 import AuthService from "../services/AuthService";
 import Lost from "./LostComponent";
 import StaffService from "../services/StaffService";
-import { Card, ListGroup, Col, Row, Button } from 'react-bootstrap'
+import { Card, Form, Col, Row, Button } from 'react-bootstrap'
+import DatePicker from "react-datepicker"
 
 class StaffDetailsComponent extends Component {
   constructor(props) {
@@ -16,7 +17,12 @@ class StaffDetailsComponent extends Component {
       phoneNum: "",
       shiftList: [],
       workDays: [],
+      date: new Date(),
+      showDate: false
     };
+    this.handleDateChange = this.handleDateChange.bind(this);
+    this.showDate = this.showDate.bind(this); 
+    this.closeShift = this.closeShift.bind(this);
   }
 
   componentDidMount() {
@@ -43,40 +49,25 @@ class StaffDetailsComponent extends Component {
     console.log(this.state.shiftList);
   }
 
-  changeNameHandler = (event) => {
-    this.setState({ name: event.target.value });
-  };
+  handleDateChange(date) {
+    this.setState({
+      date: date,
+    });
+    console.log("DATE", this.state.date);
+  }
 
-  changePriceHandler = (event) => {
-    this.setState({ price: event.target.value });
-  };
+  showDate(){
+    this.setState({ showDate: !this.state.showDate });
+  }
 
-  changeDescriptionHandler = (event) => {
-    this.setState({ description: event.target.value });
-  };
-
-  changeIngredientHandler = (event) => {
-    this.setState({ ingredients: event.target.value });
-  };
-
-  changeAllergenHandler = (event) => {
-    this.setState({ allergens: event.target.value });
-  };
-
-  updateFoodItem = (e) => {
-    e.preventDefault();
-    let foodItem = {
-      name: this.state.name,
-      description: this.state.description,
-      price: this.state.price,
-      ingredients: this.state.ingredients,
-      allergens: this.state.allergens,
-      bisUser: false,
-      currentUser: undefined,
+  closeShift(shiftId){
+    let shift = {
+      endDate: this.state.date.toISOString().slice(0, 10),
     };
-    console.log("foodItem => " + JSON.stringify(foodItem));
-    ItemService.updateFoodItem(foodItem, this.state.id).then((res) => {
-      this.props.history.push("/allItems");
+    console.log("shift => " + JSON.stringify(shift));
+    console.log("currentShift id " + shiftId);
+    StaffService.closeShift(shiftId, shift).then((res) => {
+      this.props.history.push("/allStaff");
     });
   };
 
@@ -93,10 +84,9 @@ class StaffDetailsComponent extends Component {
             <div>
                 <h3 class="text-center">{this.state.name}'s Shifts</h3>
                 <h4 class="text-center">Current shift</h4>
-                <Row>
-                    
+                <Row> 
                 {this.state.shiftList.filter(shift => shift.archived == false).map((shift) => (
-                <Card>
+                <Card border = 'primary' >
                 <Card.Header as="h5">{this.state.name}</Card.Header>
                 <Card.Body>
                   <Card.Title></Card.Title>
@@ -108,7 +98,27 @@ class StaffDetailsComponent extends Component {
                         return <p>{subitem.day + " " + subitem.startTime + "-" + subitem.endTime}</p>;
                       })}
                   </Card.Text>
-                  {/* <Button variant="primary">Go somewhere</Button> */}
+                  <Form.Check
+                        type="switch"
+                        id="pp"
+                        label="Close shift"
+                        onChange={this.showDate}
+                        checked={this.state.showDate}
+                      />
+                  {this.state.showDate ? ( <div className="form-group">
+                      <label>Choose end date for this shift</label>
+                      <DatePicker
+                        selected={this.state.date}
+                        onChange={this.handleDateChange}
+                        name="date"
+                        minDate={new Date()}
+                        dateFormat="yyyy/MM/dd"
+                        className="form-control"
+                        showDisabledMonthNavigation
+                      />
+                      <Button variant="primary" onClick={() => { this.closeShift(shift.id) }} style={{marginTop: "10px"}}>Close shift</Button>
+                    </div>):null}
+
                 </Card.Body>
               </Card>
                   
@@ -123,7 +133,7 @@ class StaffDetailsComponent extends Component {
             <h4 class="text-center">Archived shifts</h4>
             <Row>
             
-            {this.state.shiftList.map((shift) => (
+            {this.state.shiftList.filter(shift => shift.archived == true).map((shift) => (
                 <Card>
                 <Card.Header as="h5">{this.state.name}</Card.Header>
                 <Card.Body>

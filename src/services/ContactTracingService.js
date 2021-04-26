@@ -8,6 +8,9 @@ class ContactTracingService {
         return axios.post(TRACE_API_BASE_URL + "getTrackingHistory", booking,{ headers: authHeader() });
     }
 
+    sendTrackingEmail(contact){
+        return axios.get(TRACE_API_BASE_URL + "sendEmail/" + contact,{ headers: authHeader() });
+    }
     
   
 }

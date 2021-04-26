@@ -294,9 +294,8 @@ class TableComponent extends Component {
     ) {
       warning = (
         <Alert variant="danger">
-          {/* <p className="text-center">Please disable {this.state.numOfSeats - this.state.restaurant.capacity1metre} seats to ensure one metre distancing</p> */}
           <p className="text-center">
-            Please disable {diffSub} number of seats to ensure one metre distancing
+            Please disable tables equivalent to {diffSub} seats to ensure social distancing
             <p>
               Number of seats enabled{" "}
               {this.state.tables
@@ -314,7 +313,6 @@ class TableComponent extends Component {
     ) {
       warning = (
         <Alert variant="danger">
-          {/* <p className="text-center">Please disable {this.state.numOfSeats - this.state.restaurant.capacity2metres} seats to ensure two metre distancing</p> */}
           <p className="text-center">
           Please disable {diffSub} number of seats to ensure two metre distancing
             <p>
@@ -335,7 +333,6 @@ class TableComponent extends Component {
     ) {
       warning = (
         <Alert variant="danger">
-          {/* <p className="text-center">Please disable {this.state.numOfSeats - this.state.restaurant.capacity2metres} seats to ensure two metre distancing</p> */}
           <p className="text-center">
           Please disable {diffAdd} 
             <p>
@@ -508,14 +505,15 @@ class TableComponent extends Component {
                             : "blue",
                         cursor: "pointer",
                         boxShadow: "5px 5px 10px #696969",
+                        
                       }}
                       onClick={() => this.disableTable(table)}
                     >
                       ID:{" "}
                       {table.numSeats > 5 ? (
-                        <h1> {table.id}</h1>
-                      ) : (
                         <h3> {table.id}</h3>
+                      ) : (
+                        <h3 style ={{letterSpacing:"1pt"}}> {table.id}</h3>
                       )}
                       <span> Seats: {table.numSeats}</span>
                       <span></span>

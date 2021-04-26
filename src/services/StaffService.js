@@ -34,13 +34,14 @@ class StaffService {
         return axios.post(STAFF_API_BASE_URL + "addRoster/"+ shiftId+"/"+rosterId ,{ headers: authHeader() });
       }
 
-      removeShift(shiftId, staffId){
-        return axios.delete(STAFF_API_BASE_URL + "removeShift/" + shiftId + "/" + staffId, { headers: authHeader() });
+
+      closeShift(shiftId, shift){
+        return axios.post(STAFF_API_BASE_URL + "closeShift/"+ shiftId ,shift ,{ headers: authHeader() });
       }
 
-      removeTable(tableId, staffId){
-        console.log(STAFF_API_BASE_URL + "removeShift/" + tableId + "/" + staffId)
-        return axios.delete(STAFF_API_BASE_URL + "removeTable/" + tableId + "/" + staffId, { headers: authHeader() });
+
+      getStaffContacts(staffId, shift){
+        return axios.post(STAFF_API_BASE_URL + "getStaffContacts/"+ staffId, shift ,{ headers: authHeader() });
       }
 
 

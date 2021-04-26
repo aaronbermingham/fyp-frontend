@@ -109,7 +109,7 @@ class AddBookingComponent extends Component {
               selected={this.state.date}
               onChange={this.handleChange}
               name="date"
-              minDate={new Date()}
+              //minDate={new Date()}
               dateFormat="yyyy/MM/dd"
               className="form-control"
               showDisabledMonthNavigation
