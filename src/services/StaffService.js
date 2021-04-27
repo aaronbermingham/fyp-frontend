@@ -44,6 +44,10 @@ class StaffService {
         return axios.post(STAFF_API_BASE_URL + "getStaffContacts/"+ staffId, shift ,{ headers: authHeader() });
       }
 
+      getStaffCustomerContacts(shift){
+        return axios.post(STAFF_API_BASE_URL + "allStaffByShiftDate", shift ,{ headers: authHeader() });
+      }
+
 
 
   

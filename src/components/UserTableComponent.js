@@ -6,7 +6,7 @@ import Button from "react-bootstrap/Button";
 import UserService from "../services/UserService";
 import AuthService from "../services/AuthService";
 import { withRouter } from "react-router-dom";
-import {Card, Alert} from "react-bootstrap";
+import {Card, Alert, Col, Row} from "react-bootstrap";
 
 class UserTableComponent extends Component {
   constructor(props) {
@@ -50,7 +50,7 @@ class UserTableComponent extends Component {
 
     TableService.getUnreservedTables(booking).then((res) => {
       this.setState({
-        tables: res.data.filter((table) => table.disabled === false),
+        tables: res.data.filter((table) => table.disabled === false && table.numSeats >= this.props.guests),
       });
       this.setState({ numOfSeats: res.data.numSeats });
       console.log("Table info ", res.data);
@@ -114,25 +114,30 @@ class UserTableComponent extends Component {
     const utc = Moment.utc(this.props.time).format();
     return (
       <div>
-        <div class="row">
-          <div class="box green"></div>
-          <span>Outdoor table</span>
-        </div>
 
-        <div class="row">
-          <div class="box blue"></div>
-          <span>Indoor table</span>
-        </div>
         <div>
           <table >
             <Card border="dark"  style={{ width: '60rem' }} >
             <Card.Header>Choose a table</Card.Header>
             <Card.Body>
             <Card.Text>
-              {/* <tbody> */}
-                {this.state.tables.map((table) => (
-                  //    {tables.filter(table => table.resList.endBooking !== utc+2)}
-
+            <Row>
+            <Col>
+                  <div class="row">
+                    <div class="box green"></div>
+                    <span>Outdoor table</span>
+                  </div>
+                </Col>
+                <Col>
+                  {" "}
+                  <div class="row">
+                    <div class="box blue"></div>
+                    <span>Indoor table</span>
+                  </div>
+                </Col>
+                </Row>
+              <tbody>
+                {this.state.tables.filter(table => table.outdoorTable === false).map((table) => (
                   <div
                     style={{
                       display: "inline-flex",
@@ -168,17 +173,59 @@ class UserTableComponent extends Component {
                     onClick={() => this.onClick(table)}
                    
                   >
-                    <span><h4>ID: {table.id}</h4></span>
                     <span><h4> Seats: {table.numSeats}</h4> </span>
                    
                   </div>
                 ))}
+                </tbody>
+                <tbody>
+                {this.state.tables.filter(table => table.outdoorTable === true).map((table) => (
+                  <div
+                    style={{
+                      display: "inline-flex",
+                      flexDirection: "row",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      height:
+                        table.numSeats === 6
+                          ? 165
+                          : table.numSeats === 4
+                          ? 145
+                          : 125,
+                      width:
+                        table.numSeats === 6
+                          ? 165
+                          : table.numSeats === 4
+                          ? 145
+                          : 125,
+                      margin: 15,
+                      borderRadius:
+                        table.numSeats === 6
+                          ? 95
+                          : table.numSeats === 4
+                          ? 85
+                          : 70,
+                      color: "white",
+                      background: table.outdoorTable ? "green" : "blue",
+                      cursor: "pointer",
+                      boxShadow: "5px 5px 10px #696969",
+                     
+                    }}
+                   
+                    onClick={() => this.onClick(table)}
+                   
+                  >
+                    <span><h4> Seats: {table.numSeats}</h4> </span>
+                   
+                  </div>
+                ))}
+                </tbody>
                 {this.state.tableId > 0 ? (
                   <Alert variant="success">
                     <p>You have selected table number {this.state.tableId}</p>
                   </Alert>
                 ) : null}
-              {/* </tbody> */}
+ 
               </Card.Text>
               </Card.Body>
             </Card>

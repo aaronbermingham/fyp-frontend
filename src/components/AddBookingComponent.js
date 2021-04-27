@@ -6,23 +6,28 @@ import AuthService from "../services/AuthService";
 import UserTables from './UserTableComponent';
 import "react-datepicker/dist/react-datepicker.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import setHours from 'date-fns/setHours'
+import setMinutes from 'date-fns/setMinutes'
 
 
 
 class AddBookingComponent extends Component {
-  
+
   constructor(props) {
     super(props)
     this.state = {
      id: 0,
      bId: 0,
       date: new Date(),
-      time: new Date(),
+      time: null,
       numGuests: 2,
       continue: false,
+      minTime: new Date(),
+      maxTime: new Date(),
     };
     
-    this.handleChange = this.handleChange.bind(this);
+    this.handleDateChange = this.handleDateChange.bind(this);
+    this.handleTimeChange = this.handleTimeChange.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
     this.continue = this.continue.bind(this);
     this.changeNumberGuestsHandler = this.changeNumberGuestsHandler.bind(this);
@@ -37,17 +42,28 @@ class AddBookingComponent extends Component {
         id: user.id,
         currentUser: user,
         businessUser: user.roles.includes("ROLE_BUSINESS"),
+        minTime: setHours(setMinutes(new Date(), 0), 12),
+        maxTime: setHours(setMinutes(new Date(), 0), 22)
       });
     }
+    console.log("MINTIME ", this.state.minTime)
   }
 
 
-  handleChange(date) {
+  handleDateChange(date) {
     this.setState({
       date: date,
-      time: date
+
     })
     console.log("date", this.state.date);
+   
+  }
+
+  handleTimeChange(time) {
+    this.setState({
+      time: time
+    })
+   
     console.log("time", this.state.time);
   }
 
@@ -96,7 +112,9 @@ class AddBookingComponent extends Component {
   }
 
   render() {
- 
+    // const [startDate, setStartDate] = useState(
+    //   setHours(setMinutes(new Date(), 30), 17)
+    // );
 
     return (
       <div>
@@ -107,7 +125,7 @@ class AddBookingComponent extends Component {
             <label>Pick a date</label><br></br>
             <DatePicker
               selected={this.state.date}
-              onChange={this.handleChange}
+              onChange={this.handleDateChange}
               name="date"
               //minDate={new Date()}
               dateFormat="yyyy/MM/dd"
@@ -119,10 +137,12 @@ class AddBookingComponent extends Component {
 
               <DatePicker
                 selected={this.state.time}
-                onChange={this.handleChange}
+                onChange={this.handleTimeChange}
                 showTimeSelect
                 showTimeSelectOnly
                 timeIntervals={120}
+                minTime={this.state.minTime}
+                maxTime={this.state.maxTime}
                 timeCaption="Time"
                 dateFormat="h:mm aa"
                 className="form-control"
@@ -134,10 +154,12 @@ class AddBookingComponent extends Component {
             <label>Number of guests</label>
             <select placeholder="Number of Guests" name="numGuest" className="form-control"
               selected={this.state.numberGuests} onChange={this.changeNumberGuestsHandler}>
+              <option value="1">1</option>
               <option value="2">2</option>
+              <option value="3">3</option>
               <option value="4">4</option>
-              <option value="6">6</option>
-              <option value="20">20</option>
+              <option value="5">5</option>
+              <option value="5">6</option>
             </select>
           </div>
           

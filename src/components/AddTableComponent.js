@@ -34,8 +34,8 @@ class AddTableComponent extends Component {
         console.log("NumTables ", this.state.numTables);
     }
 
-    changeOutdoorHandler = (event) => {
-        this.setState({outdoor: !this.state.outdoor})
+    changeOutdoorHandler () {
+        this.setState(prevState => ({ outdoor: !prevState.outdoor }));
         console.log("Outdoor ", this.state.outdoor);
     }
 
@@ -79,6 +79,7 @@ class AddTableComponent extends Component {
             businessUser: user.roles.includes("ROLE_BUSINESS"),
           });
         }
+        console.log("Initial outdoor state ", this.state.outdoor)
       }
 
     render() {

@@ -353,9 +353,16 @@ class TableComponent extends Component {
           Number of tables: {this.state.tables.length}
         </h4>
         <h4 className="text-center">
-          Current capacity: {this.state.currentCapacity}
+         What capacity should be: {this.state.currentCapacity}
         </h4>
-        {warning}
+        <h4 className="text-center"> Current capacity:{" "}
+                {this.state.tables
+                  .filter(({ disabled }) => disabled === false)
+                  .reduce(
+                    (totalSeats, table) => totalSeats + table.numSeats,
+                    0
+                  )}</h4>
+        
         <Row>
           <Col>
             <div className="container">
@@ -432,7 +439,9 @@ class TableComponent extends Component {
         </Row>
 
         <div className="container">
+        
           <table className="grid">
+          {warning}
             <div className="card col-md-9 offset-md-1 offset-md-1">
               <h3>Click on a table to toggle disabled setting</h3>
               <p>
@@ -468,7 +477,61 @@ class TableComponent extends Component {
               </Row>
 
               <tbody>
-                {this.state.tables.map(
+                {this.state.tables.filter(table => table.outdoorTable === false).map(
+                  (table) => (
+                    <div
+                      key={table.id}
+                      style={{
+                        display: "inline-flex",
+                        flexDirection: "row",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        height:
+                          table.numSeats === 6
+                            ? 165
+                            : table.numSeats === 4
+                            ? 145
+                            : 125,
+                        width:
+                          table.numSeats === 6
+                            ? 165
+                            : table.numSeats === 4
+                            ? 145
+                            : 125,
+                        margin: 15,
+                        borderRadius:
+                          table.numSeats === 6
+                            ? 95
+                            : table.numSeats === 4
+                            ? 85
+                            : 70,
+                        color: "white",
+                        background:
+                          table.disabled === true
+                            ? "gray"
+                            : !table.disabled && table.outdoorTable === true
+                            ? "green"
+                            : "blue",
+                        cursor: "pointer",
+                        boxShadow: "5px 5px 10px #696969",
+                        
+                      }}
+                      onClick={() => this.disableTable(table)}
+                    >
+                      ID:{" "}
+                      {table.numSeats > 5 ? (
+                        <h3> {table.id}</h3>
+                      ) : (
+                        <h3 style ={{letterSpacing:"1pt"}}> {table.id}</h3>
+                      )}
+                      <span> Seats: {table.numSeats}</span>
+                      <span></span>
+                    </div>
+                  )
+                )}
+              </tbody>
+              <tbody>
+                {this.state.tables.filter(table => table.outdoorTable === true).map(
                   (table) => (
                     <div
                       key={table.id}
@@ -520,10 +583,6 @@ class TableComponent extends Component {
                     </div>
                   )
 
-                  // <tr key={table.id}>
-                  //     <td>{table.id}</td>
-
-                  // </tr>
                 )}
               </tbody>
             </div>
