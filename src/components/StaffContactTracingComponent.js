@@ -22,6 +22,7 @@ class StaffContactTracingComponent extends Component {
       contacts: [],
       getContacts: false,
       staffList: [],
+      staffContact:[]
     };
 
     this.handleChange = this.handleChange.bind(this); 
@@ -84,10 +85,14 @@ class StaffContactTracingComponent extends Component {
         this.setState({
           staffId: this.state.contacts.map((contact) => contact.staffNum),
         });
-        //this.setState({staffId: this.state.contacts.staffNum})
+      }
+    );
+    StaffService.getStaffCustomerContacts(staffShift).then(
+      (res) => {
+        console.log("Staff Contacts ", res.data);
+        this.setState({ staffContact: res.data });
         console.log(
-          "Staff ",
-          this.state.contacts.map((contact) => contact.staffNum)
+          "Staff ", this.state.staffContact
         );
       }
     );
@@ -152,13 +157,32 @@ class StaffContactTracingComponent extends Component {
           <div className="row">
             {this.state.contacts.map((contact) => (
               <Card>
-                <Card.Header>Contact</Card.Header>
+                <Card.Header>Customer</Card.Header>
                 <Card.Body>
                   <Card.Text>
                     <p>Name: {contact.name}</p>
                     <p>Email: {contact.email}</p>
                     <p>Booking date: {contact.date}</p>
                     <p>Booking time: {contact.timeStart}</p>
+                    <button className="btn btn-success"  onClick={() => {this.sendEmail(contact.id) }}>
+                      Send warning email
+                    </button>
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            ))}
+          </div>
+        </div>
+        <div>
+          <div className="row">
+            {this.state.staffContact.map((contact) => (
+              <Card>
+                <Card.Header>Staff</Card.Header>
+                <Card.Body>
+                  <Card.Text>
+                    <p>Name: {contact.name}</p>
+                    <p>Email: {contact.email}</p>
+                    <p>Phone number {contact.phoneNumber}</p>
                     <button className="btn btn-success"  onClick={() => {this.sendEmail(contact.id) }}>
                       Send warning email
                     </button>

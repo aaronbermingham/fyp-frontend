@@ -34,7 +34,7 @@ class AllBookingComponent extends Component {
         return (
             <div>{businessUser ? (
                 <div>
-                    <h3 className="text-center">Bookings</h3>
+                    <h3 className="text-center">Up coming Bookings</h3>
                     <div className="row">
 
                         <table className="table table-striped table-bordered">

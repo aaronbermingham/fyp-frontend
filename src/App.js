@@ -36,7 +36,10 @@ import UserBooking from './components/UserBookingsComponent';
 import ShiftDetails from './components/AssignShiftComponent'; 
 import ContactTracing from './components/ContactTracingComponent'; 
 import StaffContactTracing from './components/StaffContactTracingComponent'; 
-import StaffDetails from './components/StaffDetailsComponent';
+import StaffDetails from './components/StaffDetailsComponent'; 
+import BookingChart from './components/BookingChartComponent'; 
+import ItemsChart from './components/ItemsChartComponent';
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -67,7 +70,7 @@ class App extends Component {
 
   render() {
     const { currentUser, businessUser } = this.state;
-
+  
     return (
       <div>
         <div>
@@ -193,8 +196,10 @@ class App extends Component {
             <Route path="/userBooking" component={UserBooking}></Route> 
             <Route path="/assignShift" component={ShiftDetails}></Route> 
             <Route path="/contactTracing" component={ContactTracing}></Route>  
-            <Route path="/staffContactTracing" component={StaffContactTracing}></Route> StaffDetails
-            <Route path="/staffDetails/:id" component={StaffDetails}></Route>
+            <Route path="/staffContactTracing" component={StaffContactTracing}></Route> 
+            <Route path="/staffDetails/:id" component={StaffDetails}></Route> 
+            <Route path="/bookingChart" component={BookingChart}></Route> 
+            <Route path="/itemsChart" component={ItemsChart}></Route>
           </Switch>
         </div>
       </div>

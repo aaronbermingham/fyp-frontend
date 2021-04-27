@@ -47,7 +47,7 @@ class AllUserComponent extends Component {
         <div className="row">
           {businessUser ? (
             <div>
-              <h3 className="text-center">All bookings</h3>
+              <h3 className="text-center">All Users</h3>
               <table className="table table-striped table-bordered">
                 <thead>
                   <tr>
@@ -66,14 +66,14 @@ class AllUserComponent extends Component {
                       <td>{user.username}</td>
                       <td>{user.password}</td>
                       <td>{user.email}</td>
-                      <td>
+                      {/* <td>
                         <button
                           onClick={() => this.updateUser(user.id)}
                           className="btn btn-info"
                         >
                           Update
                         </button>
-                      </td>
+                      </td> */}
                     </tr>
                   ))}
                 </tbody>

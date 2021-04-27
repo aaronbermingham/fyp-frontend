@@ -32,6 +32,10 @@ class BookingService {
         return axios.get(BOOKING_API_BASE_URL + "todaysBookings",{ headers: authHeader() });
     }
 
+    lastSevenDays(){
+        return axios.get(BOOKING_API_BASE_URL + "weeklyBookings",{ headers: authHeader() });
+    }
+
 
   
 }

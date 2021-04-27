@@ -3,7 +3,7 @@ import TableService from "../services/TableService";
 import AuthService from "../services/AuthService";
 import StaffService from "../services/StaffService";
 import Lost from "./LostComponent";
-import { Form, Row, Col } from "react-bootstrap";
+import { Alert, Form, Row, Col } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import ShiftHistoryService from "../services/ShiftHistoryService";
@@ -161,10 +161,23 @@ class AssignShiftComponent extends Component {
 
 
   render() {
+    let warning;
+    if (
+      this.state.staffList.length < 1
+    ) {
+      warning = (
+        <Alert variant="danger">
+          <p className="text-center">
+            All staff members are assigned shifts, close out a shift to add a new one
+          </p>
+        </Alert>
+      );
+    }
     const { businessUser } = this.state;
     if(this.state.staffList){
     return (
       <div>
+        {warning}
         {" "}
         {businessUser ? (
           <div className="container">
@@ -206,6 +219,7 @@ class AssignShiftComponent extends Component {
                     <Row>
                       <label>Select roster</label>
                     </Row>
+                    <Row>
                     <div className="rosterCol">
                       {this.state.roster.map((roster) => (
                         <div key={roster.id} className="mb-1">
@@ -232,17 +246,21 @@ class AssignShiftComponent extends Component {
                         </div>
                       ))}
                     </div>
-
-                    <button className="btn btn-success" onClick={this.addShift}>
+                    </Row>
+                          <Row>
+                          <button className="btn btn-success" style = {{marginLeft: "10px"}} onClick={this.addShift}>
                       Add shift
                     </button>
                     <button
                       className="btn btn-danger"
                       onClick={this.cancel.bind(this)}
-                      style={{ marginLeft: "10px" }}
+                      style = {{marginLeft: "10px"}}
                     >
                       Cancel
                     </button>
+                    </Row>
+                        
+                  
                   </form>
                 </div>
               </div>

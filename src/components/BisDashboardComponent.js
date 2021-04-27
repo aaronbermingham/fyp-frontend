@@ -1,5 +1,5 @@
 import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
+import {CardDeck, Row} from "react-bootstrap";
 import Col from "react-bootstrap/Col";
 import React, { Component } from "react";
 import Clock from "react-live-clock";
@@ -8,6 +8,9 @@ import Button from "react-bootstrap/Button";
 import AuthService from "../services/AuthService";
 import BookingService from "../services/BookingService";
 import Lost from "./LostComponent";
+import { FaChartBar } from "react-icons/fa";  
+import { GrGroup } from "react-icons/gr"; 
+import { SiAirtable } from "react-icons/si";
 
 class BisDashboardComponent extends Component {
   constructor(props) {
@@ -58,10 +61,24 @@ class BisDashboardComponent extends Component {
         {businessUser || localStorage.getItem("user") === null ? (
           <div>
             <Container>
-              {/* Columns start at 50% wide on mobile and bump up to 33.3% wide on desktop */}
+            <Row>
+                <Col xs={12} md={20}>
+                  <Card bg="Light">
+                    <Card.Body>
+                      <Card.Title>
+                        <h1>Welcome back {this.state.currentUser.username}!</h1>
+                      </Card.Title>
+                      <Card.Text>
+                      <h3><Clock format={"dddd, MMMM Mo, YYYY, kk:mm:ss "} ticking={true} /></h3>
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
+                </Col>
+               
+            </Row>
               <Row>
-                <Col xs={6} md={3}>
-                  <Card bg="info">
+                
+                  {/* <Card border="info">
                     <Card.Body>
                       <Card.Title>
                         Welcome back {this.state.currentUser.username}!
@@ -70,10 +87,10 @@ class BisDashboardComponent extends Component {
                        
                       </Card.Text>
                     </Card.Body>
-                  </Card>
-                </Col>
-                <Col xs={12} md={9}>
-                  <Card bg="success">
+                  </Card> */}
+                
+                
+                  {/* <Card border="success">
                     <Card.Body>
                       <Card.Text>
                         <h1 className="clock">
@@ -84,14 +101,18 @@ class BisDashboardComponent extends Component {
                         </h1>
                       </Card.Text>
                     </Card.Body>
-                  </Card>
-                </Col>
-              </Row>
-              <Row>
-                { <Col xs={6} md={4}>
-                  <Card bg="danger">
+                  </Card> */}
+                  
+            
+                  <Container>
+                  <CardDeck>
+                  <Card border="danger">
                     <Card.Body>
                       <Card.Title>Analytics</Card.Title>
+                      <Col >
+                      <FaChartBar size="lg"/>
+                      </Col>
+                      <Col>
                       <Card.Text>View restaurant analytics</Card.Text>
                       <Button
                         variant="primary"
@@ -99,13 +120,19 @@ class BisDashboardComponent extends Component {
                       >
                         View analytics
                       </Button>
+                      </Col>
+                     
                     </Card.Body>
                   </Card>
-                </Col> }
-                <Col xs={6} md={4}>
-                  <Card bg="danger">
+                  
+               
+                  <Card border="danger">
                     <Card.Body>
+                     
                       <Card.Title>Staff</Card.Title>
+                      <Col>
+                      <GrGroup size = "lg"/>
+                      </Col>
                       <Card.Text>
                         View and manage staff
                       </Card.Text>
@@ -114,12 +141,15 @@ class BisDashboardComponent extends Component {
                       </Button>
                     </Card.Body>
                   </Card>
-                </Col>
+                  
 
-                <Col xs={6} md={4}>
-                  <Card bg="warning">
+               
+                  <Card border="warning">
                     <Card.Body>
                       <Card.Title>Tables</Card.Title>
+                      <Col>
+                      <SiAirtable size = "lg"/>
+                      </Col>
                       <Card.Text>
                        View all tables and manage restaurant capacity
                       </Card.Text>
@@ -131,11 +161,12 @@ class BisDashboardComponent extends Component {
                       </Button>
                     </Card.Body>
                   </Card>
-                </Col>
+                  </CardDeck>
+                  </Container>
               </Row>
               <Row>
                 <Col>
-                  <Card bg="secondary">
+                  <Card border="secondary">
                     <Card.Body>
                       <Card.Title>Todays bookings</Card.Title>
                       <Card.Text>

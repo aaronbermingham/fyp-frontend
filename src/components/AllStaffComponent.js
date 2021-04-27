@@ -68,7 +68,7 @@ class AllStaffComponent extends Component {
                     <th>Email</th>
                     <th>Current Shift start date</th>
                     <th>Assign shifts</th>
-                    <th>Assign tables</th>
+                    <th>Staff details</th>
                   </tr>
                 </thead>
                
@@ -86,18 +86,7 @@ class AllStaffComponent extends Component {
                             
                         })}
                       </td>
-                      <td>
-                        {staff.shiftList.map((subitem, i) => {
-                        
-                            subitem.shiftDayTimeList.map((days)=>
-                            <tr key = {days.id}>
-                            <td>{days.day}</td>
-                            <td>{days.day}</td>
-                            </tr>
-                            )
-                            
-                        })}
-                      </td>
+                     
                       <td>
                         <button
                           onClick={() => this.assignShift(staff.id)}
