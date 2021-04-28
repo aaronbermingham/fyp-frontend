@@ -14,9 +14,9 @@ class TableService{
         return axios.post(TABLE_API_BASE_URL + "allUnreservedTables", booking, { headers: authHeader() });
     }
 
-    addTable(table, staffId){
-        console.log("API call ", TABLE_API_BASE_URL + "addTable/" + staffId)
-        return axios.post(TABLE_API_BASE_URL + "addTable" , table, { headers: authHeader() });
+    addTable(table, resId){
+        console.log("API call ", TABLE_API_BASE_URL + "addTable/" + resId)
+        return axios.post(TABLE_API_BASE_URL + "addTable/"+resId , table, { headers: authHeader() });
     }
     
     getSeats(){
