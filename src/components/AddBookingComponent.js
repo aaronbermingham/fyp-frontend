@@ -32,6 +32,7 @@ class AddBookingComponent extends Component {
     this.handleTimeChange = this.handleTimeChange.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
     this.continue = this.continue.bind(this);
+    this.reset = this.reset.bind(this);
     this.changeNumberGuestsHandler = this.changeNumberGuestsHandler.bind(this);
   }
 
@@ -114,13 +115,19 @@ class AddBookingComponent extends Component {
     this.setState({continue: false, timeCheck: true});
   }
 
+  reset(){
+    this.setState({
+      continue:false
+    })
+  }
+
   render() {
     let warning;
     if(this.state.timeCheck === true){
       warning = (
         <Alert variant="danger" style= {{width:"40%", height:"auto", marginTop:"15px"}}>
           <p className="text-center">
-            Error - please select a time for your booking
+            Please select a time for your booking
           </p>
         </Alert>
       );}
@@ -173,7 +180,7 @@ class AddBookingComponent extends Component {
             </select>
           </div>
           
-          <button className="btn btn-primary" onClick={this.continue}>Continue</button>
+          {this.state.continue === false?<button className="btn btn-primary" onClick={this.continue}>Continue</button>:<button className="btn btn-warning" onClick={this.reset}>Reselect date/time</button>}
           {this.state.continue === true?<UserTables time = {this.state.time} date = {this.state.date} guests= {this.state.numGuests} history={this.props.history}/>:<p></p>}
         </form>
       </div>
