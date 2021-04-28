@@ -7,6 +7,7 @@ import { Card, Button, Row, Col, ListGroup } from "react-bootstrap";
 import "react-datepicker/dist/react-datepicker.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ContactTracingService from "../services/ContactTracingService";
+import StaffService from "../services/StaffService";
 
 class ContactTracingComponent extends Component {
   constructor(props) {
@@ -19,6 +20,7 @@ class ContactTracingComponent extends Component {
       staffId: 0,
       contacts: [],
       getContacts: false,
+      staffContact:[]
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -58,29 +60,24 @@ class ContactTracingComponent extends Component {
     const locale = "en";
     this.setState({ getContacts: !this.state.getContacts });
     e.preventDefault();
-    let booking = {
-      date: this.state.date.toISOString().slice(0, 10),
-      time: this.state.time.toLocaleTimeString(locale, {
-        hour: "numeric",
-        hour12: false,
-        minute: "numeric",
-        second: "numeric",
-      }),
-      numGuests: 1,
+    let staffShift = {
+      startDate: this.state.date.toISOString().slice(0, 10),
     };
-    console.log("booking => " + JSON.stringify(booking));
-    ContactTracingService.getTrackingList(booking).then((res) => {
+    console.log("staffShift => " + JSON.stringify(staffShift));
+    ContactTracingService.getTrackingList(staffShift).then((res) => {
       console.log("Contacts ", res.data);
       this.setState({ contacts: res.data });
-      this.setState({
-        staffId: this.state.contacts.map((contact) => contact.staffNum),
-      });
-      //this.setState({staffId: this.state.contacts.staffNum})
-      console.log(
-        "Staff ",
-        this.state.contacts.map((contact) => contact.staffNum)
-      );
     });
+
+    StaffService.getStaffCustomerContacts(staffShift).then(
+      (res) => {
+        console.log("Staff Contacts ", res.data);
+        this.setState({ staffContact: res.data });
+        console.log(
+          "Staff ", this.state.staffContact
+        );
+      }
+    );
   };
 
   sendEmail(contact){
@@ -109,23 +106,7 @@ class ContactTracingComponent extends Component {
                   className="form-control"
                   showDisabledMonthNavigation
                 />
-                <br></br>
-                <div className="form-group">
-                  <br></br>
-                  <label>Pick a time</label>
-                  <br></br>
-
-                  <DatePicker
-                    selected={this.state.time}
-                    onChange={this.handleChange}
-                    showTimeSelect
-                    showTimeSelectOnly
-                    timeIntervals={120}
-                    timeCaption="Time"
-                    dateFormat="h:mm aa"
-                    className="form-control"
-                  />
-                </div>
+                
               </div>
 
               <button
@@ -143,7 +124,7 @@ class ContactTracingComponent extends Component {
           <div className="row">
             {this.state.contacts.map((contact) => (
               <Card>
-                <Card.Header>Contact</Card.Header>
+                <Card.Header>Customer</Card.Header>
                 <Card.Body>
                   <Card.Text>
                     <p>Name: {contact.name}</p>
@@ -154,6 +135,25 @@ class ContactTracingComponent extends Component {
                         this.sendEmail(contact.id);
                       }}
                     >
+                      Send warning email
+                    </button>
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            ))}
+          </div>
+        </div>
+        <div>
+          <div className="row">
+            {this.state.staffContact.map((contact) => (
+              <Card>
+                <Card.Header>Staff</Card.Header>
+                <Card.Body>
+                  <Card.Text>
+                    <p>Name: {contact.name}</p>
+                    <p>Email: {contact.email}</p>
+                    <p>Phone number {contact.phoneNumber}</p>
+                    <button className="btn btn-success"  onClick={() => {this.sendEmail(contact.id) }}>
                       Send warning email
                     </button>
                   </Card.Text>

@@ -22,7 +22,7 @@ class ItemsChartComponent extends Component {
     }
 
     test(){
-        ItemService.getFoodItems().then((res) => {
+        ItemService.getAllItems().then((res) => {
             this.setState({item: res.data})
             // this.setState({chartData:{labels: this.state.item.map(item => item.name)}})
             
@@ -104,6 +104,7 @@ class ItemsChartComponent extends Component {
                                 ticks: {
                                   beginAtZero: true,
                                   precision: 0,
+                                  stepSize: 0,
                                 },
                               },
                             ],

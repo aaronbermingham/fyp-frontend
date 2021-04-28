@@ -38,6 +38,9 @@ class ItemService {
         return axios.put(ITEM_API_BASE_URL + "drink/updateDrinkItem/" + drinkItemId, drinkItem, { headers: authHeader() });
     }
 
+    getAllItems(){
+        return axios.get(ITEM_API_BASE_URL + "auth/item/all", { headers: authHeader() });
+    }
 
    
 }
