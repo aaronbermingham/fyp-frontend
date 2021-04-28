@@ -14,7 +14,8 @@ class OrderFoodComponent extends Component {
             id: this.props.match.params.id,
             item: [],
             drinkItem: [],
-            items: []
+            items: [],
+            price: 0,
 
         }
         this.getItemSummary = this.getItemSummary.bind(this);
