@@ -70,14 +70,14 @@ class BookingSummaryComponent extends Component {
                                         <ListGroup.Item>{
                                             this.state.items.map((subitem, i) => {
                                                 return (
-                                                    <ListGroup.Item>{subitem.name} {subitem.price}</ListGroup.Item>
+                                                    <ListGroup.Item>{subitem.name} {subitem.price.toFixed(2)}</ListGroup.Item>
                                                 )
                                             })
                                         }</ListGroup.Item>
-                                        <ListGroup.Item>Price: {this.state.price}</ListGroup.Item>
+                                        <ListGroup.Item>Price: {this.state.price.toFixed(2)}</ListGroup.Item>
                                     </ListGroup> 
                                 </Card.Text>
-                                <CheckoutForm price={this.state.price} />
+                                <CheckoutForm price={this.state.price.toFixed(2)} />
                             </Card.Body>
 
                         </Card>

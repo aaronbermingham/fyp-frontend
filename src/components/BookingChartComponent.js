@@ -39,16 +39,15 @@ class BookingChartComponent extends Component {
                         {
                             label: 'Bookings over the last seven days',
                             data:bookingDays.map(days =>days[1]),
+                            fill: false,
+                            backgroundColor: 'rgb(255, 99, 132)',
+                            borderColor: 'rgba(56, 56, 56, 0.6)',
                            
                         }
                     ]
                     
                 },
-                options: {        
-                    legend: {
-                      display: false
-                    }
-                  }
+          
             })
             
         });
@@ -83,6 +82,19 @@ class BookingChartComponent extends Component {
                 <Line
                     data={this.state.chartData}
                     options ={{
+                        legend: {
+                            display: false
+                        },
+                        scales: {
+                            yAxes: [
+                              {
+                                ticks: {
+                                  beginAtZero: true,
+                                  precision: 0,
+                                },
+                              },
+                            ],
+                          },
                         maintainAspectRatio: false
                     }}
                     />

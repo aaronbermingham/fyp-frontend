@@ -38,7 +38,8 @@ import ContactTracing from './components/ContactTracingComponent';
 import StaffContactTracing from './components/StaffContactTracingComponent'; 
 import StaffDetails from './components/StaffDetailsComponent'; 
 import BookingChart from './components/BookingChartComponent'; 
-import ItemsChart from './components/ItemsChartComponent';
+import ItemsChart from './components/ItemsChartComponent'; 
+import ItemLineChart from './components/ItemLineChartComponent';
 
 class App extends Component {
   constructor(props) {
@@ -199,7 +200,8 @@ class App extends Component {
             <Route path="/staffContactTracing" component={StaffContactTracing}></Route> 
             <Route path="/staffDetails/:id" component={StaffDetails}></Route> 
             <Route path="/bookingChart" component={BookingChart}></Route> 
-            <Route path="/itemsChart" component={ItemsChart}></Route>
+            <Route path="/itemsChart" component={ItemsChart}></Route> 
+            <Route path="/itemLineChart" component={ItemLineChart}></Route>
           </Switch>
         </div>
       </div>

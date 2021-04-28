@@ -34,7 +34,7 @@ class AllBookingComponent extends Component {
         return (
             <div>{businessUser ? (
                 <div>
-                    <h3 className="text-center">Up coming Bookings</h3>
+                    <h3 className="text-center">Upcoming Bookings</h3>
                     <div className="row">
 
                         <table className="table table-striped table-bordered">
@@ -56,7 +56,7 @@ class AllBookingComponent extends Component {
                                             <tr key={bookings.id}>
                                                 <td>{bookings.id}</td>
                                                 <td>{bookings.date}</td>
-                                                <td>{bookings.time}</td>
+                                                <td>{bookings.time.slice(0,-3)}</td>
                                                 <td>{bookings.numGuests}</td>
                                                 <td>
                                                     {
@@ -67,7 +67,7 @@ class AllBookingComponent extends Component {
                                                             )
                                                         })
                                                     }</td>
-                                                <td>{bookings.price}</td>
+                                                <td>{bookings.price.toFixed(2)}</td>
                                         
                                             </tr>
                                     )

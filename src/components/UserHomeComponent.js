@@ -67,6 +67,7 @@ export default class UserHomeComponent extends Component {
                
             </Row>
             <Row>
+              <Container>
           <CardDeck>
           
             <Card border="primary">
@@ -75,7 +76,7 @@ export default class UserHomeComponent extends Component {
                 <Card.Title>Add a new booking!</Card.Title>
                 <Card.Text>
                 {this.state.bookings.slice(0, 1).map((bookings) => (
-                  <p>Your next booking is on the {bookings.date} at {bookings.time} but why not add another!?</p>
+                  <p>Your next booking is on the {bookings.date} at {bookings.time.slice(0,-3)} but why not add another!?</p>
                       ))}
                 <Button
                         variant="primary"
@@ -119,7 +120,7 @@ export default class UserHomeComponent extends Component {
               </Card.Body>
            </Card>
           </CardDeck>
-
+          </Container>
           {/* <p>
             <strong>Id:</strong> {currentUser.id}
           </p>

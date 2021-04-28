@@ -49,9 +49,17 @@ class UserTableComponent extends Component {
     let utc = Moment.utc(date).format();
 
     TableService.getUnreservedTables(booking).then((res) => {
-      this.setState({
-        tables: res.data.filter((table) => table.disabled === false && table.numSeats >= this.props.guests),
-      });
+      if(this.props.guests <= 2){
+        this.setState({
+          tables: res.data.filter((table) => table.disabled === false && table.numSeats == 2),
+        });
+      }
+      else if(this.props.guests > 2){
+        this.setState({
+          tables: res.data.filter((table) => table.disabled === false && table.numSeats >= this.props.guests),
+        });
+      }
+     
       this.setState({ numOfSeats: res.data.numSeats });
       console.log("Table info ", res.data);
       for (let i = 0; i < res.data.length; i++) {

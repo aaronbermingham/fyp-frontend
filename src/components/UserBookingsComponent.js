@@ -74,14 +74,14 @@ class UserBookingsComponent extends Component {
                   <tr key={bookings.id}>
                     <td>{bookings.id}</td>
                     <td>{bookings.date}</td>
-                    <td>{bookings.time}</td>
+                    <td>{bookings.time.slice(0,-3)}</td>
                     <td>{bookings.numGuests}</td>
                     <td>
                       {bookings.items.map((subitem, i) => {
                         return <td>{subitem.name}</td>;
                       })}
                     </td>
-                    <td>{bookings.price}</td>
+                    <td>{bookings.price.toFixed(2)}</td>
                     <td>
                     <button
                    onClick={() => this.updateBooking(bookings.id)}

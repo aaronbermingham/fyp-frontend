@@ -43,9 +43,8 @@ class AddTableComponent extends Component {
     createTable = (e) => {
         e.preventDefault();
         let table = {
-            disable: this.state.disabled,
             numSeats: this.state.numSeats,
-            outdoor: this.state.outdoor,
+            outdoorTable: this.state.outdoor,
         };
         console.log('table => ' + JSON.stringify(table));
         for(var i = 0; i < this.state.numTables; i ++){
