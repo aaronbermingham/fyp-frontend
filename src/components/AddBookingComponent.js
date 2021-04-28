@@ -8,6 +8,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import setHours from 'date-fns/setHours'
 import setMinutes from 'date-fns/setMinutes'
+import {Alert} from "react-bootstrap";
 
 
 
@@ -24,6 +25,7 @@ class AddBookingComponent extends Component {
       continue: false,
       minTime: new Date(),
       maxTime: new Date(),
+      timeCheck: false,
     };
     
     this.handleDateChange = this.handleDateChange.bind(this);
@@ -61,7 +63,8 @@ class AddBookingComponent extends Component {
 
   handleTimeChange(time) {
     this.setState({
-      time: time
+      time: time,
+      timeCheck: false
     })
    
     console.log("time", this.state.time);
@@ -105,16 +108,22 @@ class AddBookingComponent extends Component {
   }
 
   continue(){
-    if(this.state.continue === false)
+    if(this.state.time != null)
     this.setState({continue: true});
-    else
-    this.setState({continue: false});
+    else if(this.state.time === null)
+    this.setState({continue: false, timeCheck: true});
   }
 
   render() {
-    // const [startDate, setStartDate] = useState(
-    //   setHours(setMinutes(new Date(), 30), 17)
-    // );
+    let warning;
+    if(this.state.timeCheck === true){
+      warning = (
+        <Alert variant="danger" style= {{width:"40%", height:"auto", marginTop:"15px"}}>
+          <p className="text-center">
+            Error - please select a time for your booking
+          </p>
+        </Alert>
+      );}
 
     return (
       <div>
@@ -147,6 +156,7 @@ class AddBookingComponent extends Component {
                 dateFormat="h:mm aa"
                 className="form-control"
               />
+              {warning}
             </div>
 
           </div>
