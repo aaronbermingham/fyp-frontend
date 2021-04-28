@@ -4,6 +4,7 @@ import ItemService from "../services/ItemService";
 import AuthService from "../services/AuthService";
 import ItemsChart from "../components/ItemsChartComponent";
 import BookingChart from "../components/BookingChartComponent";
+import ItemLineChart from '../components/ItemLineChartComponent';
 import { Row, Container, Card, Col } from "react-bootstrap";
 
 class BisAnalyticsComponent extends Component {
@@ -44,7 +45,7 @@ class BisAnalyticsComponent extends Component {
               <Card border="warning">
                 <Card.Body>
                   <Card.Title>
-                    {/* <h4 className="text-center">Items sold</h4> */}
+                    <h4 className="text-center">Items sold</h4>
                   </Card.Title>
                   <Card.Text>
                     <div>
@@ -60,11 +61,27 @@ class BisAnalyticsComponent extends Component {
               <Card border="dark">
                 <Card.Body>
                   <Card.Title>
-                    {/* <h4 className="text-center">Last seven days of bookings</h4> */}
+                    <h4 className="text-center">Last seven days of bookings</h4>
                   </Card.Title>
                   <Card.Text>
                     <div>
                       <BookingChart />
+                    </div>
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </Col>
+          </Row>
+          <Row>
+            <Col xs={12} md={20}>
+              <Card border="dark">
+                <Card.Body>
+                  <Card.Title>
+                    <h4 className="text-center">Items sold over the last seven days</h4>
+                  </Card.Title>
+                  <Card.Text>
+                    <div>
+                      <ItemLineChart />
                     </div>
                   </Card.Text>
                 </Card.Body>
@@ -77,4 +94,4 @@ class BisAnalyticsComponent extends Component {
   }
 }
 
-export default BisAnalyticsComponent;
+export default BisAnalyticsComponent; 

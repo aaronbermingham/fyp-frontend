@@ -36,6 +36,11 @@ class BookingService {
         return axios.get(BOOKING_API_BASE_URL + "weeklyBookings",{ headers: authHeader() });
     }
 
+    
+    itemsSevenDays(){
+        return axios.get(BOOKING_API_BASE_URL + "weeklyItems",{ headers: authHeader() });
+    }
+
 
   
 }
