@@ -14,8 +14,9 @@ class UserService {
   }
 
   getUserById(userId) {
-    return axios.get(API_URL + "userById/" + userId, { headers: authHeader() });
+    return axios.get(BOOKING_URL + "userById/" + userId, { headers: authHeader() });
   }
+
 
   updateUser(user, userId) {
     return axios.put(API_URL + "updateUser/" + userId, user, { headers: authHeader() });

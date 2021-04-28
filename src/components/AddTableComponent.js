@@ -48,7 +48,7 @@ class AddTableComponent extends Component {
         };
         console.log('table => ' + JSON.stringify(table));
         for(var i = 0; i < this.state.numTables; i ++){
-            TableService.addTable(table, this.state.staffMember).then(res => {
+            TableService.addTable(table, localStorage.getItem('resId')).then(res => {
                 this.props.history.push('/allTables')
             });
         }

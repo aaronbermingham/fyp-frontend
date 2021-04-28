@@ -135,7 +135,7 @@ class OrderFoodComponent extends Component {
                                                 )
                                             })
                                         }</ListGroup.Item>
-                                        <ListGroup.Item>Price: {this.state.price.toFixed(2)}</ListGroup.Item>
+                                        <ListGroup.Item>Price: {this.state.price}</ListGroup.Item>
                                     </ListGroup>
                                 </Card.Text>
                             </Card.Body>
