@@ -36,7 +36,6 @@ export default class HomeComponent extends Component {
       content: {
         height: "100%",
         width: "100%",
-        //backgroundColor: "rgba(0, 0, 0, 0.5)",
         color: "white",
       },
       centered: {
@@ -52,11 +51,10 @@ export default class HomeComponent extends Component {
         <Row>
           <Col>
             <div>
-              <div className = "container" style={{ borderRadius: "15px" }}>
+              <div className="container" style={{ borderRadius: "15px" }}>
                 <img
                   style={{ borderRadius: "5px" }}
                   src="./images/table.jpg"
-                 
                   alt="Avatar"
                   className="image"
                 />

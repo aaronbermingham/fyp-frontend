@@ -1,5 +1,5 @@
 import Container from "react-bootstrap/Container";
-import {CardDeck, Row} from "react-bootstrap";
+import { CardDeck, Row } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
 import React, { Component } from "react";
 import Clock from "react-live-clock";
@@ -8,8 +8,8 @@ import Button from "react-bootstrap/Button";
 import AuthService from "../services/AuthService";
 import BookingService from "../services/BookingService";
 import Lost from "./LostComponent";
-import { FaChartBar } from "react-icons/fa";  
-import { GrGroup } from "react-icons/gr"; 
+import { FaChartBar } from "react-icons/fa";
+import { GrGroup } from "react-icons/gr";
 import { SiAirtable } from "react-icons/si";
 import UserService from "../services/UserService";
 
@@ -28,24 +28,22 @@ class BisDashboardComponent extends Component {
 
   componentDidMount() {
     const user = AuthService.getCurrentUser();
-    console.log("Current user id bis dasg  ", user.id)
-    
+    console.log("Current user id bis dasg  ", user.id);
+
     if (user) {
       this.setState({
         id: user.id,
         currentUser: user,
         businessUser: user.roles.includes("ROLE_BUSINESS"),
       });
-      console.log("1234", this.state.id)
-     
+      console.log("1234", this.state.id);
     }
-    if(user.restaurant != null){
-    UserService.getUserById(user.id).then((res) => {
-      console.log("RESTAURANT ",res.data.restaurant.id)
-      localStorage.setItem('resId', res.data.restaurant.id);
-    });
-  }
-    
+    if (user.restaurant != null) {
+      UserService.getUserById(user.id).then((res) => {
+        console.log("RESTAURANT ", res.data.restaurant.id);
+        localStorage.setItem("resId", res.data.restaurant.id);
+      });
+    }
 
     BookingService.todaysBooking().then((res) => {
       this.setState({ bookings: res.data });
@@ -61,7 +59,7 @@ class BisDashboardComponent extends Component {
   }
 
   allTables() {
-    this.props.history.push(`/allTables`); 
+    this.props.history.push(`/allTables`);
   }
 
   analytics() {
@@ -75,7 +73,7 @@ class BisDashboardComponent extends Component {
         {businessUser || localStorage.getItem("user") === null ? (
           <div>
             <Container>
-            <Row>
+              <Row>
                 <Col xs={12} md={20}>
                   <Card bg="Light">
                     <Card.Body>
@@ -83,100 +81,73 @@ class BisDashboardComponent extends Component {
                         <h1>Welcome back {this.state.currentUser.username}!</h1>
                       </Card.Title>
                       <Card.Text>
-                      <h3><Clock format={"dddd, MMMM Mo, YYYY, kk:mm:ss "} ticking={true} /></h3>
-                      </Card.Text>
-                    </Card.Body>
-                  </Card>
-                </Col>
-               
-            </Row>
-              <Row>
-                
-                  {/* <Card border="info">
-                    <Card.Body>
-                      <Card.Title>
-                        Welcome back {this.state.currentUser.username}!
-                      </Card.Title>
-                      <Card.Text>
-                       
-                      </Card.Text>
-                    </Card.Body>
-                  </Card> */}
-                
-                
-                  {/* <Card border="success">
-                    <Card.Body>
-                      <Card.Text>
-                        <h1 className="clock">
+                        <h3>
                           <Clock
                             format={"dddd, MMMM Mo, YYYY, kk:mm:ss "}
                             ticking={true}
                           />
-                        </h1>
+                        </h3>
                       </Card.Text>
                     </Card.Body>
-                  </Card> */}
-                  
-            
-                  <Container>
+                  </Card>
+                </Col>
+              </Row>
+              <Row>
+                <Container>
                   <CardDeck>
-                  <Card border="danger">
-                    <Card.Body>
-                      <Card.Title>Analytics</Card.Title>
-                      <Col >
-                      <FaChartBar size="lg"/>
-                      </Col>
-                      <Col>
-                      <Card.Text>View restaurant analytics</Card.Text>
-                      <Button
-                        variant="primary"
-                        onClick={() => this.analytics()}
-                      >
-                        View analytics
-                      </Button>
-                      </Col>
-                     
-                    </Card.Body>
-                  </Card>
-                  
-               
-                  <Card border="danger">
-                    <Card.Body>
-                     
-                      <Card.Title>Staff</Card.Title>
-                      <Col>
-                      <GrGroup size = "lg"/>
-                      </Col>
-                      <Card.Text>
-                        View and manage staff
-                      </Card.Text>
-                      <Button variant="primary" onClick={() => this.allStaff()}>
-                        All staff
-                      </Button>
-                    </Card.Body>
-                  </Card>
-                  
+                    <Card border="danger">
+                      <Card.Body>
+                        <Card.Title>Analytics</Card.Title>
+                        <Col>
+                          <FaChartBar size="lg" />
+                        </Col>
+                        <Col>
+                          <Card.Text>View restaurant analytics</Card.Text>
+                          <Button
+                            variant="primary"
+                            onClick={() => this.analytics()}
+                          >
+                            View analytics
+                          </Button>
+                        </Col>
+                      </Card.Body>
+                    </Card>
 
-               
-                  <Card border="warning">
-                    <Card.Body>
-                      <Card.Title>Tables</Card.Title>
-                      <Col>
-                      <SiAirtable size = "lg"/>
-                      </Col>
-                      <Card.Text>
-                       View all tables and manage restaurant capacity
-                      </Card.Text>
-                      <Button
-                        variant="primary"
-                        onClick={() => this.allTables()}
-                      >
-                        All tables
-                      </Button>
-                    </Card.Body>
-                  </Card>
+                    <Card border="danger">
+                      <Card.Body>
+                        <Card.Title>Staff</Card.Title>
+                        <Col>
+                          <GrGroup size="lg" />
+                        </Col>
+                        <Card.Text>View and manage staff</Card.Text>
+                        <Button
+                          variant="primary"
+                          onClick={() => this.allStaff()}
+                        >
+                          All staff
+                        </Button>
+                      </Card.Body>
+                    </Card>
+
+                    <Card border="warning">
+                      <Card.Body>
+                        <Card.Title>Tables</Card.Title>
+                        <Col>
+                          <SiAirtable size="lg" />
+                        </Col>
+                        <Card.Text>
+                          View all tables and manage restaurant capacity
+                        </Card.Text>
+                        <Button
+                          variant="primary"
+                          onClick={() => this.allTables()}
+                        >
+                          All tables
+                        </Button>
+                      </Card.Body>
+                    </Card>
                   </CardDeck>
-                  </Container>
+                </Container>
               </Row>
               <Row>
                 <Col>
@@ -213,36 +184,7 @@ class BisDashboardComponent extends Component {
                     </Card.Body>
                   </Card>
                 </Col>
-                {/* <Col
-                  xs={6}
-                  md={4}
-                  style={{
-                    background: "red",
-                  }}
-                >
-                  2 of 2
-                </Col> */}
               </Row>
-
-              {/* Columns are always 50% wide, on mobile and desktop */}
-              {/* <Row>
-                <Col
-                  xs={6}
-                  style={{
-                    background: "pink",
-                  }}
-                >
-                  1 of 2
-                </Col>
-                <Col
-                  xs={6}
-                  style={{
-                    background: "cyan",
-                  }}
-                >
-                  2 of 2
-                </Col>
-              </Row> */}
             </Container>
           </div>
         ) : (

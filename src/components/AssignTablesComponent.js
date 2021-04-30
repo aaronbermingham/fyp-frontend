@@ -40,8 +40,6 @@ class AssignTablesComponent extends Component {
 
     TableService.getTables().then((res) => {
       console.log("Staff id ", this.state.id);
-      //console.log("Table Staff id ", this.state.tables.map((table) => (table.staffId))
-      //console.log("Table call check", res.data);
     });
 
     StaffService.getStaffById(this.state.id).then((res) => {
@@ -68,10 +66,6 @@ class AssignTablesComponent extends Component {
         staffTables: staff.table,
       });
     });
-
-    
-
-    //console.log("List ", this.state.staffTableList);
   }
 
   removeTable(tableId) {
@@ -89,10 +83,6 @@ class AssignTablesComponent extends Component {
     });
   }
 
-  //   assignTable(tableId) {
-  //     StaffService.addTables(1, tableId);
-  //   }
-
   cancel() {
     this.props.history.push("/allStaff");
   }
@@ -103,17 +93,19 @@ class AssignTablesComponent extends Component {
       <div>
         {businessUser ? (
           <div className="container">
-           
-              <div className="row">
-                {/* <div className="card col-md-6 offset-md-3 offset-md-3"> */}
+            <div className="row">
+              {/* <div className="card col-md-6 offset-md-3 offset-md-3"> */}
 
-                <h3 className="text-center">Assign tables</h3>
-                <div className="card-body">
-                  <form>
+              <h3 className="text-center">Assign tables</h3>
+              <div className="card-body">
+                <form>
                   <Col>
                     <Row>
                       <div className="form-group">
-                        <label>Current tables assigned to {this.state.name}, click on a table to unassign it</label>
+                        <label>
+                          Current tables assigned to {this.state.name}, click on
+                          a table to unassign it
+                        </label>
                         <tbody>
                           {this.state.staffTables.map((sTable) => (
                             <div
@@ -145,12 +137,12 @@ class AssignTablesComponent extends Component {
                                 color: "white",
                                 background: sTable.outdoorTable
                                   ? "green"
-                                  : "blue", 
-                                  cursor: "pointer",
-                                  boxShadow: "5px 5px 10px #696969",
-                                }}
-                                onClick={() => this.removeTable(sTable.id)}
-                              >
+                                  : "blue",
+                                cursor: "pointer",
+                                boxShadow: "5px 5px 10px #696969",
+                              }}
+                              onClick={() => this.removeTable(sTable.id)}
+                            >
                               ID:{" "}
                               {sTable.numSeats > 5 ? (
                                 <h1> {sTable.id}</h1>
@@ -161,13 +153,15 @@ class AssignTablesComponent extends Component {
                               <span> Staff ID: {sTable.staffId}</span>
                             </div>
                           ))}
-                          {/* {this.state.tableId > 0 ? (<Alert variant="success"><p>You have selected table number {this.state.tableId}</p></Alert>): null} */}
                         </tbody>
                       </div>
                     </Row>
                     <Row>
-                    <div className="form-group">
-                        <label>All tables, click to assign the table to {this.state.name}</label>
+                      <div className="form-group">
+                        <label>
+                          All tables, click to assign the table to{" "}
+                          {this.state.name}
+                        </label>
                         <tbody>
                           {this.state.tables.map((table) => (
                             <div
@@ -177,34 +171,34 @@ class AssignTablesComponent extends Component {
                                 justifyContent: "center",
                                 alignItems: "center",
                                 height:
-                                table.numSeats === 6
+                                  table.numSeats === 6
                                     ? 165
                                     : table.numSeats === 4
                                     ? 145
                                     : 125,
                                 width:
-                                table.numSeats === 6
+                                  table.numSeats === 6
                                     ? 165
                                     : table.numSeats === 4
                                     ? 145
                                     : 125,
                                 margin: 15,
                                 borderRadius:
-                                table.numSeats === 6
+                                  table.numSeats === 6
                                     ? 95
                                     : table.numSeats === 4
                                     ? 85
-                                    : 70,       
-                       
+                                    : 70,
+
                                 color: "white",
                                 background: table.outdoorTable
                                   ? "green"
-                                  : "blue", 
-                                  cursor: "pointer",
-                                  boxShadow: "5px 5px 10px #696969",
-                                }}
-                                onClick={() => this.assignTable(table.id)}
-                              >
+                                  : "blue",
+                                cursor: "pointer",
+                                boxShadow: "5px 5px 10px #696969",
+                              }}
+                              onClick={() => this.assignTable(table.id)}
+                            >
                               ID:{" "}
                               {table.numSeats > 5 ? (
                                 <h1> {table.id}</h1>
@@ -212,26 +206,23 @@ class AssignTablesComponent extends Component {
                                 <h3> {table.id}</h3>
                               )}
                               <span></span>
-                             
                             </div>
                           ))}
-                          {/* {this.state.tableId > 0 ? (<Alert variant="success"><p>You have selected table number {this.state.tableId}</p></Alert>): null} */}
                         </tbody>
                       </div>
                     </Row>
-                    </Col>
-                    <button
-                      className="btn btn-danger"
-                      onClick={this.cancel.bind(this)}
-                      style={{ marginLeft: "10px" }}
-                    >
-                      Return
-                    </button>
-                  </form>
-                </div>
-                {/* </div> */}
+                  </Col>
+                  <button
+                    className="btn btn-danger"
+                    onClick={this.cancel.bind(this)}
+                    style={{ marginLeft: "10px" }}
+                  >
+                    Return
+                  </button>
+                </form>
               </div>
-            
+              {/* </div> */}
+            </div>
           </div>
         ) : (
           <Lost />

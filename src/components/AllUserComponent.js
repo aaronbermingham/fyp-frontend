@@ -53,9 +53,7 @@ class AllUserComponent extends Component {
                   <tr>
                     <th>User ID</th>
                     <th>User name</th>
-                    <th>Password</th>
                     <th>Email</th>
-                    {/* <th>Update</th> */}
                   </tr>
                 </thead>
 
@@ -64,16 +62,7 @@ class AllUserComponent extends Component {
                     <tr key={user.id}>
                       <td>{user.id}</td>
                       <td>{user.username}</td>
-                      <td>{user.password}</td>
                       <td>{user.email}</td>
-                      {/* <td>
-                        <button
-                          onClick={() => this.updateUser(user.id)}
-                          className="btn btn-info"
-                        >
-                          Update
-                        </button>
-                      </td> */}
                     </tr>
                   ))}
                 </tbody>

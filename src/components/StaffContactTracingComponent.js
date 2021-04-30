@@ -3,12 +3,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import DatePicker from "react-datepicker";
 import AuthService from "../services/AuthService";
 import Lost from "./LostComponent";
-import { Card} from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import "react-datepicker/dist/react-datepicker.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ContactTracingService from "../services/ContactTracingService";
 import StaffService from "../services/StaffService";
-
 
 class StaffContactTracingComponent extends Component {
   constructor(props) {
@@ -22,10 +21,10 @@ class StaffContactTracingComponent extends Component {
       contacts: [],
       getContacts: false,
       staffList: [],
-      staffContact:[]
+      staffContact: [],
     };
 
-    this.handleChange = this.handleChange.bind(this); 
+    this.handleChange = this.handleChange.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
     this.sendEmail = this.sendEmail.bind(this);
   }
@@ -86,18 +85,14 @@ class StaffContactTracingComponent extends Component {
         });
       }
     );
-    StaffService.getStaffCustomerContacts(staffShift).then(
-      (res) => {
-        console.log("Staff Contacts ", res.data);
-        this.setState({ staffContact: res.data });
-        console.log(
-          "Staff ", this.state.staffContact
-        );
-      }
-    );
+    StaffService.getStaffCustomerContacts(staffShift).then((res) => {
+      console.log("Staff Contacts ", res.data);
+      this.setState({ staffContact: res.data });
+      console.log("Staff ", this.state.staffContact);
+    });
   };
 
-  sendEmail(contact){
+  sendEmail(contact) {
     ContactTracingService.sendTrackingEmail(contact);
   }
 
@@ -163,7 +158,12 @@ class StaffContactTracingComponent extends Component {
                     <p>Email: {contact.email}</p>
                     <p>Booking date: {contact.date}</p>
                     <p>Booking time: {contact.timeStart}</p>
-                    <button className="btn btn-success"  onClick={() => {this.sendEmail(contact.id) }}>
+                    <button
+                      className="btn btn-success"
+                      onClick={() => {
+                        this.sendEmail(contact.id);
+                      }}
+                    >
                       Send warning email
                     </button>
                   </Card.Text>
@@ -182,7 +182,12 @@ class StaffContactTracingComponent extends Component {
                     <p>Name: {contact.name}</p>
                     <p>Email: {contact.email}</p>
                     <p>Phone number {contact.phoneNumber}</p>
-                    <button className="btn btn-success"  onClick={() => {this.sendEmail(contact.id) }}>
+                    <button
+                      className="btn btn-success"
+                      onClick={() => {
+                        this.sendEmail(contact.id);
+                      }}
+                    >
                       Send warning email
                     </button>
                   </Card.Text>

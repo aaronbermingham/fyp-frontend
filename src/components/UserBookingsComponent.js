@@ -12,7 +12,6 @@ class UserBookingsComponent extends Component {
       currentUser: undefined,
       userId: 0,
     };
-
   }
 
   componentDidMount() {
@@ -33,20 +32,19 @@ class UserBookingsComponent extends Component {
     });
   }
 
-  deleteBooking(id){
+  deleteBooking(id) {
     BookingService.deleteBooking(id).then((res) => {
-        console.log(res.data);  
-        BookingService.getBookingsByUserId(this.state.userId).then((res) => {
-            console.log(res.data);
-            this.setState({ bookings: res.data });
-          });   
+      console.log(res.data);
+      BookingService.getBookingsByUserId(this.state.userId).then((res) => {
+        console.log(res.data);
+        this.setState({ bookings: res.data });
       });
+    });
   }
 
-  updateBooking(id){
+  updateBooking(id) {
     this.props.history.push(`/orderFood/${id}`);
   }
-
 
   render() {
     return (
@@ -64,7 +62,7 @@ class UserBookingsComponent extends Component {
                   <th>Order</th>
                   <th>Price</th>
                   <th>Update</th>
-                  <th>Delete</th>
+                  <th>Cancel</th>
                 </tr>
               </thead>
 
@@ -73,7 +71,7 @@ class UserBookingsComponent extends Component {
                   <tr key={bookings.id}>
                     <td>{bookings.id}</td>
                     <td>{bookings.date}</td>
-                    <td>{bookings.time.slice(0,-3)}</td>
+                    <td>{bookings.time.slice(0, -3)}</td>
                     <td>{bookings.numGuests}</td>
                     <td>
                       {bookings.items.map((subitem, i) => {
@@ -82,21 +80,21 @@ class UserBookingsComponent extends Component {
                     </td>
                     <td>{bookings.price.toFixed(2)}</td>
                     <td>
-                    <button
-                   onClick={() => this.updateBooking(bookings.id)}
-                      className="btn btn-info"
-                    >
-                      Update
-                    </button>
+                      <button
+                        onClick={() => this.updateBooking(bookings.id)}
+                        className="btn btn-info"
+                      >
+                        Update
+                      </button>
                     </td>
                     <td>
-                        <button
-                          onClick={() => this.deleteBooking(bookings.id)}
-                          className="btn btn-info"
-                        >
-                          Delete
-                        </button>
-                        </td>
+                      <button
+                        onClick={() => this.deleteBooking(bookings.id)}
+                        className="btn btn-info"
+                      >
+                        Cancel
+                      </button>
+                    </td>
                   </tr>
                 ))}
               </tbody>

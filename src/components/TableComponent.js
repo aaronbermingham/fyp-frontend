@@ -4,7 +4,6 @@ import Form from "react-bootstrap/Form";
 import { Col, Row } from "react-bootstrap";
 import Alert from "react-bootstrap/Alert";
 
-
 class TableComponent extends Component {
   constructor(props) {
     super(props);
@@ -34,10 +33,6 @@ class TableComponent extends Component {
     this.onClick = this.onClick.bind(this);
     this.disableTable = this.disableTable.bind(this);
     this.handleOutdoorChange = this.handleOutdoorChange.bind(this);
-
-    // this.handleClose = this.handleClose.bind(this);
-    //this.addUser = this.addUser.bind(this);
-    //this.updateUser = this.updateUser.bind(this);
   }
 
   getTableInfo() {
@@ -56,7 +51,7 @@ class TableComponent extends Component {
 
     TableService.get1mCapacity(1).then((res) => {
       this.setState({ seats1m: res.data });
-      //this.setState({ numSeats: res.data.numSeats })
+
       console.log(this.state.seats1m);
       this.setState({
         oneMetreDiff:
@@ -66,7 +61,7 @@ class TableComponent extends Component {
 
     TableService.get2mCapacity(1).then((res) => {
       this.setState({ seats2m: res.data });
-      //this.setState({ numSeats: res.data.numSeats })
+
       console.log(this.state.seats2m);
       this.setState({
         twoMetreDiff:
@@ -105,7 +100,7 @@ class TableComponent extends Component {
 
     TableService.get1mCapacity(1).then((res) => {
       this.setState({ seats1m: res.data });
-      //this.setState({ numSeats: res.data.numSeats })
+
       console.log(this.state.seats1m);
       this.setState({
         oneMetreDiff:
@@ -115,7 +110,7 @@ class TableComponent extends Component {
 
     TableService.get2mCapacity(1).then((res) => {
       this.setState({ seats2m: res.data });
-      //this.setState({ numSeats: res.data.numSeats })
+
       console.log(this.state.seats2m);
       this.setState({
         twoMetreDiff:
@@ -131,8 +126,7 @@ class TableComponent extends Component {
 
     TableService.getRestaurant(1).then((res) => {
       this.setState({ restaurant: res.data });
-      //this.setState({ numSeats: res.data.numSeats })
-      // console.log("Res ",this.state.restaurant);
+
       this.setState({ normal: this.state.restaurant.normalCapacity });
       this.setState({ twoMetres: this.state.restaurant.twoMetreCapacity });
       this.setState({ oneMetre: this.state.restaurant.oneMetreCapacity });
@@ -272,13 +266,17 @@ class TableComponent extends Component {
   }
 
   render() {
-    const diffSub = this.state.tables
-    .filter(({ disabled }) => disabled === false)
-    .reduce((totalSeats, table) => totalSeats + table.numSeats, 0) - this.state.currentCapacity;
+    const diffSub =
+      this.state.tables
+        .filter(({ disabled }) => disabled === false)
+        .reduce((totalSeats, table) => totalSeats + table.numSeats, 0) -
+      this.state.currentCapacity;
 
-    const diffAdd = this.state.currentCapacity - this.state.tables
-    .filter(({ disabled }) => disabled === false)
-    .reduce((totalSeats, table) => totalSeats + table.numSeats, 0) ;
+    const diffAdd =
+      this.state.currentCapacity -
+      this.state.tables
+        .filter(({ disabled }) => disabled === false)
+        .reduce((totalSeats, table) => totalSeats + table.numSeats, 0);
 
     let warning;
     if (
@@ -290,7 +288,8 @@ class TableComponent extends Component {
       warning = (
         <Alert variant="danger">
           <p className="text-center">
-            Please disable tables equivalent to {diffSub} seats to ensure social distancing
+            Please disable tables equivalent to {diffSub} seats to ensure social
+            distancing
             <p>
               Number of seats enabled{" "}
               {this.state.tables
@@ -309,7 +308,8 @@ class TableComponent extends Component {
       warning = (
         <Alert variant="danger">
           <p className="text-center">
-          Please disable {diffSub} number of seats to ensure two metre distancing
+            Please disable {diffSub} number of seats to ensure two metre
+            distancing
             <p>
               Number of seats enabled{" "}
               {this.state.tables
@@ -319,8 +319,7 @@ class TableComponent extends Component {
           </p>
         </Alert>
       );
-    }
-    else if (
+    } else if (
       this.state.currentCapacity <
       this.state.tables
         .filter(({ disabled }) => disabled === false)
@@ -329,7 +328,7 @@ class TableComponent extends Component {
       warning = (
         <Alert variant="danger">
           <p className="text-center">
-          Please disable {diffAdd} 
+            Please disable {diffAdd}
             <p>
               Number of seats enabled{" "}
               {this.state.tables
@@ -348,21 +347,20 @@ class TableComponent extends Component {
           Number of tables: {this.state.tables.length}
         </h4>
         <h4 className="text-center">
-         What capacity should be: {this.state.currentCapacity}
+          What capacity should be: {this.state.currentCapacity}
         </h4>
-        <h4 className="text-center"> Current capacity:{" "}
-                {this.state.tables
-                  .filter(({ disabled }) => disabled === false)
-                  .reduce(
-                    (totalSeats, table) => totalSeats + table.numSeats,
-                    0
-                  )}</h4>
-        
+        <h4 className="text-center">
+          {" "}
+          Current capacity:{" "}
+          {this.state.tables
+            .filter(({ disabled }) => disabled === false)
+            .reduce((totalSeats, table) => totalSeats + table.numSeats, 0)}
+        </h4>
+
         <Row>
           <Col>
             <div className="container">
               {" "}
-              {/* <h4>Normal capacity: {this.state.numOfSeats}</h4> */}
               <Form.Check
                 type="switch"
                 id="normal"
@@ -376,7 +374,6 @@ class TableComponent extends Component {
           <Col>
             <div className="container">
               {" "}
-              {/* <h4>Capacity 2 metre distance: {this.state.seats2m}</h4> */}
               <Form.Check
                 type="switch"
                 id="twoMetres"
@@ -390,7 +387,6 @@ class TableComponent extends Component {
           <Col>
             <div className="container">
               {" "}
-              {/* <h4>Capacity 1 metre distance: {this.state.seats1m}</h4> */}
               <Form.Check
                 type="switch"
                 id="oneMetre"
@@ -404,7 +400,6 @@ class TableComponent extends Component {
           <Col>
             <div className="container">
               {" "}
-              {/* <h4>Normal capacity: {this.state.numOfSeats}</h4> */}
               <Form.Check
                 type="switch"
                 id="outdoor"
@@ -434,9 +429,8 @@ class TableComponent extends Component {
         </Row>
 
         <div className="container">
-        
           <table className="grid">
-          {warning}
+            {warning}
             <div className="card col-md-9 offset-md-1 offset-md-1">
               <h3>Click on a table to toggle disabled setting</h3>
               <p>
@@ -472,8 +466,9 @@ class TableComponent extends Component {
               </Row>
 
               <tbody>
-                {this.state.tables.filter(table => table.outdoorTable === false).map(
-                  (table) => (
+                {this.state.tables
+                  .filter((table) => table.outdoorTable === false)
+                  .map((table) => (
                     <div
                       key={table.id}
                       style={{
@@ -509,7 +504,6 @@ class TableComponent extends Component {
                             : "blue",
                         cursor: "pointer",
                         boxShadow: "5px 5px 10px #696969",
-                        
                       }}
                       onClick={() => this.disableTable(table)}
                     >
@@ -517,17 +511,17 @@ class TableComponent extends Component {
                       {table.numSeats > 5 ? (
                         <h3> {table.id}</h3>
                       ) : (
-                        <h3 style ={{letterSpacing:"1pt"}}> {table.id}</h3>
+                        <h3 style={{ letterSpacing: "1pt" }}> {table.id}</h3>
                       )}
                       <span> Seats: {table.numSeats}</span>
                       <span></span>
                     </div>
-                  )
-                )}
+                  ))}
               </tbody>
               <tbody>
-                {this.state.tables.filter(table => table.outdoorTable === true).map(
-                  (table) => (
+                {this.state.tables
+                  .filter((table) => table.outdoorTable === true)
+                  .map((table) => (
                     <div
                       key={table.id}
                       style={{
@@ -563,7 +557,6 @@ class TableComponent extends Component {
                             : "blue",
                         cursor: "pointer",
                         boxShadow: "5px 5px 10px #696969",
-                        
                       }}
                       onClick={() => this.disableTable(table)}
                     >
@@ -571,14 +564,12 @@ class TableComponent extends Component {
                       {table.numSeats > 5 ? (
                         <h3> {table.id}</h3>
                       ) : (
-                        <h3 style ={{letterSpacing:"1pt"}}> {table.id}</h3>
+                        <h3 style={{ letterSpacing: "1pt" }}> {table.id}</h3>
                       )}
                       <span> Seats: {table.numSeats}</span>
                       <span></span>
                     </div>
-                  )
-
-                )}
+                  ))}
               </tbody>
             </div>
           </table>
