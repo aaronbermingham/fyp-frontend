@@ -24,6 +24,10 @@ class BookingService {
         return axios.get(BOOKING_API_BASE_URL + "userBookings/" + userId,{ headers: authHeader() });
     }
 
+    getUpcomingBookingsByUserId(userId){
+        return axios.get(BOOKING_API_BASE_URL + "userUpcomingBookings/" + userId,{ headers: authHeader() });
+    }
+
     deleteBooking(bookingId){
         return axios.delete(BOOKING_API_BASE_URL + "deleteBooking/" + bookingId,{ headers: authHeader() });
     }

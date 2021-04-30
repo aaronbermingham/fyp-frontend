@@ -3,12 +3,12 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import DatePicker from "react-datepicker";
 import AuthService from "../services/AuthService";
 import Lost from "./LostComponent";
-import { Card, Button, Row, Col, ListGroup } from "react-bootstrap";
+import { Card} from "react-bootstrap";
 import "react-datepicker/dist/react-datepicker.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ContactTracingService from "../services/ContactTracingService";
 import StaffService from "../services/StaffService";
-import ShiftHistoryService from "../services/ShiftHistoryService";
+
 
 class StaffContactTracingComponent extends Component {
   constructor(props) {
@@ -71,7 +71,6 @@ class StaffContactTracingComponent extends Component {
   }
 
   getListofContacts = (e) => {
-    const locale = "en";
     this.setState({ getContacts: !this.state.getContacts });
     e.preventDefault();
     let staffShift = {

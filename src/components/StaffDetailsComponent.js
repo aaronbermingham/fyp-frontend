@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import ItemService from "../services/ItemService";
 import AuthService from "../services/AuthService";
 import Lost from "./LostComponent";
 import StaffService from "../services/StaffService";
@@ -85,7 +84,7 @@ class StaffDetailsComponent extends Component {
                 <h3 class="text-center">{this.state.name}'s Shifts</h3>
                 <h4 class="text-center">Current shift</h4>
                 <Row> 
-                {this.state.shiftList.filter(shift => shift.archived == false).map((shift) => (
+                {this.state.shiftList.filter(shift => shift.archived === false).map((shift) => (
                 <Card border = 'primary' >
                 <Card.Header as="h5">{this.state.name}</Card.Header>
                 <Card.Body>
@@ -133,7 +132,7 @@ class StaffDetailsComponent extends Component {
             <h4 class="text-center">Archived shifts</h4>
             <Row>
             
-            {this.state.shiftList.filter(shift => shift.archived == true).map((shift) => (
+            {this.state.shiftList.filter(shift => shift.archived === true).map((shift) => (
                 <Card>
                 <Card.Header as="h5">{this.state.name}</Card.Header>
                 <Card.Body>

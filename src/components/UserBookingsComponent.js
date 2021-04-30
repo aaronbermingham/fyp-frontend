@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import BookingService from "../services/BookingService";
 import AuthService from "../services/AuthService";
-import Lost from "./LostComponent";
 
 class UserBookingsComponent extends Component {
   constructor(props) {

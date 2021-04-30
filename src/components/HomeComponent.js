@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Col, Row, Button } from "react-bootstrap";
-import Image from "react-bootstrap/Image";
 import { Link } from "react-router-dom";
 
 import UserService from "../services/UserService";

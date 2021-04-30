@@ -119,14 +119,14 @@ background-color: blue;
 
 .container {
   position: relative;
-  width: 96%;
-  max-width: 96%;
+  width: 97%;
+  max-width: 97%;
 }
 
 .image{
  
   display: block;
-  width: 100%;
+  width:  102%;
   height: auto;
 }
 

@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import { Bar, Line, Pie } from "react-chartjs-2";
-import ItemService from "../services/ItemService";
 import AuthService from "../services/AuthService";
 import ItemsChart from "../components/ItemsChartComponent";
 import BookingChart from "../components/BookingChartComponent";

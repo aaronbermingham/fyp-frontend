@@ -21,7 +21,7 @@ export default class UserHomeComponent extends Component {
   componentDidMount() {
     const currentUser = AuthService.getCurrentUser();
 
-    BookingService.getBookingsByUserId(currentUser.id).then((res) => {
+    BookingService.getUpcomingBookingsByUserId(currentUser.id).then((res) => {
       console.log(res.data);
       this.setState({ bookings: res.data });
     });
@@ -44,8 +44,6 @@ export default class UserHomeComponent extends Component {
     if (this.state.redirect) {
       return <Redirect to={this.state.redirect} />;
     }
-
-    const { currentUser } = this.state;
 
     return (
      
