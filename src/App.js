@@ -10,7 +10,6 @@ import registerAdmin from "./components/SignUpAdmin";
 import Home from "./components/HomeComponent";
 import UserHomeComponent from "./components/UserHomeComponent";
 import BoardUser from "./components/UserComponent";
-import BisUserGridComponent from "./components/BisUserGridComponent";
 import AddDrink from "./components/AddDrinkComponent";
 import AddFood from "./components/AddFoodComponent";
 import AllItems from "./components/AllItemsComponent";
@@ -152,7 +151,7 @@ class App extends Component {
                   <Nav className="ml-auto" >
                     <Nav.Link href={"/login"}>Login</Nav.Link>
                     <Nav.Link className="mr-sm-2" href={"/register"} >Sign up</Nav.Link>
-                    <Nav.Link className="mr-sm-2" href={"/registerAdmin"} >Sign up admin</Nav.Link>
+                    {/* <Nav.Link className="mr-sm-2" href={"/registerAdmin"} >Sign up admin</Nav.Link> */}
                   </Nav>
                 )}
               </Navbar.Collapse>
@@ -172,7 +171,6 @@ class App extends Component {
             <Route exact path="/registerAdmin" component={registerAdmin} />
             <Route exact path="/userHome" component={UserHomeComponent} />
             <Route path="/user" component={BoardUser} />
-            {/* <Route path="/bisMenu" component={BisUserGridComponent} /> */}
             <Route path="/addFoodItem" component={AddFood}></Route>
             <Route path="/addDrinkItem" component={AddDrink}></Route>
             <Route path="/allItems" component={AllItems}></Route>

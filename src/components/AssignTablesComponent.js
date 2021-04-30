@@ -3,7 +3,7 @@ import AuthService from "../services/AuthService";
 import Lost from "./LostComponent";
 import TableService from "../services/TableService";
 import StaffService from "../services/StaffService";
-import { Card, Button, Row, Col, ListGroup, Container } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 
 class AssignTablesComponent extends Component {
   constructor(props) {

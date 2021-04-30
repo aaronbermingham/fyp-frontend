@@ -39,12 +39,12 @@ class BisDashboardComponent extends Component {
       console.log("1234", this.state.id)
      
     }
-    
+    if(user.restaurant != null){
     UserService.getUserById(user.id).then((res) => {
       console.log("RESTAURANT ",res.data.restaurant.id)
       localStorage.setItem('resId', res.data.restaurant.id);
     });
-
+  }
     
 
     BookingService.todaysBooking().then((res) => {
@@ -80,7 +80,7 @@ class BisDashboardComponent extends Component {
                   <Card bg="Light">
                     <Card.Body>
                       <Card.Title>
-                        <h1>Welcome back {this.state.id + this.state.currentUser.username}!</h1>
+                        <h1>Welcome back {this.state.currentUser.username}!</h1>
                       </Card.Title>
                       <Card.Text>
                       <h3><Clock format={"dddd, MMMM Mo, YYYY, kk:mm:ss "} ticking={true} /></h3>

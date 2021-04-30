@@ -55,7 +55,7 @@ class AllUserComponent extends Component {
                     <th>User name</th>
                     <th>Password</th>
                     <th>Email</th>
-                    <th>Update</th>
+                    {/* <th>Update</th> */}
                   </tr>
                 </thead>
 

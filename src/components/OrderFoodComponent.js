@@ -80,7 +80,7 @@ class OrderFoodComponent extends Component {
             </div>
           </Col>
           <Col>
-            <h3 id="main">Main Course Items</h3>
+            <h3 id="main">Food Items</h3>
             {this.state.item.map((item) => (
               <Card>
                 <Card.Header>{item.name}</Card.Header>
@@ -108,7 +108,7 @@ class OrderFoodComponent extends Component {
                   <Card.Title>{drinkItem.description}</Card.Title>
                   <Card.Text>
                     <p>Price: {drinkItem.price}</p>
-                    <p>Ingredients: {drinkItem.alcoholByVolume}</p>
+                    <p>ABV: {drinkItem.alcoholByVolume}%</p>
                   </Card.Text>
                   <Button
                     variant="primary"

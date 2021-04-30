@@ -1,11 +1,8 @@
 import React, { Component } from "react";
 import TableService from "../services/TableService";
-import Modal from "react-bootstrap/Modal";
 import Moment from "moment";
-import Button from "react-bootstrap/Button";
 import UserService from "../services/UserService";
 import AuthService from "../services/AuthService";
-import { withRouter } from "react-router-dom";
 import {Card, Alert, Col, Row} from "react-bootstrap";
 
 class UserTableComponent extends Component {
@@ -51,7 +48,7 @@ class UserTableComponent extends Component {
     TableService.getUnreservedTables(booking).then((res) => {
       if(this.props.guests <= 2){
         this.setState({
-          tables: res.data.filter((table) => table.disabled === false && table.numSeats == 2),
+          tables: res.data.filter((table) => table.disabled === false && table.numSeats === 2),
         });
       }
       else if(this.props.guests > 2){
@@ -238,7 +235,7 @@ class UserTableComponent extends Component {
               </Card.Body>
             </Card>
 
-            <button className="btn btn-primary" onClick={this.createBooking}>
+            <button style={{margin: "20px"}} className="btn btn-primary" onClick={this.createBooking}>
               Add booking
             </button>
           </table>

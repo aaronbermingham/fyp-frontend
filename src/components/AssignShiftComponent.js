@@ -1,12 +1,10 @@
 import React, { Component } from "react";
-import TableService from "../services/TableService";
 import AuthService from "../services/AuthService";
 import StaffService from "../services/StaffService";
 import Lost from "./LostComponent";
-import { Alert, Form, Row, Col } from "react-bootstrap";
+import { Alert, Row } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import ShiftHistoryService from "../services/ShiftHistoryService";
 import RosterService from "../services/RosterService";
 
 class AssignShiftComponent extends Component {
@@ -33,7 +31,7 @@ class AssignShiftComponent extends Component {
 
   handleSelect = (roster) => {
     var found = this.state.rosterChecked.find((element) => {
-      return element.id == roster.id;
+      return element.id === roster.id;
     });
 
     if (found) {
