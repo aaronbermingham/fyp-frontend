@@ -49,7 +49,6 @@ class AddStaffComponent extends Component {
       this.setState({ numOfSeats: res.data.numSeats });
       console.log("Table call", res.data);
     });
-    //console.log(this.state.tableList)
   }
 
   addStaff = (e) => {
@@ -59,7 +58,7 @@ class AddStaffComponent extends Component {
       email: this.state.email,
       phoneNumber: this.state.phoneNumber,
     };
-    console.log("Staff member" + JSON.stringify(staff));
+    console.log("Staff member " + JSON.stringify(staff));
     StaffService.addStaff(staff).then((res) => {
       this.props.history.push("/allStaff");
     });
@@ -127,8 +126,6 @@ class AddStaffComponent extends Component {
                         onChange={this.changePhoneHandler}
                       />
                     </div>
-                   
-                    
 
                     <button className="btn btn-success" onClick={this.addStaff}>
                       Add staff member

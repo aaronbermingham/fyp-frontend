@@ -20,7 +20,7 @@ class ContactTracingComponent extends Component {
       staffId: 0,
       contacts: [],
       getContacts: false,
-      staffContact:[]
+      staffContact: [],
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -68,18 +68,14 @@ class ContactTracingComponent extends Component {
       this.setState({ contacts: res.data });
     });
 
-    StaffService.getStaffCustomerContacts(staffShift).then(
-      (res) => {
-        console.log("Staff Contacts ", res.data);
-        this.setState({ staffContact: res.data });
-        console.log(
-          "Staff ", this.state.staffContact
-        );
-      }
-    );
+    StaffService.getStaffCustomerContacts(staffShift).then((res) => {
+      console.log("Staff Contacts ", res.data);
+      this.setState({ staffContact: res.data });
+      console.log("Staff ", this.state.staffContact);
+    });
   };
 
-  sendEmail(contact){
+  sendEmail(contact) {
     ContactTracingService.sendTrackingEmail(contact);
   }
 
@@ -105,7 +101,6 @@ class ContactTracingComponent extends Component {
                   className="form-control"
                   showDisabledMonthNavigation
                 />
-                
               </div>
 
               <button
@@ -152,7 +147,12 @@ class ContactTracingComponent extends Component {
                     <p>Name: {contact.name}</p>
                     <p>Email: {contact.email}</p>
                     <p>Phone number {contact.phoneNumber}</p>
-                    <button className="btn btn-success"  onClick={() => {this.sendEmail(contact.id) }}>
+                    <button
+                      className="btn btn-success"
+                      onClick={() => {
+                        this.sendEmail(contact.id);
+                      }}
+                    >
                       Send warning email
                     </button>
                   </Card.Text>

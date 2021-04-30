@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Roboto&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Roboto&display=swap");
 
 .App {
   text-align: center;
@@ -73,48 +72,46 @@ label {
   border-radius: 50%;
 }
 
-h2,h3{
-  font-family: 'Roboto', sans-serif;
-  letter-spacing:8pt;
+h2,
+h3 {
+  font-family: "Roboto", sans-serif;
+  letter-spacing: 8pt;
 }
 
-h4{
-  font-family: 'Roboto', sans-serif;
+h4 {
+  font-family: "Roboto", sans-serif;
 }
 
-.homeList{
+.homeList {
   margin: 10%;
   list-style-type: none;
-
 }
 
 .row {
-  display : flex;
-  align-items : center;
+  display: flex;
+  align-items: center;
   margin: 15px;
 }
 .box {
-height: 20px;
-width: 20px;
-margin-right : 5px;
+  height: 20px;
+  width: 20px;
+  margin-right: 5px;
 }
 
-
 .green {
-background-color: green;
+  background-color: green;
 }
 
 .blue {
-background-color: blue;
+  background-color: blue;
 }
 
 .grey {
   background-color: gray;
-  }
+}
 
-.clock{
+.clock {
   font-family: Arial, Helvetica, sans-serif;
-  
 }
 
 .container {
@@ -123,23 +120,22 @@ background-color: blue;
   max-width: 97%;
 }
 
-.image{
- 
+.image {
   display: block;
-  width:  102%;
+  width: 102%;
   height: auto;
 }
 
 .overlay {
-  position: absolute; 
-  bottom: 0; 
+  position: absolute;
+  bottom: 0;
   background: rgb(0, 0, 0);
   background: rgba(0, 0, 0, 0.5); /* Black see-through */
-  color: #f1f1f1; 
+  color: #f1f1f1;
   width: 96%;
   height: 100%;
-  transition: .5s ease;
-  opacity:0;
+  transition: 0.5s ease;
+  opacity: 0;
   color: white;
   font-size: 20px;
   padding: 20px;
@@ -152,32 +148,32 @@ background-color: blue;
   opacity: 1;
 }
 
-div.slideIn { 
-  position: absolute; 
-  top: 15px; 
-  width: 3000px; 
-  height: 100px; 
-  
+div.slideIn {
+  position: absolute;
+  top: 15px;
+  width: 3000px;
+  height: 100px;
+
   animation-name: hide, slideIn;
   animation-duration: 1s;
   animation-timing-function: ease-in;
-  animation-iteration-count: 1; 
+  animation-iteration-count: 1;
   -moz-animation-name: hide, slideIn;
   -moz-animation-duration: 1s;
   -moz-animation-timing-function: ease-in;
-  -moz-animation-iteration-count: 1; 
+  -moz-animation-iteration-count: 1;
   -webkit-animation-name: hide, slideIn;
   -webkit-animation-duration: 1s;
   -webkit-animation-timing-function: ease-in;
-  -webkit-animation-iteration-count: 1; 
+  -webkit-animation-iteration-count: 1;
   -o-animation-name: hide, slideIn;
   -o-animation-duration: 1s;
   -o-animation-timing-function: ease-in;
-  -o-animation-iteration-count: 1; 
+  -o-animation-iteration-count: 1;
   opacity: 1;
-} 
+}
 div.slideIn.first {
-  left: 50px; 
+  left: 50px;
   animation-delay: 0s, 0s;
   -moz-animation-delay: 0s, 0s;
   -webkit-animation-delay: 0s, 0s;
@@ -185,59 +181,107 @@ div.slideIn.first {
 }
 div.slideIn.second {
   left: 250px;
-  animation-delay: 0s, .3s;
-  -moz-animation-delay: 0s, .5s;
-  -webkit-animation-delay: 0s, .5s;
-  -o-animation-delay: 0s, .5s;
+  animation-delay: 0s, 0.3s;
+  -moz-animation-delay: 0s, 0.5s;
+  -webkit-animation-delay: 0s, 0.5s;
+  -o-animation-delay: 0s, 0.5s;
 }
 div.slideIn.third {
   left: 450px;
-  animation-delay: 0s, .6s;
+  animation-delay: 0s, 0.6s;
   -moz-animation-delay: 0s, 1s;
   -webkit-animation-delay: 0s, 1s;
   -o-animation-delay: 0s, 1s;
 }
 
-@keyframes hide
-{ 
-  from { opacity: 0; } to { opacity: 0 }
+@keyframes hide {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0;
+  }
 }
-@-moz-keyframes hide
-{ 
-  from { opacity: 0; } to { opacity: 0 }
+@-moz-keyframes hide {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0;
+  }
 }
-@-webkit-keyframes hide
-{ 
-  from { opacity: 0; } to { opacity: 0 }
+@-webkit-keyframes hide {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0;
+  }
 }
-@-o-keyframes hide
-{ 
-  from { opacity: 0; } to { opacity: 0 }
+@-o-keyframes hide {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0;
+  }
 }
-@keyframes slideIn
-{ 
-    0% { opacity: 0; top: -100px; }
-    1% { opacity: 1; top: -100px; }
-  100% { opacity: 1; top:  15px; } 
-} 
-@-moz-keyframes slideIn
-{ 
-    0% { opacity: 0; top: -100px; }
-    1% { opacity: 1; top: -100px; }
-  100% { opacity: 1; top:  15px; } 
-} 
-@-webkit-keyframes slideIn
-{ 
-    0% { opacity: 0; top: -100px; }
-    1% { opacity: 1; top: -100px; }
-  100% { opacity: 1; top:  15px; } 
-} 
-@-o-keyframes slideIn
-{ 
-    0% { opacity: 0; top: -100px; }
-    1% { opacity: 1; top: -100px; }
-  100% { opacity: 1; top:  30px; } 
-} 
+@keyframes slideIn {
+  0% {
+    opacity: 0;
+    top: -100px;
+  }
+  1% {
+    opacity: 1;
+    top: -100px;
+  }
+  100% {
+    opacity: 1;
+    top: 15px;
+  }
+}
+@-moz-keyframes slideIn {
+  0% {
+    opacity: 0;
+    top: -100px;
+  }
+  1% {
+    opacity: 1;
+    top: -100px;
+  }
+  100% {
+    opacity: 1;
+    top: 15px;
+  }
+}
+@-webkit-keyframes slideIn {
+  0% {
+    opacity: 0;
+    top: -100px;
+  }
+  1% {
+    opacity: 1;
+    top: -100px;
+  }
+  100% {
+    opacity: 1;
+    top: 15px;
+  }
+}
+@-o-keyframes slideIn {
+  0% {
+    opacity: 0;
+    top: -100px;
+  }
+  1% {
+    opacity: 1;
+    top: -100px;
+  }
+  100% {
+    opacity: 1;
+    top: 30px;
+  }
+}
 
 .rosterCol {
   columns: 2 auto;

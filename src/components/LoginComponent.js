@@ -5,7 +5,7 @@ import CheckButton from "react-validation/build/button";
 
 import AuthService from "../services/AuthService";
 
-const required = value => {
+const required = (value) => {
   if (!value) {
     return (
       <div className="alert alert-danger" role="alert">
@@ -26,19 +26,19 @@ export default class LoginComponent extends Component {
       username: "",
       password: "",
       loading: false,
-      message: ""
+      message: "",
     };
   }
 
   onChangeUsername(e) {
     this.setState({
-      username: e.target.value
+      username: e.target.value,
     });
   }
 
   onChangePassword(e) {
     this.setState({
-      password: e.target.value
+      password: e.target.value,
     });
   }
 
@@ -47,7 +47,7 @@ export default class LoginComponent extends Component {
 
     this.setState({
       message: "",
-      loading: true
+      loading: true,
     });
 
     this.form.validateAll();
@@ -55,18 +55,20 @@ export default class LoginComponent extends Component {
     if (this.checkBtn.context._errors.length === 0) {
       AuthService.login(this.state.username, this.state.password).then(
         () => {
-          const user = AuthService.getCurrentUser()
-          console.log("User login ", user)
-          if(JSON.parse(localStorage.getItem("user")).roles[0] === "ROLE_BUSINESS"){
+          const user = AuthService.getCurrentUser();
+          console.log("User login ", user);
+          if (
+            JSON.parse(localStorage.getItem("user")).roles[0] ===
+            "ROLE_BUSINESS"
+          ) {
             this.props.history.push("/bisDash");
             window.location.reload();
-          }else{
+          } else {
             this.props.history.push("/userHome");
             window.location.reload();
           }
-         
         },
-        error => {
+        (error) => {
           const resMessage =
             (error.response &&
               error.response.data &&
@@ -76,13 +78,13 @@ export default class LoginComponent extends Component {
 
           this.setState({
             loading: false,
-            message: resMessage
+            message: resMessage,
           });
         }
       );
     } else {
       this.setState({
-        loading: false
+        loading: false,
       });
     }
   }
@@ -93,7 +95,7 @@ export default class LoginComponent extends Component {
         <div className="card card-container">
           <Form
             onSubmit={this.handleLogin}
-            ref={c => {
+            ref={(c) => {
               this.form = c;
             }}
           >
@@ -142,7 +144,7 @@ export default class LoginComponent extends Component {
             )}
             <CheckButton
               style={{ display: "none" }}
-              ref={c => {
+              ref={(c) => {
                 this.checkBtn = c;
               }}
             />

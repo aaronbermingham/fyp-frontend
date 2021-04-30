@@ -25,8 +25,6 @@ class AssignShiftComponent extends Component {
     };
     this.handleDateChange = this.handleDateChange.bind(this);
     this.addShift = this.addShift.bind(this);
-    // this.handleStartTimeChange = this.handleStartTimeChange.bind(this);
-    // this.handleEndTimeChange = this.handleEndTimeChange.bind(this);
   }
 
   handleSelect = (roster) => {
@@ -59,7 +57,7 @@ class AssignShiftComponent extends Component {
       );
     }
   };
-  
+
   handleDateChange(date) {
     this.setState({
       date: date,
@@ -85,37 +83,30 @@ class AssignShiftComponent extends Component {
     console.log(staffShift);
     console.log("ID ", this.state.staffMember);
     StaffService.addShift(this.state.staffMember, staffShift).then((res) => {
-     let shift = res.data;
-    if(shift.id > 0){
-      StaffService.getAvailStaff().then((res) => {
-        let staff = res.data;
-        console.log("Staff ", staff);
-        if(staff.id > 0){
-          this.setState({
-            staffList: staff,
-            staffMember: staff[0].id
+      let shift = res.data;
+      if (shift.id > 0) {
+        StaffService.getAvailStaff().then((res) => {
+          let staff = res.data;
+          console.log("Staff ", staff);
+          if (staff.id > 0) {
+            this.setState({
+              staffList: staff,
+              staffMember: staff[0].id,
+            });
+          }
+        });
+        for (var i = 0; i < this.state.selectRosterId.length; i++) {
+          StaffService.addStaffRoster(
+            shift.id,
+            this.state.selectRosterId[i]
+          ).then((res) => {
+            let roster = res.data;
+            console.log("Roster ", roster);
           });
         }
-      });
-      for(var i = 0; i < this.state.selectRosterId.length; i++){
-        StaffService.addStaffRoster(shift.id, this.state.selectRosterId[i]).then((res) => {
-          let roster = res.data;
-          console.log("Roster ", roster);
-         });
+        this.props.history.push("/allStaff");
       }
-      this.props.history.push("/allStaff");
-    }
-    });;
-    // console.log("Shift date ", staffShift);
-    // StaffService.addShift(this.state.staffMember, staffShift).then((res) => {
-    //   let shift = res.data;
-    //   console.log("Shift ", shift);
-    // });
-    // StaffService.addStaffRoster(this.state.staffMember, this.state.rosterChecked).then((res) => {
-    //   let roster = res.data;
-    //   console.log("Roster ", roster);
-    // });
-    
+    });
   };
 
   cancel() {
@@ -137,14 +128,13 @@ class AssignShiftComponent extends Component {
     StaffService.getAvailStaff().then((res) => {
       let staff = res.data;
       console.log("Staff ", staff);
-      if(staff.length > 0){
+      if (staff.length > 0) {
         this.setState({
           staffList: staff,
-          staffMember: staff[0].id
+          staffMember: staff[0].id,
         });
       }
-      
-     
+
       console.log(this.state.staffList);
       console.log(this.state.staffMember);
     });
@@ -157,119 +147,118 @@ class AssignShiftComponent extends Component {
     }
   }
 
-
   render() {
     let warning;
-    if (
-      this.state.staffList.length < 1
-    ) {
+    if (this.state.staffList.length < 1) {
       warning = (
         <Alert variant="danger">
           <p className="text-center">
-            All staff members are assigned shifts, close out a shift to add a new one
+            All staff members are assigned shifts, close out a shift to add a
+            new one
           </p>
         </Alert>
       );
     }
     const { businessUser } = this.state;
-    if(this.state.staffList){
-    return (
-      <div>
-        {warning}
-        {" "}
-        {businessUser ? (
-          <div className="container">
-            <div className="row">
-              <div className="card col-md-8 offset-md-3 offset-md-3">
-                <h3 className="text-center">Add shifts</h3>
-                <div className="card-body">
-                  <div className="form-group">
-                    <label>Staff member</label>
-                    <select
-                      placeholder="Assign staff"
-                      name="staff"
-                      className="form-control"
-                      selected={this.state.staffMember}
-                      onChange={this.changeStaffMemberHandler}
-                    >
-                      {this.state.staffList.map((staff) => {
-                        return (
-                          <option value={staff.id}>
-                            {staff.id} {staff.name}
-                          </option>
-                        );
-                      })}
-                    </select>
-                  </div>
-                  <form>
+    if (this.state.staffList) {
+      return (
+        <div>
+          {warning}{" "}
+          {businessUser ? (
+            <div className="container">
+              <div className="row">
+                <div className="card col-md-8 offset-md-3 offset-md-3">
+                  <h3 className="text-center">Add shifts</h3>
+                  <div className="card-body">
                     <div className="form-group">
-                      <label>Choose start date of shifts</label>
-                      <DatePicker
-                        selected={this.state.date}
-                        onChange={this.handleDateChange}
-                        name="date"
-                        //    minDate={new Date()}
-                        dateFormat="yyyy/MM/dd"
+                      <label>Staff member</label>
+                      <select
+                        placeholder="Assign staff"
+                        name="staff"
                         className="form-control"
-                        showDisabledMonthNavigation
-                      />
+                        selected={this.state.staffMember}
+                        onChange={this.changeStaffMemberHandler}
+                      >
+                        {this.state.staffList.map((staff) => {
+                          return (
+                            <option value={staff.id}>
+                              {staff.id} {staff.name}
+                            </option>
+                          );
+                        })}
+                      </select>
                     </div>
-                    <Row>
-                      <label>Select roster</label>
-                    </Row>
-                    <Row>
-                    <div className="rosterCol">
-                      {this.state.roster.map((roster) => (
-                        <div key={roster.id} className="mb-1">
-                          <input
-                            type={"checkbox"}
-                            id={roster.id}
-                            label={
-                              roster.day +
-                              " " +
-                              roster.startTime +
-                              "-" +
-                              roster.endTime
-                            }
-                            checked={this.state.rosterChecked.some(
-                              ({ id }) => id === roster.id
-                            )}
-                            onChange={() => this.handleSelect(roster)}
-                          />{" "}
-                          {roster.day +
-                            " " +
-                            roster.startTime +
-                            "-" +
-                            roster.endTime}
+                    <form>
+                      <div className="form-group">
+                        <label>Choose start date of shifts</label>
+                        <DatePicker
+                          selected={this.state.date}
+                          onChange={this.handleDateChange}
+                          name="date"
+                          //    minDate={new Date()}
+                          dateFormat="yyyy/MM/dd"
+                          className="form-control"
+                          showDisabledMonthNavigation
+                        />
+                      </div>
+                      <Row>
+                        <label>Select roster</label>
+                      </Row>
+                      <Row>
+                        <div className="rosterCol">
+                          {this.state.roster.map((roster) => (
+                            <div key={roster.id} className="mb-1">
+                              <input
+                                type={"checkbox"}
+                                id={roster.id}
+                                label={
+                                  roster.day +
+                                  " " +
+                                  roster.startTime +
+                                  "-" +
+                                  roster.endTime
+                                }
+                                checked={this.state.rosterChecked.some(
+                                  ({ id }) => id === roster.id
+                                )}
+                                onChange={() => this.handleSelect(roster)}
+                              />{" "}
+                              {roster.day +
+                                " " +
+                                roster.startTime +
+                                "-" +
+                                roster.endTime}
+                            </div>
+                          ))}
                         </div>
-                      ))}
-                    </div>
-                    </Row>
-                          <Row>
-                          <button className="btn btn-success" style = {{marginLeft: "10px"}} onClick={this.addShift}>
-                      Add shift
-                    </button>
-                    <button
-                      className="btn btn-danger"
-                      onClick={this.cancel.bind(this)}
-                      style = {{marginLeft: "10px"}}
-                    >
-                      Cancel
-                    </button>
-                    </Row>
-                        
-                  
-                  </form>
+                      </Row>
+                      <Row>
+                        <button
+                          className="btn btn-success"
+                          style={{ marginLeft: "10px" }}
+                          onClick={this.addShift}
+                        >
+                          Add shift
+                        </button>
+                        <button
+                          className="btn btn-danger"
+                          onClick={this.cancel.bind(this)}
+                          style={{ marginLeft: "10px" }}
+                        >
+                          Cancel
+                        </button>
+                      </Row>
+                    </form>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        ) : (
-          <Lost />
-        )}
-      </div>
-    );
+          ) : (
+            <Lost />
+          )}
+        </div>
+      );
+    }
   }
-}
 }
 export default AssignShiftComponent;

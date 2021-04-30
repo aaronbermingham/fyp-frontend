@@ -2,7 +2,7 @@ import axios from 'axios';
 import authHeader from './AuthHeader';
 
 const API_URL = 'http://localhost:8080/api/auth/';
-const BOOKING_URL = "http://localhost:8080/api/auth/user/"
+const USER_URL = "http://localhost:8080/api/auth/user/"
 
 class UserService {
   getPublicContent() {
@@ -14,7 +14,7 @@ class UserService {
   }
 
   getUserById(userId) {
-    return axios.get(BOOKING_URL + "userById/" + userId, { headers: authHeader() });
+    return axios.get(USER_URL + "userById/" + userId, { headers: authHeader() });
   }
 
 
@@ -22,18 +22,12 @@ class UserService {
     return axios.put(API_URL + "updateUser/" + userId, user, { headers: authHeader() });
   }
 
-  // addBooking(booking, userId) {
-  //   const user = JSON.parse(localStorage.getItem('user'));
-  //   const token = user.accessToken;
-  //   console.log("Token ", token);
-  //   return axios.post(BOOKING_URL + "addBooking/" + userId, booking, { headers: authHeader() });
-  // }
 
   addBookingTable(booking, userId, tableId) {
     const user = JSON.parse(localStorage.getItem('user'));
     const token = user.accessToken;
     console.log("Token ", token);
-    return axios.post(BOOKING_URL + "addBookingTable/" + userId + "/" +tableId, booking, { headers: authHeader() });
+    return axios.post(USER_URL + "addBookingTable/" + userId + "/" +tableId, booking, { headers: authHeader() });
   }
 
 }

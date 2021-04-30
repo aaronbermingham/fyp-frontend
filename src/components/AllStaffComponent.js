@@ -19,15 +19,12 @@ class AllStaffComponent extends Component {
 
   componentDidMount() {
     StaffService.getStaff().then((res) => {
-        console.log(res.data);
+      console.log(res.data);
       console.log(res.data.shiftList);
-      this.setState({ 
-          staff: res.data,
+      this.setState({
+        staff: res.data,
+      });
     });
-      
-    });
-
-   
 
     const user = AuthService.getCurrentUser();
     console.log("Current user ", user);
@@ -71,7 +68,6 @@ class AllStaffComponent extends Component {
                     <th>Staff details</th>
                   </tr>
                 </thead>
-               
 
                 <tbody>
                   {this.state.staff.map((staff) => (
@@ -82,11 +78,10 @@ class AllStaffComponent extends Component {
                       <td>
                         {staff.shiftList.map((subitem, i) => {
                           if (subitem.archived === false)
-                            return <td>{subitem.startDate}</td>
-                            
+                            return <td>{subitem.startDate}</td>;
                         })}
                       </td>
-                     
+
                       <td>
                         <button
                           onClick={() => this.assignShift(staff.id)}
@@ -96,7 +91,7 @@ class AllStaffComponent extends Component {
                         </button>
                       </td>
                       <td>
-                      <button
+                        <button
                           onClick={() => this.staffDetails(staff.id)}
                           className="btn btn-info"
                         >

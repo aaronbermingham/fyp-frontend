@@ -1,17 +1,18 @@
 import React from "react";
 import StripeCheckout from "react-stripe-checkout";
 import axios from "axios";
-import authHeader from '../services/AuthHeader'
+import authHeader from "../services/AuthHeader";
 
 const CheckoutForm = ({ price }) => {
-  const publishableKey = "pk_test_51IAwugAOVKdxamtZJJQ8WWhUjT4K4AiwAzMcympZKcreniKrpBFZLTqkPEodvBLEy8sjC17HCCbTmMHJ3jUFQQEM00IEbaXFDH";
+  const publishableKey =
+    "pk_test_51IAwugAOVKdxamtZJJQ8WWhUjT4K4AiwAzMcympZKcreniKrpBFZLTqkPEodvBLEy8sjC17HCCbTmMHJ3jUFQQEM00IEbaXFDH";
   const stripePrice = price * 100;
 
   const onToken = (token) => {
     console.log(token);
     axios
       .post("http://localhost:8080/payment", {
-          headers: authHeader(),
+        headers: authHeader(),
         amount: stripePrice,
         token,
       })

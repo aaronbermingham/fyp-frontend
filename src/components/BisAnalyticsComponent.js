@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import AuthService from "../services/AuthService";
 import ItemsChart from "../components/ItemsChartComponent";
 import BookingChart from "../components/BookingChartComponent";
-import ItemLineChart from '../components/ItemLineChartComponent';
+import ItemLineChart from "../components/ItemLineChartComponent";
 import { Row, Container, Card, Col } from "react-bootstrap";
 
 class BisAnalyticsComponent extends Component {
@@ -75,7 +75,9 @@ class BisAnalyticsComponent extends Component {
               <Card border="dark">
                 <Card.Body>
                   <Card.Title>
-                    <h4 className="text-center">Items sold over the last seven days</h4>
+                    <h4 className="text-center">
+                      Items sold over the last seven days
+                    </h4>
                   </Card.Title>
                   <Card.Text>
                     <div>
@@ -92,4 +94,4 @@ class BisAnalyticsComponent extends Component {
   }
 }
 
-export default BisAnalyticsComponent; 
+export default BisAnalyticsComponent;

@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import AuthService from "../services/AuthService";
 import Lost from "./LostComponent";
 import StaffService from "../services/StaffService";
-import { Card, Form, Col, Row, Button } from 'react-bootstrap'
-import DatePicker from "react-datepicker"
+import { Card, Form, Col, Row, Button } from "react-bootstrap";
+import DatePicker from "react-datepicker";
 
 class StaffDetailsComponent extends Component {
   constructor(props) {
@@ -17,10 +17,10 @@ class StaffDetailsComponent extends Component {
       shiftList: [],
       workDays: [],
       date: new Date(),
-      showDate: false
+      showDate: false,
     };
     this.handleDateChange = this.handleDateChange.bind(this);
-    this.showDate = this.showDate.bind(this); 
+    this.showDate = this.showDate.bind(this);
     this.closeShift = this.closeShift.bind(this);
   }
 
@@ -55,11 +55,11 @@ class StaffDetailsComponent extends Component {
     console.log("DATE", this.state.date);
   }
 
-  showDate(){
+  showDate() {
     this.setState({ showDate: !this.state.showDate });
   }
 
-  closeShift(shiftId){
+  closeShift(shiftId) {
     let shift = {
       endDate: this.state.date.toISOString().slice(0, 10),
     };
@@ -68,7 +68,7 @@ class StaffDetailsComponent extends Component {
     StaffService.closeShift(shiftId, shift).then((res) => {
       this.props.history.push("/allStaff");
     });
-  };
+  }
 
   cancel() {
     this.props.history.push("/allItems");
@@ -79,80 +79,108 @@ class StaffDetailsComponent extends Component {
     return (
       <div>
         {businessUser ? (
-          <div >
+          <div>
             <div>
-                <h3 class="text-center">{this.state.name}'s Shifts</h3>
-                <h4 class="text-center">Current shift</h4>
-                <Row> 
-                {this.state.shiftList.filter(shift => shift.archived === false).map((shift) => (
-                <Card border = 'primary' >
-                <Card.Header as="h5">{this.state.name}</Card.Header>
-                <Card.Body>
-                  <Card.Title></Card.Title>
-                  <Card.Text>
-                  Start date: {shift.startDate + " "} <span>{<br/>}</span>
-                  End date: {shift.endDate == null ? "N/A": shift.endDate} <span>{<br/>}</span>
-                  Archived: {shift.archived ? "Yes" : "No"} <span>{<br/>}</span>
-                   {shift.shiftDayTimeList.map((subitem, i) => {
-                        return <p>{subitem.day + " " + subitem.startTime + "-" + subitem.endTime}</p>;
-                      })}
-                  </Card.Text>
-                  <Form.Check
-                        type="switch"
-                        id="pp"
-                        label="Close shift"
-                        onChange={this.showDate}
-                        checked={this.state.showDate}
-                      />
-                  {this.state.showDate ? ( <div className="form-group">
-                      <label>Choose end date for this shift</label>
-                      <DatePicker
-                        selected={this.state.date}
-                        onChange={this.handleDateChange}
-                        name="date"
-                        minDate={new Date()}
-                        dateFormat="yyyy/MM/dd"
-                        className="form-control"
-                        showDisabledMonthNavigation
-                      />
-                      <Button variant="primary" onClick={() => { this.closeShift(shift.id) }} style={{marginTop: "10px"}}>Close shift</Button>
-                    </div>):null}
-
-                </Card.Body>
-              </Card>
-                  
-                    //   {shift.shiftDayTimeList.map((subitem, i) => {
-                    //     return <td>{subitem.startTime + "-" + subitem.endTime}</td>;
-                    //   })}
-                
-                ))} 
-
+              <h3 class="text-center">{this.state.name}'s Shifts</h3>
+              <h4 class="text-center">Current shift</h4>
+              <Row>
+                {this.state.shiftList
+                  .filter((shift) => shift.archived === false)
+                  .map((shift) => (
+                    <Card border="primary">
+                      <Card.Header as="h5">{this.state.name}</Card.Header>
+                      <Card.Body>
+                        <Card.Title></Card.Title>
+                        <Card.Text>
+                          Start date: {shift.startDate + " "}{" "}
+                          <span>{<br />}</span>
+                          End date:{" "}
+                          {shift.endDate == null ? "N/A" : shift.endDate}{" "}
+                          <span>{<br />}</span>
+                          Archived: {shift.archived ? "Yes" : "No"}{" "}
+                          <span>{<br />}</span>
+                          {shift.shiftDayTimeList.map((subitem, i) => {
+                            return (
+                              <p>
+                                {subitem.day +
+                                  " " +
+                                  subitem.startTime +
+                                  "-" +
+                                  subitem.endTime}
+                              </p>
+                            );
+                          })}
+                        </Card.Text>
+                        <Form.Check
+                          type="switch"
+                          id="pp"
+                          label="Close shift"
+                          onChange={this.showDate}
+                          checked={this.state.showDate}
+                        />
+                        {this.state.showDate ? (
+                          <div className="form-group">
+                            <label>Choose end date for this shift</label>
+                            <DatePicker
+                              selected={this.state.date}
+                              onChange={this.handleDateChange}
+                              name="date"
+                              minDate={new Date()}
+                              dateFormat="yyyy/MM/dd"
+                              className="form-control"
+                              showDisabledMonthNavigation
+                            />
+                            <Button
+                              variant="primary"
+                              onClick={() => {
+                                this.closeShift(shift.id);
+                              }}
+                              style={{ marginTop: "10px" }}
+                            >
+                              Close shift
+                            </Button>
+                          </div>
+                        ) : null}
+                      </Card.Body>
+                    </Card>
+                  ))}
+              </Row>
+              <Col>
+                <h4 class="text-center">Archived shifts</h4>
+                <Row>
+                  {this.state.shiftList
+                    .filter((shift) => shift.archived === true)
+                    .map((shift) => (
+                      <Card>
+                        <Card.Header as="h5">{this.state.name}</Card.Header>
+                        <Card.Body>
+                          <Card.Title></Card.Title>
+                          <Card.Text>
+                            Start date: {shift.startDate + " "}{" "}
+                            <span>{<br />}</span>
+                            End date:{" "}
+                            {shift.endDate == null ? "N/A" : shift.endDate}{" "}
+                            <span>{<br />}</span>
+                            Archived: {shift.archived ? "Yes" : "No"}{" "}
+                            <span>{<br />}</span>
+                            {shift.shiftDayTimeList.map((subitem, i) => {
+                              return (
+                                <p>
+                                  {subitem.day +
+                                    " " +
+                                    subitem.startTime +
+                                    "-" +
+                                    subitem.endTime}
+                                </p>
+                              );
+                            })}
+                          </Card.Text>
+                        </Card.Body>
+                      </Card>
+                    ))}
                 </Row>
-            <Col>
-            <h4 class="text-center">Archived shifts</h4>
-            <Row>
-            
-            {this.state.shiftList.filter(shift => shift.archived === true).map((shift) => (
-                <Card>
-                <Card.Header as="h5">{this.state.name}</Card.Header>
-                <Card.Body>
-                  <Card.Title></Card.Title>
-                  <Card.Text>
-                  Start date: {shift.startDate + " "} <span>{<br/>}</span>
-                  End date: {shift.endDate == null ? "N/A": shift.endDate} <span>{<br/>}</span>
-                  Archived: {shift.archived ? "Yes" : "No"} <span>{<br/>}</span>
-                   {shift.shiftDayTimeList.map((subitem, i) => {
-                        return <p>{subitem.day + " " + subitem.startTime + "-" + subitem.endTime}</p>;
-                      })}
-                  </Card.Text>
-                </Card.Body>
-              </Card>
-                ))} 
-            </Row>
-            </Col>
-    
+              </Col>
             </div>
-
           </div>
         ) : (
           <Lost />
